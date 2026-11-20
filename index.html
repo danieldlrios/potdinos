@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PoT Dinos · Path of Titans creature stats and abilities</title>
+<meta name="description" content="Stats and full ability kits for every Path of Titans creature, official and modded, refreshed from game data twice a day. Compare any two side by side.">
+<link rel="canonical" href="https://potdinos.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PoT Dinos">
+<meta property="og:title" content="PoT Dinos: Path of Titans creature stats and abilities">
+<meta property="og:description" content="Every playable creature, official and modded: stats, full ability kits and side-by-side comparisons, refreshed from game data twice a day.">
+<meta property="og:url" content="https://potdinos.com/">
+<meta property="og:image" content="https://potdinos.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PoT Dinos: Path of Titans creature stats and abilities">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: a field-guide index. Filter bar over a dense specimen grid; each creature opens as a specimen sheet
+   with a headline band, a stat ledger and an ability explorer side by side (stacked on phones). */
+:root {
+  --bg: #eef1ec;
+  --surface: #fbfcfa;
+  --surface-2: #e2e8e1;
+  --ink: #17201b;
+  --ink-2: #4b5952;
+  --line: #ccd6ce;
+  --accent: #9a5b0c;
+  --accent-soft: #f3e2c6;
+  --carn: #b3381f;
+  --herb: #2c7a4b;
+  --mod: #7149a8;
+  --k-bleed: #b3261e;
+  --k-venom: #5e8f1f;
+  --k-toxin: #8150c4;
+  --k-bone: #7d8288;
+  --k-cool: #2f6fae;
+  --k-stam: #b07d0c;
+  --k-range: #4f6a60;
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(20, 30, 25, .08), 0 4px 14px rgba(20, 30, 25, .06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1411;
+    --surface: #141d19;
+    --surface-2: #1c2722;
+    --ink: #e5ece7;
+    --ink-2: #9db0a6;
+    --line: #2a3832;
+    --accent: #f0b04a;
+    --accent-soft: #3a2c14;
+    --carn: #ff7f63;
+    --herb: #6ccf93;
+    --mod: #c4a0ff;
+    --k-bleed: #ff6b62;
+    --k-venom: #a6d65a;
+    --k-toxin: #b993ff;
+    --k-bone: #c3c8ce;
+    --k-cool: #6fb1f2;
+    --k-stam: #f1c552;
+    --k-range: #93b3a6;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 18px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1411;
+  --surface: #141d19;
+  --surface-2: #1c2722;
+  --ink: #e5ece7;
+  --ink-2: #9db0a6;
+  --line: #2a3832;
+  --accent: #f0b04a;
+  --accent-soft: #3a2c14;
+  --carn: #ff7f63;
+  --herb: #6ccf93;
+  --mod: #c4a0ff;
+  --k-bleed: #ff6b62;
+  --k-venom: #a6d65a;
+  --k-toxin: #b993ff;
+  --k-bone: #c3c8ce;
+  --k-cool: #6fb1f2;
+  --k-stam: #f1c552;
+  --k-range: #93b3a6;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 6px 18px rgba(0, 0, 0, .25);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button, input, select { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+.num, td, .tile-value, .stat-val, .chip-val { font-variant-numeric: tabular-nums; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+@media (max-width: 480px) { .wrap { padding: 0 16px; } }
+[hidden] { display: none !important; }
+
+/* Masthead */
+.masthead { border-bottom: 1px solid var(--line); background: var(--surface); }
+.masthead .wrap { display: grid; gap: 10px; padding-top: 22px; padding-bottom: 18px; }
+.brand { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+.brand h1 {
+  font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 5vw, 46px);
+  letter-spacing: .01em; line-height: 1; text-transform: uppercase;
+}
+.brand h1 a { text-decoration: none; }
+.brand .eyebrow { font-size: 13px; color: var(--ink-2); }
+.lede { margin: 0; color: var(--ink-2); max-width: 68ch; }
+.patch-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--bg); font-size: 12.5px; color: var(--ink-2); white-space: nowrap;
+}
+.pill strong { color: var(--ink); font-weight: 600; }
+.pill.accent { border-color: transparent; background: var(--accent-soft); color: var(--ink); }
+body.sub-view .masthead .lede, body.sub-view .masthead .patch-strip, body.sub-view .masthead .eyebrow { display: none; }
+body.sub-view .masthead .wrap { padding-top: 12px; padding-bottom: 10px; }
+body.sub-view .brand h1 { font-size: clamp(22px, 3.2vw, 30px); }
+@media (max-width: 720px) {
+  .masthead .wrap { padding-top: 16px; padding-bottom: 14px; gap: 8px; }
+  .lede { font-size: 14px; }
+  .brand .eyebrow { display: none; }
+  .controls { position: static; }
+}
+
+/* Controls */
+.controls { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.controls .wrap { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
+.search { flex: 1 1 260px; display: flex; align-items: center; gap: 8px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0 10px; min-height: 40px; }
+.search input { border: 0; background: transparent; outline: none; width: 100%; padding: 8px 0; }
+.search svg { flex: none; color: var(--ink-2); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+.seg button { border: 0; background: transparent; padding: 7px 12px; cursor: pointer; font-size: 13.5px; color: var(--ink-2); white-space: nowrap; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.ctl-group { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ctl-label { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); }
+select.sel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; min-height: 36px; cursor: pointer; }
+.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13.5px; user-select: none; }
+.switch input { appearance: none; width: 38px; height: 22px; border-radius: 999px; background: var(--surface-2);
+  border: 1px solid var(--line); position: relative; cursor: pointer; transition: background .15s; margin: 0; }
+.switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--ink-2); transition: transform .15s, background .15s; }
+.switch input:checked { background: var(--mod); border-color: var(--mod); }
+.switch input:checked::after { transform: translateX(16px); background: #fff; }
+.result-line { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  margin: 18px 0 12px; color: var(--ink-2); font-size: 13.5px; }
+.result-line strong { color: var(--ink); }
+
+/* Roster grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 12px; padding-bottom: 28px; }
+.card {
+  display: grid; grid-template-columns: 52px 1fr; gap: 10px 12px; padding: 12px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line); text-decoration: none; box-shadow: var(--shadow);
+  transition: transform .12s ease, border-color .12s ease; position: relative; min-width: 0;
+}
+.card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.mono {
+  width: 52px; height: 52px; border-radius: 8px; display: grid; place-items: center; position: relative;
+  font-family: var(--font-display); font-weight: 800; font-size: 24px; letter-spacing: .02em; color: #fff;
+  background: linear-gradient(150deg, var(--tone) 0%, color-mix(in srgb, var(--tone) 55%, #000) 100%);
+  overflow: hidden;
+}
+.mono::after { content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(115deg, rgba(255,255,255,.08) 0 2px, transparent 2px 9px); }
+.mono .hab { position: absolute; right: 3px; bottom: 3px; width: 15px; height: 15px; opacity: .9; z-index: 1; }
+.mono.big { width: 76px; height: 76px; font-size: 34px; border-radius: 12px; }
+.mono.big .hab { width: 20px; height: 20px; right: 5px; bottom: 5px; }
+.card-head { min-width: 0; }
+.card-name { font-family: var(--font-display); font-weight: 800; font-size: 21px; line-height: 1.05; text-transform: uppercase;
+  letter-spacing: .01em; overflow-wrap: break-word; }
+.card-name.long { font-size: 18px; }
+.card-name.xlong { font-size: 16px; }
+.card-sub { display: flex; flex-wrap: wrap; gap: 4px 8px; font-size: 12.5px; color: var(--ink-2); margin-top: 4px; }
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: currentColor; margin-right: 4px; vertical-align: 1px; }
+.diet-carnivore { color: var(--carn); }
+.diet-herbivore { color: var(--herb); }
+.card-stats { grid-column: 1 / -1; display: grid; gap: 5px; }
+.mini { display: grid; grid-template-columns: 74px 1fr 52px; align-items: center; gap: 8px; font-size: 12.5px; }
+.mini .lab { color: var(--ink-2); }
+.mini .val { text-align: right; font-weight: 600; }
+.bar { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: inherit; background: var(--accent); }
+.card-foot { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--ink-2); border-top: 1px dashed var(--line); padding-top: 8px; }
+.slots { display: inline-flex; gap: 3px; align-items: center; }
+.slots b { width: 7px; height: 7px; border-radius: 2px; background: var(--ink-2); display: inline-block; }
+.tag-mod { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--mod);
+  border: 1px solid color-mix(in srgb, var(--mod) 55%, transparent); border-radius: 4px; padding: 0 5px; }
+.hint { grid-column: 1 / -1; font-size: 12px; color: var(--accent); }
+.empty { padding: 40px 0; text-align: center; color: var(--ink-2); }
+
+/* Table */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin-bottom: 28px; }
+table.data { border-collapse: collapse; width: 100%; font-size: 13.5px; min-width: 980px; }
+table.data th, table.data td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+table.data th:first-child, table.data td:first-child { text-align: left; position: sticky; left: 0; background: var(--surface); z-index: 1; }
+table.data th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); cursor: pointer; user-select: none; background: var(--surface); }
+table.data th[aria-sort] { color: var(--ink); }
+table.data th .arr { font-size: 10px; margin-left: 3px; }
+table.data tbody tr { cursor: pointer; }
+table.data tbody tr:hover td { background: var(--surface-2); }
+table.data td.l { text-align: left; }
+table.data td a { text-decoration: none; font-weight: 600; }
+.best { color: var(--accent); font-weight: 700; }
+
+/* About */
+details.about { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); margin: 0 0 28px; }
+details.about summary { cursor: pointer; padding: 12px 14px; font-weight: 600; }
+details.about .body { padding: 0 14px 14px; color: var(--ink-2); display: grid; gap: 8px; max-width: 80ch; }
+details.about p { margin: 0; }
+
+/* Detail view */
+.back { display: inline-flex; align-items: center; gap: 6px; margin: 16px 0 6px; font-size: 14px; text-decoration: none; color: var(--ink-2); }
+.back:hover { color: var(--ink); }
+.sheet-head { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; padding: 14px 0 16px; }
+.sheet-title h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(34px, 6vw, 54px); line-height: .95; text-transform: uppercase; }
+.sheet-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.sheet-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line);
+  background: var(--surface); cursor: pointer; text-decoration: none; font-size: 13.5px; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+@media (max-width: 720px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 12px; }
+.tile-label { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); }
+.tile-value { font-family: var(--font-display); font-weight: 800; font-size: 32px; line-height: 1.05; }
+.tile-value small { font-family: var(--font-body); font-weight: 500; font-size: 13px; color: var(--ink-2); margin-left: 4px; }
+.tile-rank { font-size: 12px; color: var(--ink-2); }
+.notice { border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); background: var(--accent-soft);
+  border-radius: var(--radius); padding: 10px 12px; font-size: 13.5px; margin-bottom: 14px; }
+.notice strong { display: block; margin-bottom: 2px; }
+.sheet-body { display: grid; grid-template-columns: minmax(300px, 380px) minmax(0, 1fr); gap: 18px; align-items: start; padding-bottom: 32px; }
+@media (max-width: 900px) { .sheet-body { grid-template-columns: minmax(0, 1fr); } }
+.sheet-body > *, .cmp-kits > * { min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; }
+.panel + .panel { margin-top: 14px; }
+.panel h3 { font-family: var(--font-display); font-weight: 800; font-size: 20px; text-transform: uppercase; letter-spacing: .02em; margin-bottom: 8px; }
+.stat-group { margin-top: 12px; }
+.stat-group:first-of-type { margin-top: 0; }
+.stat-group h4 { margin: 0 0 6px; font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-2); font-weight: 600; }
+.stat-row { display: grid; grid-template-columns: minmax(0, 1fr) 70px 56px; gap: 8px; align-items: center; padding: 4px 0; font-size: 13.5px; border-bottom: 1px dotted var(--line); }
+.stat-row:last-child { border-bottom: 0; }
+.stat-row .stat-name { overflow-wrap: anywhere; }
+.stat-row .stat-name em { font-style: normal; font-size: 11px; color: var(--ink-2); margin-left: 4px; }
+.stat-val { text-align: right; font-weight: 600; }
+.stat-rank { text-align: right; font-size: 11.5px; color: var(--ink-2); }
+.stat-rank.top { color: var(--accent); font-weight: 700; }
+.stat-row .bar { grid-column: 1 / -1; height: 4px; margin-top: 2px; }
+.subsp { display: grid; gap: 6px; }
+.subsp div { display: flex; justify-content: space-between; gap: 10px; font-size: 13.5px; border-bottom: 1px dotted var(--line); padding-bottom: 4px; }
+.subsp div span:last-child { color: var(--ink-2); text-align: right; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 13.5px; }
+.kv dt { color: var(--ink-2); }
+.kv dd { margin: 0; overflow-wrap: anywhere; }
+
+/* Ability explorer */
+.ab-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 10px; scrollbar-width: thin; }
+.tab { flex: none; border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 5px 11px; cursor: pointer; font-size: 13px; white-space: nowrap; }
+.tab .c { color: var(--ink-2); margin-left: 4px; font-size: 12px; }
+.tab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.tab[aria-selected="true"] .c { color: inherit; opacity: .85; }
+.ab-list { display: grid; gap: 10px; }
+.ab { border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; background: var(--bg); }
+.ab-top { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; flex-wrap: wrap; }
+.ab-name { font-weight: 600; font-size: 16px; }
+.ab-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.badge { font-size: 11.5px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; background: var(--surface); }
+.badge.slot { color: var(--ink); }
+.badge.starter { border-color: color-mix(in srgb, var(--herb) 60%, transparent); color: var(--herb); }
+.badge.cost { border-color: color-mix(in srgb, var(--accent) 55%, transparent); color: var(--accent); }
+.ab-desc { margin: 8px 0 0; font-size: 14px; color: var(--ink); }
+.ab-desc p { margin: 0 0 4px; }
+.ab-desc strong { font-weight: 600; color: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; padding: 3px 9px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); }
+.chip i { width: 8px; height: 8px; border-radius: 2px; background: var(--k-range); flex: none; }
+.chip .chip-val { font-weight: 700; }
+.chip.k-damage i { background: var(--carn); }
+.chip.k-bleed i { background: var(--k-bleed); }
+.chip.k-venom i { background: var(--k-venom); }
+.chip.k-toxin i { background: var(--k-toxin); }
+.chip.k-fracture i, .chip.k-bone_break i { background: var(--k-bone); }
+.chip.k-cooldown i { background: var(--k-cool); }
+.chip.k-stamina_cost i, .chip.k-stamina_gain i { background: var(--k-stam); }
+.chip.k-knockback i, .chip.k-slow i { background: var(--ink-2); }
+details.more { margin-top: 8px; }
+details.more summary { cursor: pointer; font-size: 12.5px; color: var(--ink-2); }
+.more-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 2px 14px; margin-top: 6px; font-size: 12.5px; }
+.more-grid div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dotted var(--line); padding: 2px 0; }
+.more-grid span:first-child { color: var(--ink-2); }
+.subabs { margin-top: 10px; display: grid; gap: 8px; border-left: 2px solid var(--line); padding-left: 10px; }
+.subabs .ab { background: var(--surface); padding: 10px; }
+.note { font-size: 12.5px; color: var(--ink-2); margin: 10px 0 0; }
+
+/* Compare */
+.cmp-pick { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin: 8px 0 14px; }
+.cmp-pick .vs { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--ink-2); }
+.cmp-pick select { width: 100%; }
+table.cmp { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.cmp th, table.cmp td { padding: 6px 8px; border-bottom: 1px solid var(--line); }
+table.cmp th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); }
+table.cmp td.v { text-align: right; width: 26%; }
+table.cmp td.g { font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-2); padding-top: 14px; }
+table.cmp td.win { color: var(--accent); font-weight: 700; }
+.cmp-kits { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+@media (max-width: 640px) { .cmp-kits { grid-template-columns: minmax(0, 1fr); } .cmp-pick { grid-template-columns: minmax(0, 1fr); } .cmp-pick .vs { text-align: center; } }
+.kit-list { font-size: 13.5px; display: grid; gap: 6px; }
+.kit-list div b { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); font-weight: 600; display: block; }
+
+footer.site { border-top: 1px solid var(--line); background: var(--surface); color: var(--ink-2); font-size: 13px; }
+footer.site .wrap { padding-top: 18px; padding-bottom: 26px; display: grid; gap: 6px; }
+footer.site p { margin: 0; max-width: 90ch; }
+.loading { padding: 50px 0; color: var(--ink-2); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap">
+    <div class="brand">
+      <h1><a href="#" id="home-link">PoT Dinos</a></h1>
+      <span class="eyebrow">Unofficial Path of Titans creature reference</span>
+    </div>
+    <p class="lede">Every playable creature's stats and full ability kit, taken from current game data. Pick a creature to explore its abilities, or compare any two side by side.</p>
+    <div class="patch-strip" id="patch-strip">
+      <span class="pill accent" id="patch-pill">Patch: <strong id="patch-name">Microraptor Update</strong> (<span id="patch-date">Nov 12, 2026</span>)</span>
+      <span class="pill">Data updated <strong id="data-date">Nov 20, 2026</strong></span>
+      <span class="pill" id="count-pill">Loading roster</span>
+    </div>
+  </div>
+</header>
+
+<section class="controls" id="controls" aria-label="Filters">
+  <div class="wrap">
+    <label class="search" for="q">
+      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input id="q" type="search" placeholder="Search creatures or abilities (e.g. Pounce)" autocomplete="off">
+    </label>
+    <div class="ctl-group" role="group" aria-label="Diet">
+      <div class="seg" id="diet-seg">
+        <button type="button" data-diet="all" aria-pressed="true">All</button>
+        <button type="button" data-diet="carnivore" aria-pressed="false">Carnivores</button>
+        <button type="button" data-diet="herbivore" aria-pressed="false">Herbivores</button>
+      </div>
+    </div>
+    <div class="ctl-group">
+      <label class="ctl-label" for="hab-sel">Habitat</label>
+      <select class="sel" id="hab-sel">
+        <option value="all">Any</option>
+        <option value="land">Land</option>
+        <option value="semi">Semi-aquatic</option>
+        <option value="aquatic">Aquatic</option>
+        <option value="flyer">Flying</option>
+      </select>
+    </div>
+    <div class="ctl-group">
+      <label class="ctl-label" for="sort-sel">Sort</label>
+      <select class="sel" id="sort-sel">
+        <option value="name">Name</option>
+        <option value="health">Health</option>
+        <option value="combat_weight">Combat weight</option>
+        <option value="armor">Armor</option>
+        <option value="top_speed">Top speed</option>
+        <option value="sprint_speed">Land sprint</option>
+        <option value="swim_speed">Sprint swim</option>
+        <option value="stamina_recovery">Stamina recovery</option>
+        <option value="heal_rate">Heal rate</option>
+        <option value="gs">Group slots</option>
+        <option value="abilities">Ability count</option>
+        <option value="chg">Recently changed</option>
+      </select>
+    </div>
+    <div class="ctl-group">
+      <div class="seg" id="view-seg" role="group" aria-label="View">
+        <button type="button" data-view="grid" aria-pressed="true">Cards</button>
+        <button type="button" data-view="table" aria-pressed="false">Table</button>
+      </div>
+      <div class="seg" id="unit-seg" role="group" aria-label="Speed units">
+        <button type="button" data-unit="kmh" aria-pressed="true">km/h</button>
+        <button type="button" data-unit="mph" aria-pressed="false">mph</button>
+        <button type="button" data-unit="game" aria-pressed="false">Game</button>
+      </div>
+    </div>
+    <label class="switch" for="mod-toggle">
+      <input type="checkbox" role="switch" id="mod-toggle">
+      <span id="mod-label">Show modded creatures</span>
+    </label>
+  </div>
+</section>
+
+<main id="app" class="wrap">
+  <section id="roster-view">
+    <div class="result-line"><span id="result-count">Loading creature data…</span><span id="result-note"></span></div>
+    <div id="roster"></div>
+    <details class="about" id="about">
+      <summary>How to read these numbers</summary>
+      <div class="body">
+        <p><strong>Combat weight</strong> drives how much damage you take from a hit. Heavier creatures shrug off attacks from lighter ones, so it matters as much as health.</p>
+        <p><strong>Speeds</strong> show in km/h by default. Switch to mph, or to Game units (cm/s), which is the number players usually quote, such as an 800 sprint for Tyrannosaurus.</p>
+        <p><strong>Rank</strong> on a creature page compares it with every creature in the current list. A small "lower is better" note marks stats such as stamina costs and turn radius.</p>
+        <p><strong>Live hotfixes:</strong> Alderon sometimes changes values on official servers without a full patch. When that has happened for a creature, its page lists the affected values.</p>
+        <p><strong>Community servers</strong> can override any stat in their server settings, and modded creatures change whenever their mod updates. Treat numbers on modded or custom servers as a starting point.</p>
+        <p><strong>Sharing:</strong> every creature has its own link (for example <code>#tyrannosaurus</code>) that opens straight to its page.</p>
+      </div>
+    </details>
+  </section>
+
+  <section id="detail-view" hidden></section>
+  <section id="compare-view" hidden></section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p>Stats and abilities come from the <a href="https://potservers.net/dinos">Potservers</a> public API, which reads them from the game files and tracks live official-server hotfixes. This site re-checks it twice a day. Ability descriptions use in-game text; every number shown is a game value.</p>
+    <p>Fan-made and unofficial. Path of Titans and its creatures belong to Alderon Games.</p>
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+
+  const DATA_URL = 'data/index.json';
+  const VERSION_URL = 'data/version.json';
+  const SITE = 'PoT Dinos';
+  const detailUrl = h => 'data/c/' + h + '.json';
+
+  // [key, label, group, unit, better(1 higher, -1 lower, 0 neutral)]
+  const STAT_DEFS = [
+    ['health', 'Health', 'Combat', '', 1],
+    ['combat_weight', 'Combat Weight', 'Combat', '', 1],
+    ['armor', 'Armor', 'Combat', '', 1],
+    ['heal_rate', 'Heal Rate', 'Combat', '', 1],
+    ['group_carry_weight', 'Group Carry Weight', 'Combat', '', 1],
+    ['walk_speed', 'Walk', 'Movement', 'spd', 1],
+    ['trot_speed', 'Trot', 'Movement', 'spd', 1],
+    ['sprint_speed', 'Sprint', 'Movement', 'spd', 1],
+    ['crouch_speed', 'Crouch', 'Movement', 'spd', 1],
+    ['normal_swim_speed', 'Swim', 'Movement', 'spd', 1],
+    ['swim_speed', 'Sprint Swim', 'Movement', 'spd', 1],
+    ['fly_speed', 'Flight', 'Movement', 'spd', 1],
+    ['turn_radius', 'Turn Radius', 'Movement', 'm', -1],
+    ['jump_height', 'Jump Height', 'Movement', 'm', 1],
+    ['stamina', 'Stamina', 'Stamina', '', 1],
+    ['stamina_recovery', 'Stamina Recovery', 'Stamina', '', 1],
+    ['sprint_stamina_cost', 'Sprint Cost', 'Stamina', '/s', -1],
+    ['swim_stamina_cost', 'Swim Cost', 'Stamina', '/s', -1],
+    ['fast_swim_stamina_cost', 'Sprint Swim Cost', 'Stamina', '/s', -1],
+    ['dive_stamina_cost', 'Underwater Cost', 'Stamina', '/s', -1],
+    ['fast_dive_stamina_cost', 'Underwater Sprint Cost', 'Stamina', '/s', -1],
+    ['jump_stamina_cost', 'Jump Cost', 'Stamina', '', -1],
+    ['food_duration', 'Food Lasts', 'Survival', 'min', 1],
+    ['water_duration', 'Water Lasts', 'Survival', 'min', 1],
+    ['oxygen', 'Oxygen', 'Survival', '', 1],
+    ['oxygen_recovery', 'Oxygen Recovery', 'Survival', '', 1],
+    ['oxygen_drain', 'Oxygen Drain', 'Survival', '', -1],
+    ['fall_death_speed', 'Fall Death Speed', 'Survival', 'spd', 1],
+    ['corpse_food', 'Corpse Food', 'Survival', '', 0],
+    ['leg_heal_rate', 'Fracture Heal', 'Status Healing', '', 1],
+    ['bleed_heal_rate', 'Bleed Heal', 'Status Healing', '', 1],
+    ['poison_heal_rate', 'Poison Heal', 'Status Healing', '', 1],
+    ['venom_heal_rate', 'Venom Heal', 'Status Healing', '', 1],
+    ['toxin_heal_rate', 'Toxin Heal', 'Status Healing', '', 1],
+    ['paralysis_heal_rate', 'Paralysis Heal', 'Status Healing', '', 1],
+  ];
+  const DEF = Object.fromEntries(STAT_DEFS.map(d => [d[0], d]));
+  const STAT_GROUPS = ['Combat', 'Movement', 'Stamina', 'Survival', 'Status Healing'];
+
+  const SLOTS = [
+    ['other', 'Core'], ['head', 'Head'], ['front_limb', 'Front Limb'], ['back_limb', 'Back Limb'],
+    ['legs', 'Legs'], ['tail', 'Tail'], ['hide', 'Hide'], ['senses', 'Senses'], ['voice', 'Voice'],
+    ['metabolism', 'Diet'], ['passives', 'Passive'],
+  ];
+  const SLOT_LABEL = Object.fromEntries(SLOTS);
+  const HAB_LABEL = { land: 'Land', semi: 'Semi-aquatic', aquatic: 'Aquatic', flyer: 'Flying' };
+  const KIND_ORDER = ['damage', 'bleed', 'venom', 'toxin', 'fracture', 'bone_break', 'cooldown', 'stamina_cost',
+    'stamina_gain', 'range', 'knockback', 'carry_weight', 'slow', 'full_charge', 'hit_ramp', 'no_jumping'];
+  const HEADLINE_EXTRA = new Set(['Duration', 'Buff Duration', 'Max Stacks', 'Stunned Duration', 'Debuff Duration']);
+
+  const HAB_ICON = {
+    land: '<svg viewBox="0 0 16 16" class="hab" aria-hidden="true"><path d="M1 14l4.5-7 3 4.5L11 8l4 6z" fill="#fff"/></svg>',
+    semi: '<svg viewBox="0 0 16 16" class="hab" aria-hidden="true"><path d="M2 9l3.5-5 2.5 3.5" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M1 12.5c1.7 0 1.7-1.5 3.5-1.5s1.7 1.5 3.5 1.5 1.7-1.5 3.5-1.5 1.7 1.5 3.5 1.5" fill="none" stroke="#fff" stroke-width="1.6"/></svg>',
+    aquatic: '<svg viewBox="0 0 16 16" class="hab" aria-hidden="true"><path d="M1 7c1.7 0 1.7-1.5 3.5-1.5S6.2 7 8 7s1.7-1.5 3.5-1.5S13.3 7 15 7M1 11.5c1.7 0 1.7-1.5 3.5-1.5s1.7 1.5 3.5 1.5 1.7-1.5 3.5-1.5 1.7 1.5 3.5 1.5" fill="none" stroke="#fff" stroke-width="1.6"/></svg>',
+    flyer: '<svg viewBox="0 0 16 16" class="hab" aria-hidden="true"><path d="M1 12c5-.5 9-3.5 14-9-1.5 5.5-5 9.5-9.5 10.5z" fill="#fff"/></svg>',
+  };
+
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem('potdinos.' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem('potdinos.' + k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } },
+  };
+
+  const state = {
+    all: [], byHash: {}, full: {}, navToken: 0, version: null,
+    q: '', diet: 'all', hab: 'all', sort: 'name', sortDir: 1,
+    view: store.get('view', 'grid'), unit: store.get('unit', 'kmh'), modded: store.get('modded', false),
+    tableSort: { key: 'name', dir: 1 },
+    abTab: 'all', abMode: 'all',
+    rosterScroll: 0,
+  };
+
+  const $ = (sel, el = document) => el.querySelector(sel);
+  const dietName = d => d ? d[0].toUpperCase() + d.slice(1) : 'Unknown';
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+
+  // ---------- formatting ----------
+  function fmtNum(v) {
+    if (v == null || Number.isNaN(v)) return '–';
+    const a = Math.abs(v);
+    if (a >= 1000) return Math.round(v).toLocaleString('en-US');
+    const d = a >= 100 ? 0 : a >= 10 ? 1 : a >= 1 ? 2 : 3;
+    let s = v.toFixed(d);
+    if (s.includes('.')) s = s.replace(/0+$/, '').replace(/\.$/, '');
+    return s;
+  }
+  function speedVal(kmh) {
+    if (state.unit === 'mph') return kmh * 0.621371;
+    if (state.unit === 'game') return Math.round(kmh / 0.036);
+    return kmh;
+  }
+  function speedUnit() { return state.unit === 'mph' ? 'mph' : state.unit === 'game' ? 'cm/s' : 'km/h'; }
+  function statValue(c, key) {
+    const v = c.st[key];
+    if (v == null) return null;
+    return DEF[key] && DEF[key][3] === 'spd' ? speedVal(v) : v;
+  }
+  function statUnit(key) {
+    const u = DEF[key] ? DEF[key][3] : '';
+    if (u === 'spd') return speedUnit();
+    return u;
+  }
+  function fmtStat(c, key, withUnit = true) {
+    const v = statValue(c, key);
+    if (v == null) return '–';
+    const u = statUnit(key);
+    return fmtNum(v) + (withUnit && u ? (u === '/s' ? '/s' : ' ' + u) : '');
+  }
+  function fmtDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso + 'T12:00:00Z');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  }
+  function topSpeedKey(c) {
+    if (c.hab === 'flyer' && c.st.fly_speed) return 'fly_speed';
+    if (c.hab === 'aquatic') return 'swim_speed';
+    if (c.hab === 'semi' && (c.st.swim_speed || 0) > (c.st.sprint_speed || 0)) return 'swim_speed';
+    return 'sprint_speed';
+  }
+  function topSpeedLabel(c) { return { fly_speed: 'Flight', swim_speed: 'Sprint swim', sprint_speed: 'Sprint' }[topSpeedKey(c)]; }
+
+  // ---------- data helpers ----------
+  function scope() { return state.all.filter(c => state.modded || !c.mod); }
+  function allAbilities(c) {
+    const out = [];
+    for (const a of c.ab || []) { out.push(a); for (const s of a[7]) out.push(s); }
+    return out;
+  }
+  function abilityCount(c) { return c.ab ? allAbilities(c).length : (c.na || 0); }
+  const rangeCache = new Map();
+  // A modded creature is ranked against everything, even while the modded toggle is off.
+  function pool(c) { return (c && c.mod && !state.modded) ? state.all : scope(); }
+  function statRange(key, c) {
+    const ck = key + '|' + (state.modded || !!(c && c.mod));
+    if (rangeCache.has(ck)) return rangeCache.get(ck);
+    const vals = pool(c).map(x => x.st[key]).filter(v => v != null);
+    const r = { min: Math.min(...vals), max: Math.max(...vals), vals: vals.slice().sort((a, b) => a - b) };
+    rangeCache.set(ck, r);
+    return r;
+  }
+  function rankOf(c, key) {
+    const def = DEF[key]; const v = c.st[key];
+    if (v == null || !def || def[4] === 0) return null;
+    const vals = pool(c).map(x => x.st[key]).filter(x => x != null);
+    const better = def[4] === 1 ? vals.filter(x => x > v).length : vals.filter(x => x < v).length;
+    return { rank: better + 1, of: vals.length };
+  }
+  function barPct(c, key) {
+    const r = statRange(key, c); const v = c.st[key];
+    if (v == null || !isFinite(r.max) || r.max <= 0) return 0;
+    return Math.max(3, Math.min(100, (v / r.max) * 100));
+  }
+  function initials(name) {
+    const clean = name.replace(/\(.*?\)/g, '').trim();
+    return clean.slice(0, 2);
+  }
+  function toneFor(c) {
+    if (c.mod) return 'var(--mod)';
+    return c.d === 'carnivore' ? 'var(--carn)' : 'var(--herb)';
+  }
+  function monoHTML(c, big) {
+    return `<div class="mono${big ? ' big' : ''}" style="--tone:${toneFor(c)}" aria-hidden="true">${esc(initials(c.n))}${HAB_ICON[c.hab] || ''}</div>`;
+  }
+  function slotsHTML(n) { return `<span class="slots" title="Group slots: ${n}">${'<b></b>'.repeat(Math.max(0, n || 0))}</span>`; }
+
+  function inferKind(name, unit) {
+    const n = name.toLowerCase();
+    if (unit === 's' && /cooldown$/.test(n)) return 'cooldown';
+    if (/stamina cost$/.test(n) && unit !== '%') return 'stamina_cost';
+    if (unit == null && /damage$/.test(n)) return 'damage';
+    if (unit == null && /bleed$/.test(n)) return 'bleed';
+    if (unit == null && /venom$/.test(n)) return 'venom';
+    if (unit == null && /toxin$/.test(n)) return 'toxin';
+    if (unit == null && /fracture$/.test(n)) return 'fracture';
+    if (unit == null && /knockback$/.test(n)) return 'knockback';
+    if (unit === 'm' && /range$/.test(n)) return 'range';
+    return null;
+  }
+  function metricKind(m) { return m[3] || inferKind(m[0], m[2]); }
+  function fmtMetric(m) {
+    const [name, val, unit] = m;
+    const k = metricKind(m);
+    if (k === 'bone_break') return val ? 'Yes' : 'No';
+    const u = unit === 's' ? 's' : unit === '%' ? '%' : unit === '%/s' ? '%/s' : unit === '/s' ? '/s' : unit === 'm' ? ' m' : unit ? ' ' + unit : '';
+    return fmtNum(val) + u;
+  }
+  function metricLabel(m) {
+    const k = metricKind(m);
+    if (k === 'bone_break') return 'Can Bone Break';
+    return m[0];
+  }
+
+  // ---------- filtering ----------
+  function matches(c, q) {
+    if (!q) return { ok: true };
+    if (c.n.toLowerCase().includes(q) || c.id.includes(q)) return { ok: true };
+    if (c.mod && ((c.mod.pack || '').toLowerCase().includes(q) || (c.mod.name || '').toLowerCase().includes(q))) return { ok: true };
+    const hits = (c.an || []).filter(n => n.toLowerCase().includes(q));
+    if (hits.length) return { ok: true, hint: [...new Set(hits)].slice(0, 3).join(', ') };
+    return { ok: false };
+  }
+  function filtered() {
+    const q = state.q.trim().toLowerCase();
+    const out = [];
+    for (const c of scope()) {
+      if (state.diet !== 'all' && c.d !== state.diet) continue;
+      if (state.hab !== 'all' && c.hab !== state.hab) continue;
+      const m = matches(c, q);
+      if (!m.ok) continue;
+      out.push({ c, hint: m.hint });
+    }
+    const key = state.sort;
+    const val = c => {
+      if (key === 'name') return c.n.toLowerCase();
+      if (key === 'gs') return c.gs || 0;
+      if (key === 'abilities') return abilityCount(c);
+      if (key === 'chg') return c.chg || '';
+      if (key === 'top_speed') return c.st[topSpeedKey(c)] || 0;
+      return c.st[key] == null ? -Infinity : c.st[key];
+    };
+    out.sort((a, b) => {
+      const va = val(a.c), vb = val(b.c);
+      if (key === 'name') return va < vb ? -1 : va > vb ? 1 : 0;
+      if (va === vb) return a.c.n.localeCompare(b.c.n);
+      return va < vb ? 1 : -1; // numbers: high to low
+    });
+    // official first when sorting by name and modded shown
+    if (key === 'name' && state.modded) out.sort((a, b) => (!!a.c.mod - !!b.c.mod));
+    return out;
+  }
+
+  // ---------- roster ----------
+  function renderRoster() {
+    const list = filtered();
+    const off = list.filter(x => !x.c.mod).length;
+    const mod = list.length - off;
+    $('#result-count').innerHTML = `<strong>${list.length}</strong> creature${list.length === 1 ? '' : 's'}` +
+      (state.modded ? ` (${off} official, ${mod} modded)` : '');
+    $('#result-note').textContent = state.view === 'grid' ? 'Tap a card for full stats and abilities' : 'Tap a column to sort, a row to open';
+    const root = $('#roster');
+    if (!list.length) {
+      root.innerHTML = `<div class="empty">No creatures match. Try clearing the search or filters${state.modded ? '' : ', or switch on modded creatures'}.</div>`;
+      return;
+    }
+    root.innerHTML = state.view === 'table' ? tableHTML(list) : `<div class="grid">${list.map(cardHTML).join('')}</div>`;
+    if (state.view === 'table') wireTable();
+  }
+
+  function cardHTML({ c, hint }) {
+    const tk = topSpeedKey(c);
+    const rows = [
+      ['Health', 'health'], ['Weight', 'combat_weight'], [topSpeedLabel(c), tk],
+    ].map(([lab, key]) => `<div class="mini"><span class="lab">${esc(lab)}</span><span class="bar"><i style="width:${barPct(c, key).toFixed(1)}%"></i></span><span class="val">${fmtStat(c, key, false)}</span></div>`).join('');
+    const habLabel = HAB_LABEL[c.hab];
+    return `<a class="card" href="#${esc(c.h)}" aria-label="${esc(c.n)}">
+      ${monoHTML(c)}
+      <div class="card-head">
+        <div class="card-name${c.n.length > 16 ? ' xlong' : c.n.length > 12 ? ' long' : ''}">${esc(c.n)}</div>
+        <div class="card-sub"><span class="diet-${c.d}"><span class="dot"></span>${dietName(c.d)}</span><span>${habLabel}</span></div>
+      </div>
+      <div class="card-stats">${rows}</div>
+      ${hint ? `<div class="hint">Has ${esc(hint)}</div>` : ''}
+      <div class="card-foot"><span>${slotsHTML(c.gs)} <span class="num">Group ${c.gs}</span></span>${c.mod ? `<span class="tag-mod" title="${esc(c.mod.name || '')}">${esc(c.mod.pack || c.mod.name || 'Mod')}</span>` : `<span>${abilityCount(c)} abilities</span>`}</div>
+    </a>`;
+  }
+
+  const TABLE_COLS = [
+    ['name', 'Creature'], ['d', 'Diet'], ['hab', 'Habitat'], ['gs', 'Slots'],
+    ['health', 'Health'], ['combat_weight', 'Weight'], ['armor', 'Armor'], ['heal_rate', 'Heal'],
+    ['trot_speed', 'Trot'], ['sprint_speed', 'Sprint'], ['swim_speed', 'Sprint swim'], ['fly_speed', 'Flight'],
+    ['stamina_recovery', 'Stam. rec.'], ['sprint_stamina_cost', 'Sprint cost'], ['abilities', 'Abilities'],
+  ];
+  function tableVal(c, key) {
+    if (key === 'name') return c.n.toLowerCase();
+    if (key === 'd') return c.d;
+    if (key === 'hab') return c.hab;
+    if (key === 'gs') return c.gs || 0;
+    if (key === 'abilities') return abilityCount(c);
+    return c.st[key];
+  }
+  function tableHTML(list) {
+    const { key, dir } = state.tableSort;
+    const rows = list.map(x => x.c).slice().sort((a, b) => {
+      const va = tableVal(a, key), vb = tableVal(b, key);
+      if (va == null && vb == null) return 0;
+      if (va == null) return 1;
+      if (vb == null) return -1;
+      if (typeof va === 'string') return va.localeCompare(vb) * dir;
+      return (va - vb) * dir;
+    });
+    // best value per numeric column among the shown rows
+    const best = {};
+    for (const [k] of TABLE_COLS) {
+      if (!DEF[k] || DEF[k][4] === 0) continue;
+      const vals = rows.map(c => c.st[k]).filter(v => v != null);
+      if (vals.length) best[k] = DEF[k][4] === 1 ? Math.max(...vals) : Math.min(...vals);
+    }
+    const head = TABLE_COLS.map(([k, lab]) => {
+      const u = DEF[k] && statUnit(k) ? ` <span class="arr">(${esc(statUnit(k))})</span>` : '';
+      const sorted = k === key;
+      return `<th scope="col" data-k="${k}" tabindex="0" ${sorted ? `aria-sort="${dir === 1 ? 'ascending' : 'descending'}"` : ''}>${esc(lab)}${u}${sorted ? `<span class="arr">${dir === 1 ? '▲' : '▼'}</span>` : ''}</th>`;
+    }).join('');
+    const body = rows.map(c => `<tr data-h="${esc(c.h)}">${TABLE_COLS.map(([k]) => {
+      if (k === 'name') return `<td><a href="#${esc(c.h)}">${esc(c.n)}</a>${c.mod ? ' <span class="tag-mod">Mod</span>' : ''}</td>`;
+      if (k === 'd') return `<td class="l diet-${c.d}">${dietName(c.d).slice(0, 4)}.</td>`;
+      if (k === 'hab') return `<td class="l">${HAB_LABEL[c.hab]}</td>`;
+      if (k === 'gs') return `<td>${c.gs}</td>`;
+      if (k === 'abilities') return `<td>${abilityCount(c)}</td>`;
+      const v = c.st[k];
+      return `<td class="${best[k] != null && v === best[k] ? 'best' : ''}">${v == null ? '–' : fmtStat(c, k, false)}</td>`;
+    }).join('')}</tr>`).join('');
+    return `<div class="table-wrap"><table class="data"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
+  }
+  function wireTable() {
+    const root = $('#roster');
+    root.querySelectorAll('th[data-k]').forEach(th => {
+      const go = () => {
+        const k = th.dataset.k;
+        if (state.tableSort.key === k) state.tableSort.dir *= -1;
+        else state.tableSort = { key: k, dir: ['name', 'd', 'hab'].includes(k) || (DEF[k] && DEF[k][4] === -1) ? 1 : -1 };
+        renderRoster();
+      };
+      th.addEventListener('click', go);
+      th.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+    });
+    root.querySelectorAll('tbody tr').forEach(tr => tr.addEventListener('click', e => {
+      if (e.target.closest('a')) return;
+      location.hash = tr.dataset.h;
+    }));
+  }
+
+  // ---------- detail ----------
+  function descHTML(text) {
+    const lines = String(text || '').split('\n').filter(l => l.trim().length);
+    return lines.map(l => `<p>${esc(l).replace(/(\d+(?:\.\d+)?\s?%|\b\d+(?:\.\d+)?x\b|\b\d+(?:\.\d+)?\s(?:seconds?|meters?|stacks?|times)\b)/g, '<strong>$1</strong>')}</p>`).join('');
+  }
+  function abilityHTML(a, nested) {
+    const [id, name, slot, cost, def, desc, metrics, subs] = a;
+    const kinds = metrics.map(m => ({ m, k: metricKind(m) }));
+    const head = [];
+    const rest = [];
+    for (const x of kinds) {
+      if (x.k && KIND_ORDER.includes(x.k)) head.push(x);
+      else if (HEADLINE_EXTRA.has(x.m[0])) head.push(x);
+      else rest.push(x);
+    }
+    head.sort((p, q) => {
+      const ip = p.k ? KIND_ORDER.indexOf(p.k) : 50, iq = q.k ? KIND_ORDER.indexOf(q.k) : 50;
+      return ip - iq;
+    });
+    const shown = head.slice(0, 8);
+    const overflow = head.slice(8).concat(rest);
+    const chips = shown.map(({ m, k }) => `<span class="chip k-${k || 'other'}"><i></i>${esc(metricLabel(m))}${m[4] ? '' : ''} <span class="chip-val">${esc(fmtMetric(m))}</span></span>`).join('');
+    const more = overflow.length ? `<details class="more"><summary>All values (${metrics.length})</summary><div class="more-grid">${metrics.map(m => `<div><span>${esc(metricLabel(m))}</span><span class="num">${esc(fmtMetric(m))}</span></div>`).join('')}</div></details>` : '';
+    const costBadge = cost == null ? '<span class="badge">Free</span>' : `<span class="badge cost">${Number(cost).toLocaleString('en-US')} Marks</span>`;
+    const starter = def ? '<span class="badge starter">Starter</span>' : '';
+    const subHTML = subs && subs.length ? `<div class="subabs">${subs.map(s => abilityHTML(s, true)).join('')}</div>` : '';
+    return `<article class="ab" id="ab-${esc(id)}">
+      <div class="ab-top"><div class="ab-name">${esc(name)}</div>
+      <div class="ab-meta">${nested ? '' : `<span class="badge slot">${esc(SLOT_LABEL[slot] || slot)}</span>`}${starter}${nested ? '' : costBadge}</div></div>
+      ${desc ? `<div class="ab-desc">${descHTML(desc)}</div>` : ''}
+      ${chips ? `<div class="chips">${chips}</div>` : ''}
+      ${more}
+      ${subHTML}
+    </article>`;
+  }
+
+  function statLedgerHTML(c) {
+    const groups = STAT_GROUPS.map(g => {
+      const rows = STAT_DEFS.filter(d => d[2] === g && c.st[d[0]] != null).map(d => {
+        const key = d[0];
+        const r = rankOf(c, key);
+        const lowNote = d[4] === -1 ? '<em>lower is better</em>' : '';
+        return `<div class="stat-row"><span class="stat-name">${esc(d[1])}${lowNote}</span><span class="stat-val">${fmtStat(c, key)}</span><span class="stat-rank${r && r.rank <= 3 ? ' top' : ''}">${r ? `#${r.rank}/${r.of}` : ''}</span><span class="bar"><i style="width:${barPct(c, key).toFixed(1)}%"></i></span></div>`;
+      }).join('');
+      return rows ? `<div class="stat-group"><h4>${esc(g)}</h4>${rows}</div>` : '';
+    }).join('');
+    return groups;
+  }
+
+  function renderDetail(c) {
+    state.abTab = 'all'; state.abMode = 'all';
+    const tk = topSpeedKey(c);
+    const tile = (label, key, unitOverride) => {
+      const r = rankOf(c, key);
+      const v = statValue(c, key);
+      const u = unitOverride != null ? unitOverride : statUnit(key);
+      return `<div class="tile"><div class="tile-label">${esc(label)}</div><div class="tile-value">${v == null ? '–' : fmtNum(v)}${u ? `<small>${esc(u)}</small>` : ''}</div><div class="tile-rank">${r ? `Rank ${r.rank} of ${r.of}` : '&nbsp;'}</div></div>`;
+    };
+    const abCount = allAbilities(c).length;
+    const hot = c.hot && c.hot.rows.length ? `<div class="notice"><strong>Live hotfix on official servers</strong>Alderon is running different values than the game files for: ${esc(c.hot.rows.join(', '))} (seen ${fmtDate(c.hot.at)}). The matching numbers below may differ in game until the next patch.</div>` : '';
+    const modInfo = c.mod ? `<div class="panel"><h3>Mod</h3><dl class="kv">
+        <dt>Mod</dt><dd>${esc(c.mod.name || '–')}</dd>
+        ${c.mod.pack ? `<dt>Pack</dt><dd>${esc(c.mod.pack)}</dd>` : ''}
+        <dt>Author</dt><dd>${esc(c.mod.author || '–')}</dd>
+        <dt>Data from</dt><dd>Mod version ${esc(c.mod.v)}</dd>
+        <dt>Mod ID</dt><dd><code>${esc(c.mod.sku || '–')}</code></dd>
+      </dl><p class="note">Only servers running this mod have this creature. Server owners can also tune its stats.</p></div>` : '';
+    const subs = c.sub.length ? `<div class="panel"><h3>${c.mod ? 'Variants' : 'Subspecies'}</h3><div class="subsp">${c.sub.map(s => `<div><span>${esc(s[0])}</span><span>${esc(s[1] || 'Cosmetic')}</span></div>`).join('')}</div><p class="note">${c.mod ? 'Each variant' : 'Each subspecies'} costs ${Number(c.sub[0][2] || 0).toLocaleString('en-US')} Marks.</p></div>` : '';
+    const otherFacts = `<div class="panel"><h3>Profile</h3><dl class="kv">
+        <dt>Diet</dt><dd class="diet-${c.d}">${dietName(c.d)}</dd>
+        <dt>Habitat</dt><dd>${HAB_LABEL[c.hab]}${c.aq && c.hab !== 'aquatic' ? ' (can dive)' : ''}</dd>
+        <dt>Group slots</dt><dd>${c.gs}</dd>
+        ${c.nest && c.nest.length ? `<dt>Nest materials</dt><dd>${esc(c.nest.map(n => n[0].toUpperCase() + n.slice(1)).join(', '))}</dd>` : ''}
+        <dt>Stats last changed</dt><dd>${fmtDate(c.chg)}</dd>
+      </dl></div>`;
+
+    const view = $('#detail-view');
+    view.innerHTML = `
+      <a class="back" href="#" data-back>← All creatures</a>
+      <div class="sheet-head">
+        ${monoHTML(c, true)}
+        <div class="sheet-title">
+          <h2>${esc(c.n)}</h2>
+          <div class="sheet-tags">
+            <span class="pill"><span class="dot diet-${c.d}"></span>${dietName(c.d)}</span>
+            <span class="pill">${HAB_LABEL[c.hab]}</span>
+            <span class="pill">${slotsHTML(c.gs)} Group ${c.gs}</span>
+            <span class="pill">${abCount} abilities</span>
+            ${c.mod ? `<span class="pill" style="color:var(--mod)">Modded · ${esc(c.mod.pack || c.mod.name)}</span>` : '<span class="pill">Official</span>'}
+          </div>
+          <div class="sheet-actions">
+            <a class="btn primary" href="#compare-${esc(c.h)}">Compare with another creature</a>
+          </div>
+        </div>
+      </div>
+      <div class="tiles">
+        ${tile('Health', 'health')}
+        ${tile('Combat weight', 'combat_weight')}
+        ${tile(topSpeedLabel(c) + ' speed', tk)}
+        ${tile('Stamina recovery', 'stamina_recovery')}
+      </div>
+      ${hot}
+      <div class="sheet-body">
+        <div>
+          <div class="panel"><h3>Stats</h3>${statLedgerHTML(c)}<p class="note">Adult values. Ranks compare against ${state.modded ? 'all official and modded creatures' : 'all official creatures'}.</p></div>
+          ${subs}
+          ${otherFacts}
+          ${modInfo}
+        </div>
+        <div class="panel" id="ab-panel">
+          <h3>Abilities</h3>
+          <div class="tabs" role="tablist" id="ab-tabs"></div>
+          <div class="ab-tools">
+            <div class="seg" id="ab-mode" role="group" aria-label="Unlock filter">
+              <button type="button" data-mode="all" aria-pressed="true">All</button>
+              <button type="button" data-mode="starter" aria-pressed="false">Starter</button>
+              <button type="button" data-mode="unlock" aria-pressed="false">Unlockable</button>
+            </div>
+            <span class="note" id="ab-count" style="margin:0"></span>
+          </div>
+          <div class="ab-list" id="ab-list"></div>
+          <p class="note">${c.para ? 'Some longer descriptions on this page are condensed. ' : ''}Numbers in the chips are exact game values; open "All values" for every tuning number.</p>
+        </div>
+      </div>`;
+    renderAbilityTabs(c);
+    renderAbilityList(c);
+    $('#ab-mode', view).addEventListener('click', e => {
+      const b = e.target.closest('button[data-mode]'); if (!b) return;
+      state.abMode = b.dataset.mode;
+      $('#ab-mode', view).querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      renderAbilityTabs(c); renderAbilityList(c);
+    });
+  }
+  function abilityPool(c) {
+    return c.ab.filter(a => state.abMode === 'all' || (state.abMode === 'starter' ? a[4] : !a[4]));
+  }
+  function renderAbilityTabs(c) {
+    const pool = abilityPool(c);
+    const counts = {};
+    for (const a of pool) counts[a[2]] = (counts[a[2]] || 0) + 1;
+    const tabs = [['all', 'All', pool.length]].concat(SLOTS.filter(([k]) => counts[k]).map(([k, l]) => [k, l, counts[k]]));
+    if (!tabs.some(t => t[0] === state.abTab)) state.abTab = 'all';
+    const el = $('#ab-tabs');
+    el.innerHTML = tabs.map(([k, l, n]) => `<button class="tab" role="tab" type="button" data-tab="${k}" aria-selected="${k === state.abTab}">${esc(l)}<span class="c">${n}</span></button>`).join('');
+    el.onclick = e => {
+      const b = e.target.closest('button[data-tab]'); if (!b) return;
+      state.abTab = b.dataset.tab;
+      el.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+      renderAbilityList(c);
+    };
+  }
+  function renderAbilityList(c) {
+    const order = Object.fromEntries(SLOTS.map(([k], i) => [k, i]));
+    const list = abilityPool(c).filter(a => state.abTab === 'all' || a[2] === state.abTab)
+      .slice().sort((a, b) => (order[a[2]] - order[b[2]]) || (b[4] - a[4]));
+    $('#ab-count').textContent = `${list.length} shown`;
+    $('#ab-list').innerHTML = list.length ? list.map(a => abilityHTML(a, false)).join('') : '<div class="empty">No abilities in this view.</div>';
+  }
+
+  // ---------- compare ----------
+  function pickPair(ha, hb) {
+    const a = state.byHash[ha] || scope()[0];
+    let b = state.byHash[hb];
+    if (!b || b === a) b = scope().find(x => x !== a && x.d === a.d && x.gs === a.gs) || scope().find(x => x !== a);
+    return [a, b];
+  }
+  function renderCompare(a, b) {
+    const opts = sel => state.all.filter(c => state.modded || !c.mod || c.h === a.h || c.h === b.h)
+      .map(c => `<option value="${esc(c.h)}" ${c.h === sel.h ? 'selected' : ''}>${esc(c.n)}${c.mod ? ' (mod)' : ''}</option>`).join('');
+    const rows = STAT_GROUPS.map(g => {
+      const defs = STAT_DEFS.filter(d => d[2] === g && (a.st[d[0]] != null || b.st[d[0]] != null));
+      if (!defs.length) return '';
+      return `<tr><td class="g" colspan="3">${esc(g)}</td></tr>` + defs.map(d => {
+        const va = a.st[d[0]], vb = b.st[d[0]];
+        let wa = false, wb = false;
+        if (va != null && vb != null && va !== vb && d[4] !== 0) {
+          const aBetter = d[4] === 1 ? va > vb : va < vb;
+          wa = aBetter; wb = !aBetter;
+        }
+        return `<tr><td>${esc(d[1])}${d[4] === -1 ? ' <span class="note" style="margin:0">(lower is better)</span>' : ''}</td><td class="v ${wa ? 'win' : ''}">${fmtStat(a, d[0])}</td><td class="v ${wb ? 'win' : ''}">${fmtStat(b, d[0])}</td></tr>`;
+      }).join('');
+    }).join('');
+    const kit = c => {
+      const by = {};
+      for (const ab of c.ab) (by[ab[2]] = by[ab[2]] || []).push(ab[1]);
+      return SLOTS.filter(([k]) => by[k]).map(([k, l]) => `<div><b>${esc(l)}</b>${esc(by[k].join(', '))}</div>`).join('');
+    };
+    const wins = [0, 0];
+    STAT_DEFS.forEach(d => {
+      const va = a.st[d[0]], vb = b.st[d[0]];
+      if (va == null || vb == null || va === vb || d[4] === 0) return;
+      ((d[4] === 1 ? va > vb : va < vb) ? wins[0]++ : wins[1]++);
+    });
+    const view = $('#compare-view');
+    view.innerHTML = `
+      <a class="back" href="#${esc(a.h)}">← Back to ${esc(a.n)}</a>
+      <div class="panel" style="margin-top:8px">
+        <h3>Compare creatures</h3>
+        <div class="cmp-pick">
+          <select class="sel" id="cmp-a" aria-label="First creature">${opts(a)}</select>
+          <span class="vs">VS</span>
+          <select class="sel" id="cmp-b" aria-label="Second creature">${opts(b)}</select>
+        </div>
+        <div class="tiles">
+          <div class="tile"><div class="tile-label">${esc(a.n)}</div><div class="tile-value">${wins[0]}<small>stats ahead</small></div></div>
+          <div class="tile"><div class="tile-label">${esc(b.n)}</div><div class="tile-value">${wins[1]}<small>stats ahead</small></div></div>
+          <div class="tile"><div class="tile-label">Group slots</div><div class="tile-value">${a.gs} <small>vs</small> ${b.gs}</div></div>
+          <div class="tile"><div class="tile-label">Abilities</div><div class="tile-value">${allAbilities(a).length} <small>vs</small> ${allAbilities(b).length}</div></div>
+        </div>
+        <div class="table-wrap" style="margin-bottom:0">
+          <table class="cmp">
+            <thead><tr><th>Stat</th><th style="text-align:right"><a href="#${esc(a.h)}">${esc(a.n)}</a></th><th style="text-align:right"><a href="#${esc(b.h)}">${esc(b.n)}</a></th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <div class="cmp-kits">
+          <div class="panel"><h3>${esc(a.n)} kit</h3><div class="kit-list">${kit(a)}</div></div>
+          <div class="panel"><h3>${esc(b.n)} kit</h3><div class="kit-list">${kit(b)}</div></div>
+        </div>
+        <p class="note">Highlighted values are better for that row. Stats ahead counts rows where one creature beats the other, so it ignores how much each stat matters in a real fight.</p>
+      </div>`;
+    const go = () => { location.hash = `compare-${$('#cmp-a').value}--${$('#cmp-b').value}`; };
+    $('#cmp-a').addEventListener('change', go);
+    $('#cmp-b').addEventListener('change', go);
+  }
+
+  // ---------- routing ----------
+  function show(which) {
+    document.body.classList.toggle('sub-view', which !== 'roster');
+    $('#roster-view').hidden = which !== 'roster';
+    $('#detail-view').hidden = which !== 'detail';
+    $('#compare-view').hidden = which !== 'compare';
+    $('#controls').hidden = which !== 'roster';
+  }
+  let lastView = 'roster';
+  function loadFull(c) {
+    if (state.full[c.h]) return Promise.resolve(state.full[c.h]);
+    return fetch(detailUrl(c.h), { cache: 'no-cache' })
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(d => (state.full[c.h] = Object.assign({}, c, d, { n: c.n })));
+  }
+  function viewEl(which) { return $(which === 'detail' ? '#detail-view' : '#compare-view'); }
+  function showLoading(which, label) {
+    viewEl(which).innerHTML = `<a class="back" href="#" data-back>← All creatures</a><div class="empty" style="margin-top:12px">Loading ${esc(label)}…</div>`;
+    show(which); window.scrollTo(0, 0);
+  }
+  function showLoadError(which, err) {
+    console.error(err);
+    viewEl(which).innerHTML = `<a class="back" href="#" data-back>← All creatures</a><div class="empty" style="margin-top:12px">Could not load this page. Check your connection, then reload to try again.</div>`;
+  }
+  function route() {
+    const h = decodeURIComponent(location.hash.replace(/^#/, ''));
+    if (h.startsWith('compare-')) {
+      const [ha, hb] = h.slice(8).split('--');
+      if (lastView === 'roster') state.rosterScroll = window.scrollY;
+      const [a, b] = pickPair(ha, hb);
+      const token = ++state.navToken;
+      const go = ([fa, fb]) => {
+        if (token !== state.navToken) return;
+        renderCompare(fa, fb); show('compare'); lastView = 'compare'; window.scrollTo(0, 0);
+        document.title = 'Compare · ' + SITE;
+      };
+      if (state.full[a.h] && state.full[b.h]) { go([state.full[a.h], state.full[b.h]]); return; }
+      showLoading('compare', a.n + ' and ' + b.n); lastView = 'compare';
+      Promise.all([loadFull(a), loadFull(b)]).then(go, err => { if (token === state.navToken) showLoadError('compare', err); });
+      return;
+    }
+    const c = h && state.byHash[h];
+    if (c) {
+      if (lastView === 'roster') state.rosterScroll = window.scrollY;
+      const token = ++state.navToken;
+      const go = full => {
+        if (token !== state.navToken) return;
+        renderDetail(full); show('detail'); lastView = 'detail'; window.scrollTo(0, 0);
+        document.title = c.n + ' · ' + SITE;
+      };
+      if (state.full[c.h]) { go(state.full[c.h]); return; }
+      showLoading('detail', c.n); lastView = 'detail';
+      loadFull(c).then(go, err => { if (token === state.navToken) showLoadError('detail', err); });
+      return;
+    }
+    const from = lastView;
+    state.navToken++;
+    show('roster'); lastView = 'roster';
+    document.title = SITE + ' · Path of Titans creature stats and abilities';
+    renderRoster();
+    if (from !== 'roster') window.scrollTo(0, state.rosterScroll || 0);
+  }
+
+  // ---------- controls ----------
+  function setPressed(container, attr, value) {
+    container.querySelectorAll(`button[${attr}]`).forEach(b => b.setAttribute('aria-pressed', String(b.getAttribute(attr) === value)));
+  }
+  function wireControls() {
+    const q = $('#q');
+    let t;
+    q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { state.q = q.value; renderRoster(); }, 120); });
+    $('#diet-seg').addEventListener('click', e => {
+      const b = e.target.closest('button[data-diet]'); if (!b) return;
+      state.diet = b.dataset.diet; setPressed($('#diet-seg'), 'data-diet', state.diet); renderRoster();
+    });
+    $('#hab-sel').addEventListener('change', e => { state.hab = e.target.value; renderRoster(); });
+    $('#sort-sel').addEventListener('change', e => { state.sort = e.target.value; renderRoster(); });
+    $('#view-seg').addEventListener('click', e => {
+      const b = e.target.closest('button[data-view]'); if (!b) return;
+      state.view = b.dataset.view; store.set('view', state.view); setPressed($('#view-seg'), 'data-view', state.view); renderRoster();
+    });
+    $('#unit-seg').addEventListener('click', e => {
+      const b = e.target.closest('button[data-unit]'); if (!b) return;
+      state.unit = b.dataset.unit; store.set('unit', state.unit); setPressed($('#unit-seg'), 'data-unit', state.unit); renderRoster();
+    });
+    const mt = $('#mod-toggle');
+    mt.checked = !!state.modded;
+    mt.addEventListener('change', () => { state.modded = mt.checked; store.set('modded', state.modded); renderRoster(); updateCounts(); });
+    setPressed($('#view-seg'), 'data-view', state.view);
+    setPressed($('#unit-seg'), 'data-unit', state.unit);
+    document.addEventListener('click', e => {
+      const back = e.target.closest('[data-back]');
+      if (back) { e.preventDefault(); history.replaceState(null, '', location.pathname + location.search); route(); }
+    });
+    $('#home-link').addEventListener('click', e => { e.preventDefault(); history.replaceState(null, '', location.pathname + location.search); state.rosterScroll = 0; route(); });
+  }
+  function updateCounts() {
+    const off = state.all.filter(c => !c.mod).length;
+    const mod = state.all.length - off;
+    const packs = new Set(state.all.filter(c => c.mod).map(c => c.mod.pack || c.mod.name)).size;
+    $('#count-pill').innerHTML = `<strong>${off}</strong> official · <strong>${mod}</strong> modded`;
+    $('#mod-label').textContent = `Show modded creatures (${mod} from ${packs} mods)`;
+  }
+
+  // ---------- boot ----------
+  async function boot() {
+    wireControls();
+    try {
+      const res = await fetch(DATA_URL, { cache: 'no-cache' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      state.all = await res.json();
+    } catch (err) {
+      $('#result-count').textContent = 'Could not load creature data. Reload the page to try again.';
+      console.error(err);
+      return;
+    }
+    state.byHash = Object.fromEntries(state.all.map(c => [c.h, c]));
+    try {
+      const vr = await fetch(VERSION_URL, { cache: 'no-cache' });
+      if (vr.ok) {
+        const v = state.version = await vr.json();
+        if (v.patch) $('#patch-name').textContent = v.patch;
+        if (v.patch_date) $('#patch-date').textContent = fmtDate(v.patch_date);
+        if (!v.patch) $('#patch-pill').hidden = true;
+        if (v.updated || v.checked) $('#data-date').textContent = fmtDate(v.updated || v.checked);
+      }
+    } catch (e) { /* version details are optional */ }
+    updateCounts();
+    window.addEventListener('hashchange', route);
+    route();
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
