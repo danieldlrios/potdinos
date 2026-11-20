@@ -1,0 +1,51 @@
+# Pulls fresh creature data from the Potservers API and commits it when something changed.
+# Vercel sees the commit and redeploys potdinos.com on its own.
+#
+# Runs twice a day, and any time you click "Run workflow" on the Actions tab
+# (handy right after a game patch drops).
+name: Refresh dino data
+
+on:
+  schedule:
+    # 05:17 and 17:17 UTC = 12:17 am and 12:17 pm Eastern (1:17 in summer).
+    - cron: "17 5,17 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v5
+
+      - name: Download the latest data from Potservers
+        id: update
+        run: python3 tools/update_from_api.py
+
+      - name: Save the changes
+        if: steps.update.outputs.changed != '0'
+        env:
+          # Commits are made in the repo owner's name (GitHub's private noreply address),
+          # because Vercel's free Hobby plan only deploys commits from the account owner.
+          # To use a different address, add a repository variable named COMMIT_EMAIL.
+          GIT_NAME: ${{ vars.COMMIT_NAME || github.repository_owner }}
+          GIT_EMAIL: ${{ vars.COMMIT_EMAIL || format('{0}+{1}@users.noreply.github.com', github.repository_owner_id, github.repository_owner) }}
+          MESSAGE: ${{ steps.update.outputs.message || 'Data refresh' }}
+        run: |
+          git config user.name "$GIT_NAME"
+          git config user.email "$GIT_EMAIL"
+          git add -A data
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git commit -m "$MESSAGE"
+          git push || { git pull --rebase && git push; }
