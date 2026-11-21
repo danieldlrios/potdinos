@@ -977,6 +977,184 @@ table.calls td:nth-child(2) { min-width: 104px; }
   table.calls td { padding: 2px 0 !important; border: 0 !important; min-width: 0 !important; }
   table.calls td:nth-child(2) { font-size: 13px; color: var(--ink-2); }
 }
+
+/* ---------- fight matchup: the button, picking on the list, the tray ---------- */
+.fight-btn { min-height: 40px; padding: 8px 14px; border-radius: 10px; font-weight: 600; gap: 8px; background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.fight-btn svg, .btn .fight-ic { width: 17px; height: 17px; flex: none; }
+.fight-btn:hover { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+.fight-btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+body.picking #roster .card, body.picking #roster tbody tr { cursor: copy; }
+body.picking #roster .card .card-head { padding-right: 26px; }
+.pick-dot { position: absolute; top: 8px; right: 8px; z-index: 2; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  border: 2px solid color-mix(in srgb, var(--ink) 30%, transparent); background: var(--surface); color: var(--bg); font-weight: 700; font-size: 13px; line-height: 1;
+  transition: transform .3s var(--ease-out), background-color .2s var(--ease), border-color .2s var(--ease); }
+.picked .pick-dot { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
+.card.picked { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
+#roster tr .pick-dot { position: static; display: inline-grid; width: 20px; height: 20px; font-size: 11px; margin-right: 8px; vertical-align: -5px; border-width: 1.5px; }
+#roster table.data tr.picked td { background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.pick-tray { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; padding-bottom: env(safe-area-inset-bottom);
+  background: color-mix(in srgb, var(--surface) 90%, transparent); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  border-top: 1px solid var(--line); box-shadow: 0 -12px 34px rgba(20, 30, 25, .14); animation: tray-in .45s var(--ease-out); }
+@keyframes tray-in { from { transform: translateY(100%); } to { transform: none; } }
+.pt-in { display: grid; grid-template-columns: minmax(180px, 300px) minmax(0, 1fr) auto; gap: 10px 18px; align-items: center; padding-top: 12px; padding-bottom: 12px; }
+.pt-txt { font-size: 13px; color: var(--ink-2); line-height: 1.35; }
+.pt-txt b { display: block; color: var(--ink); font-family: var(--font-display); font-weight: 800; font-size: 19px; text-transform: uppercase; letter-spacing: .02em; line-height: 1.05; margin-bottom: 2px; }
+.pt-chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; min-width: 0; -webkit-overflow-scrolling: touch; }
+.pt-chips::-webkit-scrollbar { display: none; }
+.pt-chip { flex: none; display: inline-flex; align-items: center; gap: 8px; padding: 4px; border-radius: 12px; background: color-mix(in srgb, var(--tone) 11%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--tone) 40%, var(--line)); animation: rise .35s var(--ease-out) backwards; }
+.pt-chip .mono { width: 32px; height: 32px; border-radius: 8px; font-size: 14px; }
+.pt-chip .mono .hab, .fighter .mono .hab, .h2h-h .mono .hab, .mu-t .mono .hab { display: none; }
+.pt-n { display: grid; font-size: 13.5px; font-weight: 600; line-height: 1.15; white-space: nowrap; }
+.pt-n small { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.pt-chip button { width: 26px; height: 26px; border: 0; border-radius: 50%; background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink-2); cursor: pointer; font-size: 16px; line-height: 1; }
+.pt-chip button:hover { background: color-mix(in srgb, var(--carn) 20%, transparent); color: var(--ink); }
+.pt-act { display: flex; gap: 8px; }
+.pt-act .btn { min-height: 42px; padding: 8px 18px; font-weight: 600; justify-content: center; }
+.pt-act .btn[disabled] { opacity: .42; cursor: not-allowed; transform: none; }
+body.picking { padding-bottom: 96px; }
+body.picking .toast { bottom: calc(104px + env(safe-area-inset-bottom)); }
+@media (max-width: 1000px) {
+  .pt-in { grid-template-columns: minmax(0, 1fr) auto; gap: 8px 14px; padding-top: 10px; padding-bottom: 10px; }
+  .pt-txt { grid-column: 1 / -1; }
+  .pt-txt b { display: inline; font-size: 17px; margin-right: 4px; }
+  body.picking { padding-bottom: 120px; }
+  body.picking .toast { bottom: calc(128px + env(safe-area-inset-bottom)); }
+}
+@media (max-width: 760px) {
+  .pt-in { grid-template-columns: minmax(0, 1fr); }
+  .pt-chips:empty { display: none; }
+  .pt-chip .nm-full { display: none; }
+  .pt-chip .nm-short { display: inline; }
+  .pt-act .btn { flex: 1; }
+  body.picking { padding-bottom: 170px; }
+  body.picking .toast { bottom: calc(176px + env(safe-area-inset-bottom)); }
+}
+
+/* ---------- fight matchup page ---------- */
+.mu-head h2 { font-size: clamp(28px, 4.4vw, 48px); line-height: 1; }
+.mu-vs { font-family: var(--font-body); font-weight: 600; font-size: .42em; letter-spacing: .1em; color: var(--ink-2); vertical-align: .32em; margin: 0 .2em; }
+.mu-tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 2px; }
+.mu-fighters { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin: 0 0 28px; }
+.fighter { position: relative; display: grid; gap: 10px; align-content: start; padding: 12px; border-radius: 16px; min-width: 0;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--tone) 12%, var(--surface)) 0%, var(--surface) 62%);
+  border: 1px solid color-mix(in srgb, var(--tone) 30%, var(--line)); box-shadow: var(--shadow); transition: box-shadow .3s var(--ease), border-color .3s var(--ease); }
+.fighter.you { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
+.f-main { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 6px 12px; align-items: center; padding: 0; border: 0; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.f-main .mono { grid-row: span 2; }
+.f-tx { display: grid; gap: 3px; min-width: 0; padding-right: 26px; }
+.f-name { font-family: var(--font-display); font-weight: 800; font-size: 21px; line-height: 1.02; text-transform: uppercase; letter-spacing: .01em; overflow-wrap: break-word; }
+.f-name.long { font-size: 17px; }
+.f-name.xlong { font-size: 15px; }
+.f-sub { font-size: 12.5px; color: var(--ink-2); line-height: 1.3; }
+.f-badge { justify-self: start; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease); }
+.f-main:hover .f-badge { border-color: var(--accent); color: var(--ink); }
+.fighter.you .f-badge { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.f-atk, .fighter.add label { display: grid; gap: 4px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); min-width: 0; }
+.f-atk .sel, .fighter.add .sel { width: 100%; min-width: 0; font-size: 13px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink); text-overflow: ellipsis; }
+.f-x { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border: 0; border-radius: 50%; cursor: pointer; font-size: 17px; line-height: 1;
+  background: color-mix(in srgb, var(--ink) 7%, transparent); color: var(--ink-2); }
+.f-x:hover { background: color-mix(in srgb, var(--carn) 20%, transparent); color: var(--ink); }
+.fighter.add { align-content: center; background: transparent; border-style: dashed; border-color: var(--line); box-shadow: none; }
+.fighter.add .note { margin: 0; }
+.mu-solo { padding: 8px 0 40px; text-align: left; }
+.mu-sec { margin: 0 0 30px; }
+.mu-sec > h3 { margin: 0 0 4px; font-family: var(--font-display); font-weight: 800; font-size: 30px; text-transform: uppercase; letter-spacing: .01em; line-height: 1; }
+.mu-intro, .mu-legend { margin: 0 0 14px; max-width: 82ch; color: var(--ink-2); font-size: 14px; }
+.mu-legend .dl { font-size: inherit; }
+.you-key { background: color-mix(in srgb, var(--accent) 16%, transparent); color: var(--ink); padding: 1px 6px; border-radius: 6px; }
+.h2h-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 14px; }
+.h2h-grid[data-n="1"] { max-width: 660px; }
+.fighter.pop { animation: you-pop .5s var(--ease-out); }
+@keyframes you-pop { 0% { transform: scale(.95); } 60% { transform: scale(1.015); } 100% { transform: none; } }
+#mu-h:focus { outline: none; }
+.h2h { display: grid; gap: 12px; align-content: start; padding: 16px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); min-width: 0; }
+.h2h-h { display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); gap: 8px; align-items: center; }
+.h2h-h .mono { width: 42px; height: 42px; border-radius: 11px; font-size: 18px; }
+.h2h-vs { font-family: var(--font-display); font-weight: 800; font-size: 14px; color: var(--ink-2); }
+.h2h-t { display: grid; gap: 2px; min-width: 0; margin-left: 6px; }
+.h2h-n { font-weight: 600; font-size: 15.5px; line-height: 1.25; }
+.h2h-v { font-size: 13.5px; color: var(--ink-2); line-height: 1.35; }
+.h2h-v b { color: var(--ink); }
+.h2h-v.win b { color: var(--herb); }
+.h2h-v.lose b { color: var(--carn); }
+.hp { display: grid; gap: 7px; padding: 10px 12px; border-radius: 12px; background: var(--bg); }
+.hp-row { display: grid; grid-template-columns: 70px minmax(0, 1fr) 44px; gap: 10px; align-items: center; font-size: 13px; }
+.hp-who { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hp-bar { height: 10px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.hp-bar i { display: block; height: 100%; border-radius: inherit; background: var(--c, var(--accent)); transition: width .6s var(--ease-out); }
+.h2h.playing .hp-bar i { transition: width .14s linear; }
+.hp-val { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.hp-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.hp-foot .chipbtn { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.hp-foot .chipbtn[disabled] { opacity: .5; cursor: default; }
+.h2h-kv { margin: 0; display: grid; font-size: 13.5px; }
+.h2h-kv > div { display: grid; grid-template-columns: minmax(0, 38%) minmax(0, 1fr); gap: 10px; padding: 7px 0; border-bottom: 1px dotted var(--line); }
+.h2h-kv > div:last-child { border-bottom: 0; }
+.h2h-kv dt { color: var(--ink-2); display: flex; align-items: flex-start; gap: 6px; min-width: 0; overflow-wrap: anywhere; }
+.h2h-kv dd { margin: 0; font-variant-numeric: tabular-nums; min-width: 0; }
+.atk-ico:empty { display: none; }
+.atk-ico .ab-ico { width: 22px; height: 22px; border-radius: 6px; padding: 2px; margin-top: -2px; }
+.h2h-x { margin: 0; font-size: 12.5px; color: var(--ink-2); }
+.mu-grp { margin: 0 0 12px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
+.mu-grp > summary { list-style: none; display: flex; align-items: center; gap: 10px; padding: 12px 14px; cursor: pointer; font-weight: 700; font-size: 15px; }
+.mu-grp > summary::-webkit-details-marker { display: none; }
+.mu-grp > summary::before { content: ""; width: 7px; height: 7px; border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2); transform: rotate(-45deg); transition: transform .25s var(--ease); margin: 0 2px; flex: none; }
+.mu-grp[open] > summary::before { transform: rotate(45deg); }
+.mu-grp > summary:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.mu-grp .g-n { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--ink-2); }
+.mu-tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
+.mu-t th, .mu-t td { padding: 8px 12px; border-top: 1px solid var(--line); text-align: right; vertical-align: top; }
+.mu-t thead th { font-size: 12.5px; font-weight: 600; color: var(--ink); vertical-align: bottom; line-height: 1.2; }
+.mu-t thead th .mono { display: inline-grid; width: 30px; height: 30px; border-radius: 8px; font-size: 13px; margin: 0 0 4px; vertical-align: bottom; }
+.mu-t .th-n { display: block; }
+.mu-t thead th small { display: block; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.mu-t th[scope="row"], .mu-t th.st { text-align: left; font-weight: 500; width: 32%; }
+.mu-t th.st { color: var(--ink-2); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; }
+.mu-t th[scope="row"] .u { font-size: 12px; font-weight: 400; color: var(--ink-2); }
+.mu-t th[scope="row"] em { display: block; font-style: normal; font-size: 11px; color: var(--ink-2); }
+.mu-t td .v { display: block; font-weight: 600; font-variant-numeric: tabular-nums; }
+.mu-t td.tx .v { font-weight: 500; font-size: 13px; overflow-wrap: anywhere; }
+.mu-t .you { background: color-mix(in srgb, var(--accent) 8%, transparent); }
+.mu-t td.best .v { color: var(--accent); font-weight: 800; }
+.dl { display: inline-block; font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.dl.ahead { color: var(--herb); }
+.dl.behind { color: var(--carn); }
+.dl.neutral, .dl.same { color: var(--ink-2); }
+.nm-short { display: none; }
+.mu-fine { max-width: 90ch; margin-bottom: 30px; }
+.mu-fine a { color: inherit; }
+@media (max-width: 640px) {
+  .mu-fighters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .fighter { padding: 10px; gap: 8px; border-radius: 14px; }
+  .f-main { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .f-main .mono { grid-row: auto; width: 40px; height: 40px; font-size: 17px; border-radius: 10px; }
+  .f-tx { padding-right: 0; }
+  .f-name { font-size: 17px; }
+  .f-name.long { font-size: 15.5px; }
+  .f-name.xlong { font-size: 14px; }
+  .f-sub { font-size: 12px; }
+  .f-atk .sel { font-size: 12.5px; padding: 6px 8px; }
+  .h2h-grid { grid-template-columns: minmax(0, 1fr); }
+  .h2h { padding: 14px; }
+  .h2h-kv > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  table.mu-t, .mu-t thead, .mu-t tbody { display: block; }
+  .mu-t tr { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
+  .mu-t thead th.st { display: none; }
+  .mu-t thead th { text-align: center; padding: 8px 4px 6px; border-top: 0; }
+  .mu-t th[scope="row"] { grid-column: 1 / -1; width: auto; padding: 10px 12px 4px; }
+  .mu-t th[scope="row"] em { display: inline; margin-left: 6px; }
+  .mu-t td { border-top: 0; padding: 4px 6px 10px; text-align: center; }
+  .mu-t .nm-full { display: none; }
+  .mu-t .nm-short { display: inline; }
+}
+
+/* iPhone and iPad zoom into any text field or menu smaller than 16px when it is tapped; keep them at 16px on touch screens */
+@media (hover: none) and (pointer: coarse) {
+  input[type="search"], input[type="text"], input[type="number"], select, textarea { font-size: 16px !important; }
+}
 </style>
 </head>
 <body>
@@ -1014,7 +1192,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
       <a class="tile-big" id="tile-dinos" href="/dinosaurs" style="--tone:var(--carn)">
         <svg class="tb-art" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="12" cy="17" rx="3.3" ry="3.5"/><path d="M10.4 15.5L10.6 6.4Q12 1.4 13.4 6.4L13.6 15.5Z"/><path transform="rotate(-38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/><path transform="rotate(38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/></svg>
         <span class="tb-ic"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="12" cy="17" rx="3.3" ry="3.5"/><path d="M10.4 15.5L10.6 6.4Q12 1.4 13.4 6.4L13.6 15.5Z"/><path transform="rotate(-38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/><path transform="rotate(38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/></svg></span>
-        <span class="tb-body"><span class="tb-k">Dinosaurs</span><span class="tb-d">Stats, full ability kits and side-by-side compare for every playable dinosaur.</span><span class="tb-stat" id="hero-dinos-d">Official and modded</span></span>
+        <span class="tb-body"><span class="tb-k">Dinosaurs</span><span class="tb-d">Stats, full ability kits and fight matchups for every playable dinosaur.</span><span class="tb-stat" id="hero-dinos-d">Official and modded</span></span>
         <span class="tb-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         <span class="sr-only">Browse dinosaurs</span>
       </a>
@@ -1042,6 +1220,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
       <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       <input id="q" type="search" placeholder="Search dinosaurs or abilities (e.g. Pounce)" autocomplete="off">
     </label>
+    <button type="button" class="btn fight-btn" id="fight-btn" aria-pressed="false" title="Pick 2 to 4 dinosaurs and compare them for a fight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l10 10M11.5 16.5l5-5M15 15l4.5 4.5M20 4L10 14M7.5 11.5l5 5M9 15l-4.5 4.5"/></svg><span>Fight matchup</span></button>
     <div class="ctl-group" role="group" aria-label="Diet">
       <div class="seg" id="diet-seg">
         <button type="button" data-diet="all" aria-pressed="true">All</button>
@@ -1109,6 +1288,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
         <p><strong>Live hotfixes:</strong> Alderon sometimes changes values on official servers without a full patch. When that has happened for a dinosaur, its page lists the affected values.</p>
         <p><strong>Community servers</strong> can override any stat in their server settings, and modded dinosaurs change whenever their mod updates. Treat numbers on modded or custom servers as a starting point.</p>
         <p><strong>Sharing:</strong> every dinosaur has its own page address (for example <code>potdinos.com/dinosaurs/tyrannosaurus</code>) that opens straight to it.</p>
+        <p><strong>Fight matchup:</strong> tap <b>Fight matchup</b> in the filter bar, pick 2 to 4 dinosaurs (the one you play first), then tap Compare. You get every stat next to theirs, how many hits each needs to kill the others and who wins a straight trade of attacks.</p>
         <p><strong>Want the bigger picture?</strong> The <a href="/guides">Guides</a> explain growth, combat, status effects, nesting and more, and the <a href="/guides/stats">stats guide</a> has a damage calculator.</p>
       </div>
     </details>
@@ -1116,6 +1296,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
 
   <section id="detail-view" hidden></section>
   <section id="compare-view" hidden></section>
+  <section id="matchup-view" hidden></section>
 
   <section id="maps-view" hidden aria-labelledby="maps-h">
     <h2 id="maps-h" class="sr-only">Interactive maps of Gondwa, Panjura and Riparia</h2>
@@ -1470,16 +1651,18 @@ table.calls td:nth-child(2) { min-width: 104px; }
     const mod = list.length - off;
     $('#result-count').innerHTML = `<strong>${list.length}</strong> dinosaur${list.length === 1 ? '' : 's'}` +
       (state.modded ? ` (${off} official, ${mod} modded)` : '');
-    $('#result-note').textContent = state.view === 'grid' ? 'Tap a card for full stats and abilities' : 'Tap a column to sort, a row to open';
+    $('#result-note').textContent = rosterNote();
     const root = $('#roster');
     if (!list.length) {
       root.innerHTML = `<div class="empty">No dinosaurs match. Try clearing the search or filters${state.modded ? '' : ', or switch on modded dinosaurs'}.</div>`;
+      syncPick();
       return;
     }
     const anim = state.animateNext && !REDUCED;
     state.animateNext = false;
     root.innerHTML = state.view === 'table' ? tableHTML(list) : `<div class="grid${anim ? ' animate' : ''}">${list.map(cardHTML).join('')}</div>`;
     if (state.view === 'table') wireTable();
+    syncPick();
   }
 
   function cardHTML({ c, hint }, i) {
@@ -1488,7 +1671,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
       ['Health', 'health'], ['Weight', 'combat_weight'], [topSpeedLabel(c), tk],
     ].map(([lab, key]) => `<div class="mini"><span class="lab">${esc(lab)}</span><span class="bar"><i style="width:${barPct(c, key).toFixed(1)}%"></i></span><span class="val">${fmtStat(c, key, false)}</span></div>`).join('');
     const habLabel = HAB_LABEL[c.hab];
-    return `<a class="card diet-card-${c.d === 'carnivore' ? 'c' : 'h'}" href="/dinosaurs/${esc(c.h)}" aria-label="${esc(c.n)}" style="--i:${Math.min(i || 0, 24)};--tone:${toneFor(c)}">
+    return `<a class="card diet-card-${c.d === 'carnivore' ? 'c' : 'h'}" href="/dinosaurs/${esc(c.h)}" data-h="${esc(c.h)}" aria-label="${esc(c.n)}" style="--i:${Math.min(i || 0, 24)};--tone:${toneFor(c)}">
       ${monoHTML(c)}
       <div class="card-head">
         <div class="card-name${c.n.length > 16 ? ' xlong' : c.n.length > 12 ? ' long' : ''}">${esc(c.n)}</div>
@@ -1658,6 +1841,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
           </div>
           <div class="sheet-actions">
             <a class="btn primary" href="/compare/${esc(c.h)}">Compare with another dinosaur</a>
+            <button class="btn" type="button" data-fight="${esc(c.h)}">${FIGHT_IC}Fight matchup</button>
             <a class="btn" href="/contact" data-contact>Suggest a correction</a>
           </div>
         </div>
@@ -1790,6 +1974,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
           <div class="panel"><h3>${esc(b.n)} kit</h3><div class="kit-list">${kit(b)}</div></div>
         </div>
         <p class="note">Highlighted values are better for that row. Stats ahead counts rows where one dinosaur beats the other, so it ignores how much each stat matters in a real fight.</p>
+        <p class="note"><a class="mat-link" href="/matchup/${esc(a.h)}/${esc(b.h)}">See hits to kill and who wins a straight trade in a fight matchup, or add up to 2 more dinosaurs →</a></p>
       </div>`;
     const go = () => { navigate(`/compare/${$('#cmp-a').value}/${$('#cmp-b').value}`); };
     $('#cmp-a').addEventListener('change', go);
@@ -1798,8 +1983,8 @@ table.calls td:nth-child(2) { min-width: 104px; }
 
   // ---------- routing: real page addresses (old # links and /creatures addresses still work) ----------
   const ORIGIN = 'https://potdinos.com';
-  const VIEWS = { roster: '#roster-view', detail: '#detail-view', compare: '#compare-view', maps: '#maps-view', guides: '#guides-view', credits: '#credits-view' };
-  const NAV_OF = { roster: 'dinosaurs', detail: 'dinosaurs', compare: 'dinosaurs', maps: 'maps', guides: 'guides', credits: '' };
+  const VIEWS = { roster: '#roster-view', detail: '#detail-view', compare: '#compare-view', matchup: '#matchup-view', maps: '#maps-view', guides: '#guides-view', credits: '#credits-view' };
+  const NAV_OF = { roster: 'dinosaurs', detail: 'dinosaurs', compare: 'dinosaurs', matchup: 'dinosaurs', maps: 'maps', guides: 'guides', credits: '' };
   const HOME_TITLE = SITE + ' · Dinosaurs, abilities, maps and guides';
   const HOME_DESC = 'Your one-stop shop for everything Path of Titans: stats and full ability kits for every official and modded dinosaur, interactive maps of Gondwa, Panjura and Riparia, and plain-English guides to growth, combat, nesting, quests and more.';
   function setMeta(title, desc, path, noindex) {
@@ -1863,6 +2048,9 @@ table.calls td:nth-child(2) { min-width: 104px; }
       if (a.getAttribute('data-nav') === NAV_OF[which]) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
     if (which !== 'maps') MapUI.pause();
+    // picking dinosaurs for a fight matchup only happens on the Dinosaurs list
+    if (which !== 'roster' && state.pick.on) { state.pick.on = false; state.pick.list = []; }
+    syncPick();
   }
   let lastView = '';
   function loadFull(c) {
@@ -1931,6 +2119,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
       requestAnimationFrame(scrollToContact);
       return;
     }
+    if (top === 'matchup') { routeMatchup(seg.slice(1)); return; }
     if (top === 'compare') {
       leaving();
       const [a, b] = pickPair(seg[1], seg[2]);
@@ -1975,7 +2164,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
     setMeta(HOME_TITLE, HOME_DESC, '/');
     state.animateNext = from !== 'roster';
     renderRoster();
-    if (from === 'detail' || from === 'compare') window.scrollTo(0, state.rosterScroll || 0);
+    if (from === 'detail' || from === 'compare' || from === 'matchup') window.scrollTo(0, state.rosterScroll || 0);
     else if (toList) requestAnimationFrame(() => scrollToList(from === 'roster'));
     else if (from) window.scrollTo(0, state.rosterScroll || 0);
   }
@@ -2545,7 +2734,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
         <label>Where the hit lands<select class="sel" data-k="zone"><option value="1">Body (×1)</option><option value="1.2">Head (×1.2)</option><option value="0.25">Tail (×0.25)</option></select></label>
         <label>The defender is<select class="sel" data-k="pose"><option value="1">Standing or moving (×1)</option><option value="2">Sitting (×2)</option><option value="4">Sleeping (×4)</option></select></label>
       </div>
-      <label class="switch" style="margin-top:12px"><input type="checkbox" role="switch" data-k="armor"><span>Also divide by the defender's armor (community estimate)</span></label>
+      <label class="switch" style="margin-top:12px"><input type="checkbox" role="switch" data-k="armor" checked><span>Divide by the defender's armor (the community wiki's formula)</span></label>
       <div class="calc-out" aria-live="polite"><div><small>Damage per hit</small><b data-o="dmg">–</b></div><div><small>Share of health</small><b data-o="pct">–</b></div><div><small>Hits to kill</small><b data-o="hits">–</b></div></div>
       <p class="note" data-o="f"></p></div>`;
     const q = k => el.querySelector(`[data-k="${k}"]`), o = k => el.querySelector(`[data-o="${k}"]`);
@@ -2559,13 +2748,15 @@ table.calls td:nth-child(2) { min-width: 104px; }
       const shield = zone === 1.2 && fullD ? headProof(fullD) : null;
       if (shield) zone = 1;
       const pose = parseFloat(q('pose').value);
-      const arm = q('armor').checked && D.st.armor ? D.st.armor : 1;
+      const opt = q('ab').selectedOptions && q('ab').selectedOptions[0];
+      const ap = !!(opt && opt.value !== '' && opt.getAttribute('data-ap') === '1');
+      const arm = q('armor').checked && !ap && D.st.armor ? D.st.armor : 1;
       const dmg = base * (cwA / cwD) * zone * pose / arm;
       const hp = D.st.health || 0;
       o('dmg').textContent = fmtNum(dmg);
       o('pct').textContent = hp ? fmtNum(dmg / hp * 100) + '%' : '–';
       o('hits').textContent = dmg > 0 && hp ? Math.ceil(hp / dmg - 1e-9).toLocaleString('en-US') : '–';
-      o('f').innerHTML = `${fmtNum(base)} × (${cwA.toLocaleString('en-US')} ÷ ${cwD.toLocaleString('en-US')})${zone !== 1 ? ` × ${zone}` : ''}${pose !== 1 ? ` × ${pose}` : ''}${arm !== 1 ? ` ÷ ${fmtNum(arm)} armor` : ''} = <strong>${fmtNum(dmg)}</strong> against ${hp.toLocaleString('en-US')} health. ${shield ? `${esc(D.n)} has ${esc(shield)}, so head hits deal no extra damage. ` : ''}Adult values; abilities, subspecies and server settings can change the result.`;
+      o('f').innerHTML = `${fmtNum(base)} × (${cwA.toLocaleString('en-US')} ÷ ${cwD.toLocaleString('en-US')})${zone !== 1 ? ` × ${zone}` : ''}${pose !== 1 ? ` × ${pose}` : ''}${arm !== 1 ? ` ÷ ${fmtNum(arm)} armor` : ''} = <strong>${fmtNum(dmg)}</strong> against ${hp.toLocaleString('en-US')} health. ${ap && D.st.armor && D.st.armor !== 1 ? 'Armor-piercing damage skips armor. ' : ''}${shield ? `${esc(D.n)} has ${esc(shield)}, so head hits deal no extra damage. ` : ''}Adult values; abilities, subspecies and server settings can change the result.`;
     };
     const loadAttacks = () => {
       const A = state.byHash[q('a').value];
@@ -2579,14 +2770,14 @@ table.calls td:nth-child(2) { min-width: 104px; }
             const name = parent ? `${parent}: ${ab[1]}` : ab[1];
             for (const m of ab[6] || []) {
               if (metricKind(m) !== 'damage' || !(m[1] > 0)) continue;
-              opts.push({ label: /^damage$/i.test(m[0]) ? name : `${name} (${m[0]})`, v: m[1], plain: /^damage$/i.test(m[0]) });
+              opts.push({ label: /^damage$/i.test(m[0]) ? name : `${name} (${m[0]})`, v: m[1], plain: /^damage$/i.test(m[0]), ap: /pierc|peirc|\bap\b/i.test(m[0]) });
             }
             walk(ab[7], ab[1]);
           }
         };
         walk(full.ab);
         const def = Math.max(0, opts.findIndex(x => x.plain));
-        sel.innerHTML = opts.map((x, i) => `<option value="${x.v}"${i === def ? ' selected' : ''}>${esc(x.label)}: ${fmtNum(x.v)}</option>`).join('') + '<option value="">Custom number</option>';
+        sel.innerHTML = opts.map((x, i) => `<option value="${x.v}"${x.ap ? ' data-ap="1"' : ''}${i === def ? ' selected' : ''}>${esc(x.label)}: ${fmtNum(x.v)}</option>`).join('') + '<option value="">Custom number</option>';
         if (opts.length) q('base').value = opts[def].v;
         calc();
       }).catch(() => { sel.innerHTML = '<option value="">Custom number</option>'; calc(); });
@@ -3766,7 +3957,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
   <li>Head hits deal ×1.2 for most dinosaurs. [[Albertaceratops]] and [[Eotriceratops]] (Armored Skull) and [[Styracosaurus]] (Spiked Frill) take no extra damage to the head.</li>
   <li>Tail hits deal ×0.25.</li>
   <li>A sitting dinosaur takes ×2 damage, and a sleeping one takes ×4.</li>
-  <li>Armor reduces most damage; armor-piercing attacks ignore some or all of it.</li>
+  <li>Armor reduces most damage. By the community wiki's formula the hit is also divided by the target's armor, so a dinosaur with 1.1 armor takes about 9% less. Armor-piercing attacks ignore some or all of it.</li>
 </ul>
 <div data-widget="damage"></div>`,
     },
@@ -3777,7 +3968,7 @@ table.calls td:nth-child(2) { min-width: 104px; }
       src: [['Official wiki: Combat', 'game-mechanics/combat'], ['Official wiki: Dinosaur Stats', 'game-mechanics/stats'], ['Official wiki: Buffs and Debuffs', 'game-mechanics/buffs-debuffs'], ['Official wiki: Nesting', 'game-mechanics/nesting'], ['Game data via Potservers', 'https://potservers.net']],
       body: `
 <h3>Weight wins trades</h3>
-<p>Damage is multiplied by your combat weight and divided by your target's. A heavy dinosaur hits a light one hard and shrugs off its replies, so always compare weights before picking a fight. The <a href="/guides/stats">damage calculator</a> does the math for any two dinosaurs.</p>
+<p>Damage is multiplied by your combat weight and divided by your target's. A heavy dinosaur hits a light one hard and shrugs off its replies, so always compare weights before picking a fight. The <a href="/guides/stats">damage calculator</a> does the math for any two dinosaurs, and <b>Fight matchup</b> on the <a href="/dinosaurs">Dinosaurs</a> tab lines up 2 to 4 of them, with hits to kill and who wins a straight trade.</p>
 <h3>Where the hit lands</h3>
 <ul>
   <li><strong>Head:</strong> the big damage zone, ×1.2 for most dinosaurs.</li>
@@ -4380,11 +4571,590 @@ table.calls td:nth-child(2) { min-width: 104px; }
     },
   ];
 
+  // ================= Fight matchup: pick 2 to 4 dinosaurs and see how they stack up for a fight =================
+  const MU_MAX = 4;
+  const FIGHT_IC = '<svg class="fight-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l10 10M11.5 16.5l5-5M15 15l4.5 4.5M20 4L10 14M7.5 11.5l5 5M9 15l-4.5 4.5"/></svg>';
+  const MU = { atk: {}, F: [], wired: false };   // chosen attack per dinosaur (kept for this visit) and the matchup on screen
+  state.pick = { on: false, list: [] };
+
+  // Short names for narrow phone columns only; full names are used everywhere else.
+  const SHORT = {
+    achillobator: 'Achillo', albertaceratops: 'Alberta', alioramus: 'Alio', allosaurus: 'Allo', amargasaurus: 'Amarga',
+    anodontosaurus: 'Ano', barsboldia: 'Bars', camptosaurus: 'Campto', ceratosaurus: 'Cerato', concavenator: 'Concav',
+    daspletosaurus: 'Dasp', deinocheirus: 'Deinoch', deinonychus: 'Deinony', eotriceratops: 'Eotri', eurhinosaurus: 'Eurhino',
+    hatzegopteryx: 'Hatz', iguanodon: 'Iggy', kaiwhekea: 'Kai', kentrosaurus: 'Kentro', lambeosaurus: 'Lambe',
+    latenivenatrix: 'Laten', leedsichthys: 'Leeds', megalania: 'Megalania', metriacanthosaurus: 'Metri', microraptor: 'Micro',
+    miragaia: 'Mira', pachycephalosaurus: 'Pachy', pycnonemosaurus: 'Pycno', rhamphorhynchus: 'Rhampho', sarcosuchus: 'Sarco',
+    spinosaurus: 'Spino', stegosaurus: 'Stego', struthiomimus: 'Struthi', styracosaurus: 'Styraco', suchomimus: 'Sucho',
+    thalassodromeus: 'Thalasso', tylosaurus: 'Tylo', tyrannosaurus: 'Rex', tyrannotitan: 'Titan',
+  };
+  function shortName(c) {
+    if (SHORT[c.h]) return SHORT[c.h];
+    const base = c.n.replace(/\s*\(.*?\)\s*/g, ' ').trim() || c.n;
+    return base.length > 9 ? base.slice(0, 7) + '.' : base;
+  }
+  // the in-game icon square, as a span so it can sit inside buttons and chips
+  function monoSpan(c) { return monoHTML(c).replace(/^<div/, '<span').replace(/<\/div>$/, '</span>'); }
+  // both names are in the page; CSS shows one (display: none also hides the other from screen readers)
+  function nameHTML(c) { return `<span class="nm-full">${esc(c.n)}</span><span class="nm-short">${esc(shortName(c))}</span>`; }
+  const ratioTxt = x => String(Math.round(x * 100) / 100);
+  const pctTxt = x => {
+    const p = x * 100;
+    return (p >= 10 || p === 0 ? Math.round(p) : Math.round(p * 10) / 10) + '%';
+  };
+  function secTxt(t) {
+    if (t <= 0) return 'first hit';
+    if (t < 60) return fmtNum(Math.round(t * 10) / 10) + ' s';
+    const m = Math.floor(t / 60), s = Math.round(t - m * 60);
+    return s ? `${m} min ${s} s` : `${m} min`;
+  }
+
+  // ---------- attacks: every damaging ability, with a sensible default ----------
+  const STATUS_KINDS = { bleed: 'bleed', venom: 'venom', toxin: 'toxin', fracture: 'fracture' };
+  function attackOptions(full) {
+    if (!full || !Array.isArray(full.ab)) return [];
+    if (full.__atk) return full.__atk;
+    const out = [];
+    const walk = (list, parent) => {
+      for (const ab of list || []) {
+        const ms = ab[6] || [];
+        const cdOf = name => {
+          const pre = name.replace(/\s*damage$/i, '');
+          const own = pre && ms.find(m => metricKind(m) === 'cooldown' && m[0].toLowerCase() === (pre + ' cooldown').toLowerCase());
+          const plain = ms.find(m => metricKind(m) === 'cooldown' && /^cooldown$/i.test(m[0]));
+          const m = own || plain;
+          return m && m[1] > 0 ? m[1] : null;
+        };
+        const label = parent ? `${parent}: ${ab[1]}` : ab[1];
+        const extras = [];
+        for (const m of ms) {
+          const k = metricKind(m);
+          if (STATUS_KINDS[k] && m[1] > 0 && !/clamp/i.test(m[0])) extras.push(`${STATUS_KINDS[k]} ${fmtNum(m[1])}`);
+          else if (k === 'bone_break' && m[1] && /^bone break$/i.test(m[0])) extras.push('Bone Break');
+        }
+        const plain = ms.find(m => /^damage$/i.test(m[0]) && m[1] > 0);
+        const pierce = ms.find(m => /^piercing damage$/i.test(m[0]) && m[1] > 0);
+        const base = { ab: ab[0], abName: ab[1], starter: !!ab[4], slot: ab[2], extras };
+        if (plain || pierce) out.push(Object.assign({ id: ab[0], name: label, dmg: plain ? plain[1] : 0, pierce: pierce ? pierce[1] : 0, cd: cdOf('') }, base));
+        for (const m of ms) {
+          if (metricKind(m) !== 'damage' || !(m[1] > 0) || /^(damage|piercing damage)$/i.test(m[0])) continue;
+          const ap = /pierc|peirc|\bap\b/i.test(m[0]);
+          out.push(Object.assign({ id: ab[0] + '~' + m[0], name: `${label} (${m[0]})`, dmg: ap ? 0 : m[1], pierce: ap ? m[1] : 0, cd: cdOf(m[0]), variant: true }, base));
+        }
+        walk(ab[7], ab[1]);
+      }
+    };
+    walk(full.ab);
+    Object.defineProperty(full, '__atk', { value: out, enumerable: false });
+    return out;
+  }
+  const perHit = o => (o.dmg || 0) + (o.pierce || 0);
+  function defaultAttack(opts) {
+    const usable = opts.filter(o => !o.variant && o.cd && o.slot !== 'passives');
+    const starters = usable.filter(o => o.starter);
+    const rank = list => list.slice().sort((a, b) => (perHit(b) / b.cd - perHit(a) / a.cd) || (perHit(b) - perHit(a)))[0];
+    return rank(starters) || rank(usable) || opts.find(o => !o.variant) || opts[0] || null;
+  }
+  function chosenAttack(full) {
+    const opts = attackOptions(full);
+    const want = MU.atk[full.h];
+    return (want && opts.find(o => o.id === want)) || defaultAttack(opts);
+  }
+  function attackLabel(o) {
+    return `${o.name} · ${fmtNum(o.dmg)}${o.pierce ? (o.dmg ? ` + ${fmtNum(o.pierce)} armor-piercing` : ' armor-piercing') : ''}${o.cd ? ` / ${fmtNum(o.cd)} s` : ''}`;
+  }
+
+  // ---------- damage and the straight trade ----------
+  // Body hit: base × attacker weight ÷ defender weight, with the normal part also ÷ defender armor
+  // (the formula the community wiki documents; armor-piercing damage skips armor).
+  function hitOn(o, A, D) {
+    if (!o) return 0;
+    const r = (A.st.combat_weight || 1) / (D.st.combat_weight || 1);
+    return ((o.dmg || 0) / (D.st.armor || 1) + (o.pierce || 0)) * r;
+  }
+  function trade(Y, oy, O, oo) {
+    const hpY = Y.st.health || 0, hpO = O.st.health || 0;
+    const dY = hitOn(oy, Y, O), dO = hitOn(oo, O, Y);
+    const nY = dY > 0 && hpO ? Math.ceil(hpO / dY - 1e-9) : Infinity;
+    const nO = dO > 0 && hpY ? Math.ceil(hpY / dO - 1e-9) : Infinity;
+    const cdY = oy && oy.cd, cdO = oo && oo.cd;
+    const tY = isFinite(nY) && cdY ? (nY - 1) * cdY : Infinity;
+    const tO = isFinite(nO) && cdO ? (nO - 1) * cdO : Infinity;
+    const hitsBy = (cd, t) => (cd ? Math.floor(t / cd + 1e-9) + 1 : 0);
+    const timed = (isFinite(nY) ? !!cdY : true) && (isFinite(nO) ? !!cdO : true) && (isFinite(tY) || isFinite(tO));
+    let winner = null, end = Math.min(tY, tO), leftY = hpY, leftO = hpO;
+    if (timed) {
+      if (Math.abs(tY - tO) < 1e-9) { winner = 'even'; leftY = 0; leftO = 0; }
+      else if (tY < tO) { winner = 'you'; leftO = 0; leftY = Math.max(0, hpY - Math.min(nO, hitsBy(cdO, tY)) * dO); }
+      else { winner = 'them'; leftY = 0; leftO = Math.max(0, hpO - Math.min(nY, hitsBy(cdY, tO)) * dY); }
+    }
+    return { hpY, hpO, dY, dO, nY, nO, tY, tO, cdY, cdO, end, winner, leftY, leftO };
+  }
+
+  // ---------- picking dinosaurs on the Dinosaurs list ----------
+  function rosterNote() {
+    if (state.pick.on) return 'Tap 2 to 4 dinosaurs for your fight matchup';
+    return state.view === 'grid' ? 'Tap a card for full stats and abilities' : 'Tap a column to sort, a row to open';
+  }
+  function startPick(pre) {
+    state.pick.on = true;
+    state.pick.list = (pre || []).filter(h => state.byHash[h]).slice(0, MU_MAX);
+    syncPick();
+  }
+  function stopPick() {
+    if (!state.pick.on && !state.pick.list.length) return;
+    state.pick.on = false;
+    state.pick.list = [];
+    syncPick();
+  }
+  function togglePick(h) {
+    const L = state.pick.list, i = L.indexOf(h);
+    if (i >= 0) L.splice(i, 1);
+    else if (L.length >= MU_MAX) { toast(`Up to ${MU_MAX} at a time. Remove one first.`); return; }
+    else L.push(h);
+    syncPick();
+  }
+  function syncPick() {
+    const on = state.pick.on;
+    document.body.classList.toggle('picking', on);
+    const fb = $('#fight-btn');
+    if (fb) fb.setAttribute('aria-pressed', String(on));
+    const note = $('#result-note');
+    if (note && !state.dataError) note.textContent = rosterNote();
+    const root = $('#roster');
+    if (root) root.querySelectorAll('[data-h]').forEach(el => {
+      const i = state.pick.list.indexOf(el.getAttribute('data-h'));
+      const isCard = el.classList.contains('card');
+      el.classList.toggle('picked', on && i >= 0);
+      let dot = el.querySelector('.pick-dot');
+      if (on) {
+        if (!dot) {
+          dot = document.createElement('span'); dot.className = 'pick-dot'; dot.setAttribute('aria-hidden', 'true');
+          if (isCard) el.appendChild(dot); else { const td = el.querySelector('td'); if (td) td.insertBefore(dot, td.firstChild); }
+        }
+        dot.textContent = i >= 0 ? String(i + 1) : '';
+        if (isCard) { el.setAttribute('role', 'checkbox'); el.setAttribute('aria-checked', String(i >= 0)); }
+        else el.setAttribute('aria-selected', String(i >= 0));
+      } else {
+        if (dot) dot.remove();
+        el.removeAttribute('role'); el.removeAttribute('aria-checked'); el.removeAttribute('aria-selected');
+      }
+    });
+    renderTray();
+  }
+  function renderTray() {
+    let tray = $('#pick-tray');
+    if (!tray) {
+      tray = document.createElement('div');
+      tray.id = 'pick-tray'; tray.className = 'pick-tray'; tray.hidden = true;
+      tray.setAttribute('role', 'region'); tray.setAttribute('aria-label', 'Fight matchup picks');
+      tray.innerHTML = `<div class="wrap pt-in">
+        <div class="pt-txt"><b>Fight matchup</b> <span id="pt-hint" aria-live="polite"></span></div>
+        <div class="pt-chips" id="pt-chips"></div>
+        <div class="pt-act"><button class="btn" type="button" id="pt-cancel">Cancel</button><button class="btn primary" type="button" id="pt-go">Compare</button></div>
+      </div>`;
+      document.body.appendChild(tray);
+      $('#pt-cancel').addEventListener('click', () => { stopPick(); const fb = $('#fight-btn'); if (fb) fb.focus(); });
+      $('#pt-go').addEventListener('click', () => {
+        const L = state.pick.list.filter(h => state.byHash[h]);
+        if (L.length < 2) { toast('Pick at least 2 dinosaurs'); return; }
+        state.pick.on = false;
+        navigate('/matchup/' + L.join('/'));
+      });
+      $('#pt-chips').addEventListener('click', e => { const b = e.target.closest('[data-unpick]'); if (b) togglePick(b.getAttribute('data-unpick')); });
+    }
+    const on = state.pick.on && document.body.getAttribute('data-view') === 'roster';
+    tray.hidden = !on;
+    if (!on) return;
+    const L = state.pick.list.map(h => state.byHash[h]).filter(Boolean);
+    const n = L.length;
+    $('#pt-hint').textContent = !n ? 'Tap the dinosaur you play first, then up to 3 it might fight.'
+      : n === 1 ? `Now pick 1 to 3 dinosaurs for ${L[0].n} to fight.`
+      : n < MU_MAX ? `${n} picked. Add more, or tap Compare.` : `${n} picked, the most at once.`;
+    $('#pt-chips').innerHTML = L.map((c, i) => `<span class="pt-chip" style="--tone:${toneFor(c)}">${monoSpan(c)}<span class="pt-n">${i === 0 ? '<small>You</small>' : ''}<span>${nameHTML(c)}</span></span><button type="button" data-unpick="${esc(c.h)}" aria-label="Remove ${esc(c.n)}">×</button></span>`).join('');
+    applyIcons($('#pt-chips'));
+    const go = $('#pt-go');
+    go.disabled = n < 2;
+    go.textContent = n >= 2 ? `Compare ${n}` : 'Compare';
+  }
+  function wirePick() {
+    const root = $('#roster');
+    root.addEventListener('click', e => {
+      if (!state.pick.on) return;
+      const el = e.target.closest('[data-h]');
+      if (!el || !root.contains(el)) return;
+      e.preventDefault(); e.stopPropagation();
+      togglePick(el.getAttribute('data-h'));
+    }, true);
+    root.addEventListener('keydown', e => {
+      if (!state.pick.on || (e.key !== ' ' && e.key !== 'Spacebar')) return;
+      const el = e.target.closest('a.card[data-h]');
+      if (!el) return;
+      e.preventDefault();
+      togglePick(el.getAttribute('data-h'));
+    });
+    const fb = $('#fight-btn');
+    if (fb) fb.addEventListener('click', () => {
+      if (state.pick.on) { stopPick(); return; }
+      startPick([]);
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && state.pick.on && document.body.getAttribute('data-view') === 'roster') stopPick(); });
+    // "Fight matchup" on a dinosaur page: back to the list with that dinosaur already picked
+    document.addEventListener('click', e => {
+      const b = e.target.closest('[data-fight]');
+      if (!b) return;
+      e.preventDefault();
+      const h = b.getAttribute('data-fight');
+      state.pick.on = true;
+      state.pick.list = state.byHash[h] ? [h] : [];
+      navigate('/dinosaurs');
+    });
+  }
+
+  // ---------- the matchup page ----------
+  function muList(hs) {
+    const out = [];
+    for (const h of hs) { const c = state.byHash[h]; if (c && !out.includes(c)) out.push(c); }
+    return out.slice(0, MU_MAX);
+  }
+  function muPath(list) { return '/matchup/' + list.map(c => c.h).join('/'); }
+  function routeMatchup(hs) {
+    const list = muList(hs);
+    if (!list.length) {
+      history.replaceState(null, '', '/dinosaurs');
+      state.pick.on = true; state.pick.list = [];
+      goRoster(true);
+      syncPick();
+      return;
+    }
+    const path = muPath(list);
+    if (curPath() !== path) history.replaceState(null, '', path);
+    const first = lastView !== 'matchup';
+    leaving();
+    const token = ++state.navToken;
+    const view = $('#matchup-view');
+    const go = fulls => {
+      if (token !== state.navToken) return;
+      renderMatchup(fulls);
+      show('matchup');
+      if (first) {
+        enter(view); window.scrollTo(0, 0);
+        const ae = document.activeElement;
+        if (!ae || ae === document.body || !ae.offsetParent) { const hd = $('#mu-h'); if (hd) { hd.setAttribute('tabindex', '-1'); hd.focus({ preventScroll: true }); } }
+      }
+      lastView = 'matchup';
+      const names = fulls.map(c => c.n);
+      setMeta(`${names.join(' vs ')} · Fight matchup · ${SITE}`,
+        `Path of Titans fight matchup: ${names.join(', ')} side by side, with health, combat weight, armor, speed and stamina, and how many hits each needs to kill the others.`, path, true);
+    };
+    if (list.every(c => state.full[c.h])) { go(list.map(c => state.full[c.h])); return; }
+    view.innerHTML = `<a class="back" href="/" data-back>← All dinosaurs</a><div class="empty" style="margin-top:12px">Loading ${esc(list.map(c => c.n).join(', '))}…</div>`;
+    show('matchup'); lastView = 'matchup';
+    if (first) window.scrollTo(0, 0);
+    Promise.all(list.map(loadFull)).then(go, err => {
+      if (token !== state.navToken) return;
+      console.error(err);
+      view.innerHTML = `<a class="back" href="/" data-back>← All dinosaurs</a><div class="empty" style="margin-top:12px">Could not load this matchup. Check your connection, then reload to try again.</div>`;
+    });
+  }
+
+  function renderMatchup(F) {
+    const view = $('#matchup-view');
+    MU.F = F;
+    const Y = F[0];
+    const solo = F.length < 2;
+    view.innerHTML = `
+      <a class="back" href="/" data-back>← All dinosaurs</a>
+      <div class="page-head mu-head">
+        <span class="eyebrow">Fight matchup</span>
+        <h2 id="mu-h">${F.map(c => esc(c.n)).join(' <span class="mu-vs">vs</span> ')}</h2>
+        <p>Adult stats side by side. Tap the dinosaur you play: everything below then compares the others with you.</p>
+        <div class="mu-tools">
+          <button class="btn" type="button" data-mu="copy"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Copy link</button>
+          <div class="seg mu-unit" role="group" aria-label="Speed units">${[['game', 'Game'], ['kmh', 'km/h'], ['mph', 'mph']].map(([u, l]) => `<button type="button" data-unit="${u}" aria-pressed="${state.unit === u}">${l}</button>`).join('')}</div>
+        </div>
+      </div>
+      <section class="mu-fighters" aria-label="Dinosaurs in this matchup">${fightersHTML(F)}</section>
+      ${solo ? `<div class="empty mu-solo">Add at least one more dinosaur to see how ${esc(Y.n)} stacks up.</div>` : `
+      <section class="mu-sec" aria-labelledby="mu-h2h">
+        <h3 id="mu-h2h">Head-to-head</h3>
+        <p class="mu-intro">If you stand and trade blows: each side repeats its chosen attack every time its cooldown is up, both starting at once, with every hit landing on the body.</p>
+        <div class="h2h-grid" id="mu-h2h-grid" data-n="${F.length - 1}">${F.slice(1).map((O, i) => h2hHTML(Y, O, i)).join('')}</div>
+      </section>
+      <section class="mu-sec" aria-labelledby="mu-st">
+        <h3 id="mu-st">Every stat</h3>
+        <p class="mu-legend"><span class="you-key">Your column</span> is highlighted and the best value in each row is in bold. Under each opponent, <b class="dl ahead">▼▲ green</b> means you're ahead and <b class="dl behind">▼▲ red</b> means they're ahead; the arrow shows whether their number is lower or higher than yours.</p>
+        <div id="mu-stats">${statsHTML(F)}</div>
+      </section>
+      <p class="note mu-fine">On paper only. Adult stats and one attack each, with damage worked out as base damage × attacker weight ÷ defender weight ÷ defender armor (armor-piercing damage skips armor), the formula the community wiki documents. Real fights also turn on abilities, bleed and other status effects, stamina, subspecies, group buffs and skill, and community servers can change any number. See the <a href="/guides/combat">combat guide</a> for tips.</p>`}`;
+    applyIcons(view);
+    wireMatchup(view, F);
+    paintAbilityIcons(view, F);
+  }
+
+  function fightersHTML(F) {
+    const used = new Set(F.map(c => c.h));
+    const pop = MU.pop; MU.pop = null;
+    const cards = F.map((c, i) => {
+      const opts = attackOptions(c), cur = chosenAttack(c);
+      const sel = opts.length
+        ? `<select class="sel" data-atk="${esc(c.h)}" aria-label="${esc(c.n)} attack">${opts.map(o => `<option value="${esc(o.id)}"${cur && o.id === cur.id ? ' selected' : ''}>${esc(attackLabel(o))}</option>`).join('')}</select>`
+        : '<span class="note" style="margin:0">No damaging attacks listed</span>';
+      return `<div class="fighter${i === 0 ? ' you' : ''}${pop === c.h && !REDUCED ? ' pop' : ''}" style="--tone:${toneFor(c)}">
+        <button type="button" class="f-main" data-you="${esc(c.h)}" aria-pressed="${i === 0}" ${i === 0 ? 'aria-label="You are playing ' + esc(c.n) + '"' : 'aria-label="Play as ' + esc(c.n) + '"'}>
+          ${monoSpan(c)}
+          <span class="f-tx"><span class="f-name${c.n.length > 16 ? ' xlong' : c.n.length > 12 ? ' long' : ''}">${esc(c.n)}</span>
+          <span class="f-sub">${dietName(c.d)} · ${HAB_LABEL[c.hab]} · ${c.gs} slot${c.gs === 1 ? '' : 's'}${c.mod ? ' · Mod' : ''}</span></span>
+          <span class="f-badge">${i === 0 ? 'You' : 'Play as'}</span>
+        </button>
+        <label class="f-atk"><span>Attack</span>${sel}</label>
+        ${F.length > 1 ? `<button type="button" class="f-x" data-rm="${esc(c.h)}" aria-label="Remove ${esc(c.n)}" title="Remove">×</button>` : ''}
+      </div>`;
+    }).join('');
+    const pool = sortedScope().filter(c => !used.has(c.h));
+    const add = F.length < MU_MAX && pool.length ? `<div class="fighter add"><label><span>Add a dinosaur</span>
+        <select class="sel" data-add aria-label="Add a dinosaur"><option value="">Choose…</option>${pool.map(c => `<option value="${esc(c.h)}">${esc(c.n)}${c.mod ? ' (mod)' : ''}</option>`).join('')}</select></label>
+        <p class="note">Up to ${MU_MAX} at once</p></div>` : '';
+    return cards + add;
+  }
+
+  function topSpeedOf(c) {
+    const k = topSpeedKey(c);
+    const cost = k === 'sprint_speed' ? 'sprint_stamina_cost' : k === 'swim_speed' ? 'fast_swim_stamina_cost' : null;
+    return { k, label: topSpeedLabel(c), v: c.st[k], cost: cost ? c.st[cost] : null };
+  }
+  function sprintTime(c) {
+    const t = topSpeedOf(c);
+    return t.cost > 0 && c.st.stamina ? c.st.stamina / t.cost : null;
+  }
+  function aheadCount(Y, O) {
+    let you = 0, them = 0;
+    for (const d of STAT_DEFS) {
+      if (!d[4]) continue;
+      const a = Y.st[d[0]], b = O.st[d[0]];
+      if (a == null || b == null || a === b) continue;
+      ((d[4] === 1 ? a > b : a < b) ? you++ : them++);
+    }
+    return [you, them];
+  }
+
+  function h2hHTML(Y, O, idx) {
+    const oy = chosenAttack(Y), oo = chosenAttack(O);
+    const T = trade(Y, oy, O, oo);
+    const r = (Y.st.combat_weight || 1) / (O.st.combat_weight || 1);
+    const verdict = T.winner === 'you' ? `<b>You win the straight trade</b> with ${pctTxt(T.leftY / T.hpY)} health left`
+      : T.winner === 'them' ? `<b>${esc(O.n)} wins the straight trade</b> with ${pctTxt(T.leftO / T.hpO)} health left`
+      : T.winner === 'even' ? `<b>Dead even:</b> you both go down at ${secTxt(T.end)}`
+      : 'Not enough attack data for a timed trade';
+    const vcls = T.winner === 'you' ? 'win' : T.winner === 'them' ? 'lose' : 'even';
+    const hitLine = (o, d, n, t, victim, cd) => !o ? 'No damaging attack listed'
+      : !(d > 0) ? 'Deals no damage to this target'
+      : `${fmtNum(d)} per hit (${pctTxt(d / (victim.st.health || 1))} of ${victim === Y ? 'your' : 'their'} health) · ${n} hit${n === 1 ? '' : 's'}${cd && isFinite(t) ? ` · ${secTxt(t)}` : ''}`;
+    const sY = topSpeedOf(Y), sO = topSpeedOf(O), u = speedUnit();
+    const spd = (s) => s.v == null ? '–' : `${fmtNum(speedVal(s.v))}`;
+    let speedNote = '';
+    if (sY.k === sO.k && sY.v != null && sO.v != null) {
+      const diff = (sO.v - sY.v) / sY.v;
+      speedNote = Math.abs(diff) < 0.005 ? ' · same speed' : diff > 0 ? ` · they're ${pctTxt(diff)} faster` : ` · you're ${pctTxt(-diff / (1 + diff))} faster`;
+    }
+    const stY = sprintTime(Y), stO = sprintTime(O);
+    const [ay, at] = aheadCount(Y, O);
+    const armorRow = (Y.st.armor || 1) !== 1 || (O.st.armor || 1) !== 1
+      ? `<div><dt>Armor</dt><dd>${fmtNum(Y.st.armor || 1)} vs ${fmtNum(O.st.armor || 1)}</dd></div>` : '';
+    const extras = [];
+    const and = a => a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : a[0];
+    if (oy && oy.extras.length) extras.push(`${esc(and(oy.extras))} from your ${esc(oy.abName)}`);
+    if (oo && oo.extras.length) extras.push(`${esc(and(oo.extras))} from their ${esc(oo.abName)}`);
+    const atkName = (o, c) => o ? `<span class="atk-ico" data-owner="${esc(c.h)}" data-ab="${esc(o.ab)}" data-abname="${esc(o.abName)}"></span>${esc(o.name)}` : 'Attack';
+    const bars = T.winner ? `<div class="hp" data-hp>
+        <div class="hp-row"><span class="hp-who">You</span><span class="hp-bar" style="--c:var(--accent)"><i style="width:${(T.leftY / T.hpY * 100).toFixed(1)}%"></i></span><span class="hp-val">${pctTxt(T.leftY / T.hpY)}</span></div>
+        <div class="hp-row"><span class="hp-who" title="${esc(O.n)}">${esc(shortName(O))}</span><span class="hp-bar" style="--c:${toneFor(O)}"><i style="width:${(T.leftO / T.hpO * 100).toFixed(1)}%"></i></span><span class="hp-val">${pctTxt(T.leftO / T.hpO)}</span></div>
+        <div class="hp-foot"><span class="hp-time">${T.winner === 'even' ? 'Both fall' : 'Over'} at ${secTxt(T.end)}</span><button class="chipbtn" type="button" data-play="${idx}"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M7 4l13 8-13 8z" fill="currentColor"/></svg>Play it out</button></div>
+      </div>` : '';
+    return `<article class="h2h" data-opp="${esc(O.h)}" style="--tone:${toneFor(O)}">
+      <header class="h2h-h">${monoHTML(Y)}<span class="h2h-vs">VS</span>${monoHTML(O)}
+        <div class="h2h-t"><span class="h2h-n">You vs ${esc(O.n)}</span><span class="h2h-v ${vcls}">${verdict}</span></div></header>
+      ${bars}
+      <dl class="h2h-kv">
+        <div><dt>Your ${atkName(oy, Y)}</dt><dd>${hitLine(oy, T.dY, T.nY, T.tY, O, T.cdY)}</dd></div>
+        <div><dt>Their ${atkName(oo, O)}</dt><dd>${hitLine(oo, T.dO, T.nO, T.tO, Y, T.cdO)}</dd></div>
+        <div><dt>Combat weight</dt><dd>${fmtNum(Y.st.combat_weight)} vs ${fmtNum(O.st.combat_weight)} · your hits ×${ratioTxt(r)}, theirs ×${ratioTxt(1 / r)}</dd></div>
+        ${armorRow}
+        <div><dt>Health</dt><dd>${fmtNum(Y.st.health)} vs ${fmtNum(O.st.health)}</dd></div>
+        <div><dt>Top speed (${esc(u)})</dt><dd>${sY.k === sO.k ? '' : esc(sY.label) + ' '}${spd(sY)} vs ${sY.k === sO.k ? '' : esc(sO.label) + ' '}${spd(sO)}${speedNote}</dd></div>
+        ${stY || stO ? `<div><dt>Sprint time</dt><dd>${stY ? Math.round(stY) + ' s' : '–'} vs ${stO ? Math.round(stO) + ' s' : '–'} on a full stamina bar</dd></div>` : ''}
+        <div><dt>Stats</dt><dd>You lead on ${ay}, ${esc(O.n)} leads on ${at}</dd></div>
+      </dl>
+      ${extras.length ? `<p class="h2h-x">Not counted: ${extras.join('; ')}.</p>` : ''}
+    </article>`;
+  }
+
+  // Rows: [key, label, unit, better(1 higher, -1 lower, 0 neither), value(c)]
+  function statRows(F) {
+    const att = c => chosenAttack(c);
+    const groups = [['Attack', [
+      ['atk', 'Attack', '', 0, c => { const o = att(c); return o ? o.name : null; }, true],
+      ['atk_dmg', 'Damage per hit', '', 1, c => { const o = att(c); return o ? perHit(o) : null; }],
+      ['atk_cd', 'Cooldown', 's', -1, c => { const o = att(c); return o && o.cd ? o.cd : null; }],
+      ['atk_dps', 'Damage per second', '', 1, c => { const o = att(c); return o && o.cd ? perHit(o) / o.cd : null; }],
+    ]]];
+    for (const g of STAT_GROUPS) {
+      const rows = STAT_DEFS.filter(d => d[2] === g).map(d => [d[0], d[1], statUnit(d[0]), d[4], c => statValue(c, d[0])]);
+      if (g === 'Stamina') rows.splice(3, 0, ['sprint_time', 'Sprint time on a full bar', 's', 1, c => sprintTime(c)]);
+      groups.push([g, rows]);
+    }
+    return groups.map(([g, rows]) => [g, rows.filter(r => F.some(c => r[4](c) != null))]).filter(([, rows]) => rows.length);
+  }
+  function deltaHTML(mine, theirs, better) {
+    if (mine == null || theirs == null || typeof mine !== 'number') return '';
+    if (mine === theirs) return '<span class="dl same">same</span>';
+    const up = theirs > mine;
+    const youAhead = better === 1 ? mine > theirs : better === -1 ? mine < theirs : null;
+    const cls = youAhead == null ? 'neutral' : youAhead ? 'ahead' : 'behind';
+    const txt = mine ? pctTxt(Math.abs(theirs - mine) / Math.abs(mine)) : fmtNum(Math.abs(theirs - mine));
+    const sr = `${up ? 'higher' : 'lower'} than yours${youAhead == null ? '' : youAhead ? ', you are ahead' : ', they are ahead'}`;
+    return `<span class="dl ${cls}"><span aria-hidden="true">${up ? '▲' : '▼'}</span>${txt}<span class="sr-only"> ${sr}</span></span>`;
+  }
+  function statsHTML(F) {
+    const Y = F[0];
+    const head = `<thead><tr><th scope="col" class="st">Stat</th>${F.map((c, i) => `<th scope="col" class="${i === 0 ? 'you' : ''}" style="--tone:${toneFor(c)}">${monoHTML(c)}<span class="th-n">${nameHTML(c)}</span>${i === 0 ? '<small>You</small>' : ''}</th>`).join('')}</tr></thead>`;
+    return statRows(F).map(([g, rows], gi) => {
+      const body = rows.map(([key, label, unit, better, val, text]) => {
+        const vals = F.map(val);
+        const nums = vals.filter(v => typeof v === 'number');
+        let best = null;
+        if (better && nums.length > 1 && new Set(nums).size > 1) best = better === 1 ? Math.max(...nums) : Math.min(...nums);
+        const cells = vals.map((v, i) => {
+          const shown = v == null ? '–' : text ? esc(v) : fmtNum(v);
+          const cls = [i === 0 ? 'you' : '', best != null && v === best ? 'best' : '', text ? 'tx' : ''].filter(Boolean).join(' ');
+          return `<td${cls ? ` class="${cls}"` : ''}><span class="v">${shown}</span>${i > 0 && !text ? deltaHTML(vals[0], v, better) : ''}</td>`;
+        }).join('');
+        const lowNote = better === -1 ? '<em>lower is better</em>' : '';
+        return `<tr><th scope="row">${esc(label)}${unit ? ` <span class="u">(${esc(unit)})</span>` : ''}${lowNote}</th>${cells}</tr>`;
+      }).join('');
+      const open = gi < 4 ? ' open' : '';
+      return `<details class="mu-grp"${open}><summary>${esc(g === 'Status Healing' ? 'Status healing' : g)}<span class="g-n">${rows.length} stat${rows.length === 1 ? '' : 's'}</span></summary>
+        <div class="mu-tw"><table class="mu-t" style="--n:${F.length}">${head}<tbody>${body}</tbody></table></div></details>`;
+    }).join('') + (Y ? '<p class="note">Attack rows show base numbers before weight and armor; Head-to-head shows what actually lands. Speeds follow the unit switch above.</p>' : '');
+  }
+
+  function refocus(sel) {
+    const el = $('#matchup-view ' + sel);
+    if (el) el.focus({ preventScroll: true });
+  }
+  function wireMatchup(view, F) {
+    const list = F.map(c => c.h);
+    view.querySelectorAll('[data-you]').forEach(b => b.addEventListener('click', () => {
+      const h = b.getAttribute('data-you');
+      if (h === list[0]) return;
+      MU.pop = h;
+      navigate(muPath([state.byHash[h], ...F.filter(c => c.h !== h)]), true);
+      refocus(`[data-you="${h}"]`);
+    }));
+    view.querySelectorAll('[data-rm]').forEach(b => b.addEventListener('click', () => {
+      const h = b.getAttribute('data-rm');
+      const rest = F.filter(c => c.h !== h);
+      navigate(muPath(rest), true);
+      refocus(rest.length < MU_MAX ? '[data-add]' : '[data-you]');
+    }));
+    const add = view.querySelector('[data-add]');
+    if (add) add.addEventListener('change', () => {
+      const c = add.value && state.byHash[add.value];
+      if (!c) return;
+      MU.pop = c.h;
+      navigate(muPath([...F, c]), true);
+      refocus(F.length + 1 < MU_MAX ? '[data-add]' : `[data-you="${c.h}"]`);
+    });
+    view.querySelectorAll('[data-atk]').forEach(s => s.addEventListener('change', () => {
+      MU.atk[s.getAttribute('data-atk')] = s.value;
+      refreshMatchup(F);
+    }));
+    view.querySelector('.mu-unit').addEventListener('click', e => {
+      const b = e.target.closest('button[data-unit]'); if (!b) return;
+      state.unit = b.dataset.unit; store.set('speed', state.unit);
+      setPressed(view.querySelector('.mu-unit'), 'data-unit', state.unit);
+      setPressed($('#unit-seg'), 'data-unit', state.unit);
+      refreshMatchup(F);
+    });
+    view.querySelector('[data-mu="copy"]').addEventListener('click', () => {
+      copyText(ORIGIN + muPath(F)).then(ok => toast(ok ? 'Link copied. Paste it anywhere to share this matchup.' : 'Could not copy. Copy the address bar instead.'));
+    });
+    if (!MU.wired) {
+      MU.wired = true;
+      view.addEventListener('click', e => {
+        const b = e.target.closest('[data-play]');
+        if (b) playTrade(b.closest('.h2h'), MU.F);
+      });
+    }
+  }
+  // Re-draw the parts that depend on attacks or units, keeping the page where it is.
+  function refreshMatchup(F) {
+    const grid = $('#mu-h2h-grid'), st = $('#mu-stats');
+    if (grid) grid.innerHTML = F.slice(1).map((O, i) => h2hHTML(F[0], O, i)).join('');
+    if (st) st.innerHTML = statsHTML(F);
+    const view = $('#matchup-view');
+    applyIcons(view);
+    paintAbilityIcons(view, F);
+  }
+  // In-game ability icons next to the attack names (from Potservers, like on dinosaur pages).
+  function paintAbilityIcons(view, F) {
+    const paint = () => view.querySelectorAll('.atk-ico[data-ab]:empty').forEach(el => {
+      const owner = state.byHash[el.getAttribute('data-owner')];
+      const m = owner && AB_ICON_MAPS[owner.id];
+      if (!m) return;
+      const url = m.id[el.getAttribute('data-ab')] || m.nm[normName(el.getAttribute('data-abname'))];
+      if (url) el.innerHTML = imgTag(url, 'ab-ico', 'ok', false);
+    });
+    paint();
+    F.forEach(c => {
+      if (AB_ICON_MAPS[c.id]) return;
+      PS.dino(c.id).then(d => { AB_ICON_MAPS[c.id] = collectAbIcons(d); if (view.isConnected) paint(); }).catch(() => { /* icons are extras */ });
+    });
+  }
+  // "Play it out": replays the straight trade on the health bars, a few seconds long.
+  function playTrade(card, F) {
+    if (!card) return;
+    const O = F.find(c => c.h === card.getAttribute('data-opp')), Y = F[0];
+    if (!O) return;
+    const T = trade(Y, chosenAttack(Y), O, chosenAttack(O));
+    if (!T.winner) return;
+    const bars = card.querySelectorAll('.hp-bar i'), vals = card.querySelectorAll('.hp-val'), time = card.querySelector('.hp-time'), btn = card.querySelector('[data-play]');
+    const at = t => {
+      const hitsY = T.cdY && T.dY > 0 ? Math.min(T.nY, Math.floor(t / T.cdY + 1e-9) + 1) : 0;
+      const hitsO = T.cdO && T.dO > 0 ? Math.min(T.nO, Math.floor(t / T.cdO + 1e-9) + 1) : 0;
+      return [Math.max(0, T.hpY - hitsO * T.dO), Math.max(0, T.hpO - hitsY * T.dY)];
+    };
+    const draw = (t, done) => {
+      const [hy, ho] = done ? [T.leftY, T.leftO] : at(t);
+      bars[0].style.width = (hy / T.hpY * 100).toFixed(1) + '%';
+      bars[1].style.width = (ho / T.hpO * 100).toFixed(1) + '%';
+      vals[0].textContent = pctTxt(hy / T.hpY); vals[1].textContent = pctTxt(ho / T.hpO);
+      time.textContent = done ? `${T.winner === 'even' ? 'Both fall' : 'Over'} at ${secTxt(T.end)}` : `${fmtNum(Math.round(t * 10) / 10)} s`;
+    };
+    if (REDUCED || T.end <= 0) { draw(T.end, true); return; }
+    card.classList.add('playing');
+    btn.disabled = true;
+    const dur = Math.min(5200, Math.max(1800, T.end * 160));
+    const t0 = performance.now();
+    bars.forEach(b => { b.style.transition = 'none'; b.style.width = '100%'; });
+    void card.offsetWidth;
+    bars.forEach(b => { b.style.transition = ''; });
+    const step = now => {
+      if (!card.isConnected) return;
+      const k = Math.min(1, (now - t0) / dur);
+      if (k >= 1) { draw(T.end, true); card.classList.remove('playing'); btn.disabled = false; return; }
+      draw(k * T.end, false);
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
   // ---------- boot ----------
   async function boot() {
     buildForest();
     initShell();
     wireControls();
+    wirePick();
     try {
       const res = await fetch(DATA_URL, { cache: 'no-cache' });
       if (!res.ok) throw new Error('HTTP ' + res.status);

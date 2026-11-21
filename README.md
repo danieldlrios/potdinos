@@ -28,6 +28,15 @@ load, the square shows a lettered badge instead. Dinosaur stats and abilities co
 files, which are refreshed by hand after each game patch. Squares and cards are tinted red for
 carnivores and green for herbivores.
 
+## Fight matchup
+
+On the Dinosaurs tab, **Fight matchup** (in the filter bar) lets you tap 2 to 4 dinosaurs and
+compare them for a fight. The page shows every stat with your dinosaur's column highlighted, and a
+head-to-head card for each opponent: damage per hit after combat weight and armor, hits to kill, and
+who wins a straight trade of each side's chosen attack. Damage follows the formula the community wiki
+documents: base damage × attacker weight ÷ defender weight ÷ defender armor (armor-piercing damage
+skips armor). Bleed, abilities and other effects are not counted, and the page says so.
+
 ## Set the patch name
 
 Open `data/version.json` on GitHub, click the pencil, change `"patch"` and `"patch_date"`
@@ -35,8 +44,10 @@ Open `data/version.json` on GitHub, click the pencil, change `"patch"` and `"pat
 
 ## Page addresses and search engines
 
-Every page has its own address: `/dinosaurs/<name>`, `/compare/<a>/<b>`, `/maps/<map>`,
-`/guides/<guide>` and `/credits`. `vercel.json` sends those addresses to `index.html`, which shows
+Every page has its own address: `/dinosaurs/<name>`, `/compare/<a>/<b>`,
+`/matchup/<you>/<b>/<c>/<d>` (a fight matchup of 2 to 4 dinosaurs, the one you play first),
+`/maps/<map>`, `/guides/<guide>` and `/credits`. Compare and matchup pages are marked `noindex`,
+because there are thousands of combinations. `vercel.json` sends those addresses to `index.html`, which shows
 the right page. Older links still work and move to the new address: `#` links (like
 `/#tyrannosaurus`) and the earlier `/creatures/<name>` addresses.
 `sitemap.xml` lists every dinosaur, guide and map for Google and Bing, and `robots.txt` points to it.
