@@ -19,9 +19,11 @@ hosted on Vercel.
 
 ## Live data
 
-Creature portraits, ability icons, growth-stage curves, maps and quests load straight from the
-[Potservers](https://potservers.net) public API when a page needs them. Creature stats and
-abilities come from the `data/` files, which are refreshed by hand after each game patch.
+Ability icons, growth-stage curves, maps and quests load straight from the
+[Potservers](https://potservers.net) public API when a page needs them. Creature pictures are
+freely licensed lead images from each creature's Wikipedia article (hosted on Wikimedia Commons),
+credited with author and license on the site's Credits & legal page (`#credits`). Creature stats
+and abilities come from the `data/` files, which are refreshed by hand after each game patch.
 
 ## Set the patch name
 
@@ -35,7 +37,8 @@ Opening `index.html` straight from disk will not load the data files.
 
 ## Credits
 
-Creature data, icons and map data come from the [Potservers](https://potservers.net) public API.
+Creature data, ability icons and map data come from the [Potservers](https://potservers.net) public API.
+Creature pictures come from [Wikimedia Commons](https://commons.wikimedia.org) under their stated free licenses.
 Guides are written for this site with credit to the [Path of Titans Wiki](https://pathoftitans.wiki/pot).
-Path of Titans and its creatures belong to Alderon Games; this site is unofficial.
+This is an unofficial fan site, not affiliated with or endorsed by Alderon Games Pty Ltd. Path of Titans and its creatures belong to Alderon Games.
 Suggestions: Discord **uzzislayerz** (in game: Uzzi).

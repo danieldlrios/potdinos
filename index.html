@@ -429,33 +429,69 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 @keyframes mist-drift { from { transform: translateX(-40px); } to { transform: translateX(40px); } }
 @keyframes flock { from { transform: translateX(-160px); } to { transform: translateX(1760px); } }
 @keyframes flap { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.35); } }
-.hero-inner { position: relative; padding: clamp(34px, 6.5vw, 80px) 20px clamp(170px, 24vw, 300px); display: grid; gap: 14px; justify-items: start; }
+.hero-inner { position: relative; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 28px 56px; align-items: center;
+  padding: clamp(28px, 4.5vw, 64px) 20px clamp(130px, 14vw, 190px); }
+.hero-copy { display: grid; gap: 14px; justify-items: start; min-width: 0; }
 .hero .eyebrow { font-size: 12.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
-.hero h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(42px, 7.6vw, 96px); line-height: .9; letter-spacing: .005em;
+.hero h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(44px, 6.4vw, 96px); line-height: .9; letter-spacing: .005em;
   text-transform: uppercase; margin: 0; max-width: 13ch; }
 .hero h1 .accent { color: var(--accent); display: block; }
-.hero-tag { margin: 2px 0 0; font-size: clamp(19px, 2.3vw, 26px); font-weight: 600; letter-spacing: -.005em; line-height: 1.25; max-width: 30ch; }
-.hero .lede { max-width: 62ch; font-size: 15.5px; }
-.hero-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 8px; width: min(100%, 820px); }
-.hero-card { display: grid; grid-template-columns: auto 1fr; align-items: center; align-content: center; gap: 4px 12px; padding: 14px 16px; border-radius: 16px; text-decoration: none; color: var(--ink);
-  background: var(--glass); -webkit-backdrop-filter: blur(12px) saturate(1.4); backdrop-filter: blur(12px) saturate(1.4); border: 1px solid var(--line);
-  transition: transform .45s var(--ease-out), box-shadow .45s var(--ease-out), border-color .3s; }
-.hero-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
-.hero-card:active { transform: translateY(-1px) scale(.99); }
-.hero-card .ic { grid-row: span 2; width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; color: #fff;
-  background: linear-gradient(150deg, var(--tone, var(--accent)), color-mix(in srgb, var(--tone, var(--accent)) 55%, #000)); }
-.hero-card .ic svg { width: 22px; height: 22px; }
-.hero-card .k { font-family: var(--font-display); font-weight: 800; font-size: 21px; text-transform: uppercase; letter-spacing: .02em; line-height: 1; }
-.hero-card .d { font-size: 13px; color: var(--ink-2); line-height: 1.3; }
-.hero-inner > * { animation: rise .9s var(--ease-out) backwards; }
-.hero-inner > :nth-child(2) { animation-delay: .06s; } .hero-inner > :nth-child(3) { animation-delay: .12s; }
-.hero-inner > :nth-child(4) { animation-delay: .18s; } .hero-inner > :nth-child(5) { animation-delay: .24s; } .hero-inner > :nth-child(6) { animation-delay: .3s; }
-body.sub-view .hero { display: none; }
-@media (max-width: 760px) {
-  .hero-cards { grid-template-columns: 1fr; }
-  .hero-inner { padding-bottom: clamp(150px, 46vw, 220px); }
-  .hero .lede { font-size: 14.5px; }
+.hero-tag { margin: 2px 0 0; font-size: clamp(19px, 2.1vw, 25px); font-weight: 600; letter-spacing: -.005em; line-height: 1.25; max-width: 30ch; }
+.hero .lede { max-width: 58ch; font-size: 15.5px; }
+.hero-tiles { display: grid; gap: 14px; min-width: 0; }
+.tile-big { position: relative; overflow: hidden; isolation: isolate; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 20px;
+  min-height: 136px; padding: 22px 22px 22px 24px; border-radius: 24px; text-decoration: none; color: var(--ink);
+  background: var(--glass); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); border: 1px solid var(--line);
+  box-shadow: 0 1px 2px rgba(20, 30, 25, .06), 0 10px 30px rgba(20, 30, 25, .08);
+  transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out), border-color .3s var(--ease); }
+.tile-big:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--tone) 50%, var(--line)); box-shadow: 0 2px 4px rgba(20, 30, 25, .06), 0 18px 44px rgba(20, 30, 25, .16); }
+.tile-big:active { transform: translateY(-1px) scale(.99); }
+.tb-ic { width: 76px; height: 76px; border-radius: 22px; display: grid; place-items: center; position: relative; overflow: hidden;
+  background: linear-gradient(150deg, var(--tone), color-mix(in srgb, var(--tone) 52%, #000)); box-shadow: 0 6px 18px color-mix(in srgb, var(--tone) 35%, transparent); }
+.tb-ic::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, rgba(255,255,255,.1) 0 3px, transparent 3px 12px); }
+.tb-ic svg { width: 40px; height: 40px; position: relative; z-index: 1; }
+.tb-body { display: grid; gap: 4px; min-width: 0; }
+.tb-k { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 3.1vw, 42px); line-height: .95; text-transform: uppercase; letter-spacing: .01em; }
+.tb-d { font-size: 15px; color: var(--ink-2); line-height: 1.4; }
+.tb-stat { justify-self: start; margin-top: 4px; font-size: 12.5px; font-weight: 600; color: var(--ink); padding: 3px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--tone) 14%, transparent); }
+.tb-go { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--tone); background: color-mix(in srgb, var(--tone) 12%, transparent);
+  transition: transform .45s var(--ease-out), background-color .3s var(--ease), color .3s var(--ease); }
+.tb-go svg { width: 20px; height: 20px; }
+.tile-big:hover .tb-go { transform: translateX(4px); background: var(--tone); color: #fff; }
+.tb-art { position: absolute; right: -26px; bottom: -40px; width: 190px; height: 190px; color: var(--tone); opacity: .07; z-index: -1; pointer-events: none;
+  transition: transform .8s var(--ease-out); }
+.tile-big:hover .tb-art { transform: rotate(-6deg) scale(1.06); }
+.hero-copy > *, .hero-tiles > * { animation: rise .9s var(--ease-out) backwards; }
+.hero-copy > :nth-child(2) { animation-delay: .05s; } .hero-copy > :nth-child(3) { animation-delay: .1s; }
+.hero-copy > :nth-child(4) { animation-delay: .15s; } .hero-copy > :nth-child(5) { animation-delay: .2s; }
+.hero-tiles > :nth-child(1) { animation-delay: .12s; } .hero-tiles > :nth-child(2) { animation-delay: .2s; } .hero-tiles > :nth-child(3) { animation-delay: .28s; }
+@media (max-width: 1100px) {
+  .hero-inner { grid-template-columns: minmax(0, 1fr); gap: 26px; padding-bottom: clamp(120px, 18vw, 170px); }
+  .hero-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tile-big { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "ic go" "body body"; align-items: start; gap: 16px; min-height: 230px; padding: 20px; }
+  .tile-big .tb-ic { grid-area: ic; width: 64px; height: 64px; border-radius: 18px; }
+  .tile-big .tb-ic svg { width: 34px; height: 34px; }
+  .tile-big .tb-go { grid-area: go; }
+  .tile-big .tb-body { grid-area: body; align-self: end; }
 }
+@media (max-width: 760px) {
+  .hero-tiles { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .tile-big { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: none; align-items: center; min-height: 118px; padding: 18px; gap: 16px; border-radius: 20px; }
+  .tile-big .tb-ic, .tile-big .tb-go, .tile-big .tb-body { grid-area: auto; }
+  .tile-big .tb-ic { width: 60px; height: 60px; }
+  .tile-big .tb-body { align-self: center; }
+  .tb-k { font-size: 30px; }
+  .tb-d { font-size: 14px; }
+  .tb-go { width: 38px; height: 38px; }
+  .tb-art { width: 140px; height: 140px; }
+  .hero-inner { padding-bottom: clamp(110px, 34vw, 160px); }
+  .hero .lede { font-size: 14.5px; }
+  .hero-tag { font-size: 19px; }
+  .hero .patch-strip { gap: 6px; }
+  .hero .patch-strip .pill { font-size: 12px; padding: 2px 9px; }
+}
+body.sub-view .hero { display: none; }
 .controls { top: var(--nav-h); }
 
 /* ---------- motion ---------- */
@@ -476,15 +512,17 @@ body.sub-view .hero { display: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .view-enter, .grid.animate .card, .hero-inner > *, .forest .mist, .forest .flock, .forest .wing { animation: none !important; }
+  .view-enter, .grid.animate .card, .hero-copy > *, .hero-tiles > *, .forest .mist, .forest .flock, .forest .wing { animation: none !important; }
 }
 
 /* ---------- portraits & ability icons ---------- */
 .mono .ini { transition: opacity .35s var(--ease); }
-.mono .portrait { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .5s var(--ease); z-index: 1; }
+.mono .portrait { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; opacity: 0; transition: opacity .5s var(--ease); z-index: 1; background: var(--surface-2); }
 .mono.has-img .portrait { opacity: 1; }
 .mono.has-img .ini { opacity: 0; }
-.mono.has-img::after { opacity: 0; }
+.mono.has-img::after { z-index: 1; background: linear-gradient(150deg, transparent 52%, rgba(0, 0, 0, .5)); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12); }
+.pic-credit { margin: 8px 0 0; font-size: 12px; color: var(--ink-2); max-width: 70ch; line-height: 1.45; }
+.pic-credit a { color: inherit; }
 .mono .hab { z-index: 2; filter: drop-shadow(0 1px 1px rgba(0,0,0,.45)); }
 .mono.big { width: 88px; height: 88px; border-radius: 16px; font-size: 38px; }
 .mono.big .hab { width: 22px; height: 22px; right: 6px; bottom: 6px; }
@@ -762,6 +800,160 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
 .discord-id .id-k { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin-right: 2px; }
 .discord-id.ingame { background: color-mix(in srgb, var(--accent) 14%, transparent); }
 .discord-id.ingame svg { color: var(--accent); }
+
+/* ---------- credits & legal ---------- */
+.legal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 26px; align-items: start; }
+.legal-card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; box-shadow: var(--shadow); }
+.legal-card h3 { margin: 0 0 8px; font-size: 17px; }
+.legal-card p, .legal-card li { font-size: 14.5px; line-height: 1.55; color: var(--ink-2); margin: 0 0 8px; }
+.legal-card ul { margin: 0; padding-left: 18px; }
+.legal-card b { color: var(--ink); }
+.legal-card a, .credits-pics a { color: var(--accent); }
+.credits-pics { margin-bottom: 32px; }
+.credits-pics h3 { font-size: 20px; margin: 0 0 6px; }
+.pic-table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 13.5px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.pic-table th, .pic-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.pic-table th { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); }
+.pic-table img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; display: block; background: var(--surface-2); }
+.pic-table td:nth-child(3) { overflow-wrap: anywhere; }
+@media (max-width: 760px) { .legal-grid { grid-template-columns: 1fr; } }
+
+/* ---------- map panel (streamlined) ---------- */
+.side-head { display: grid; gap: 10px; }
+.side-top { display: flex; gap: 8px; align-items: center; }
+.side-top .search { flex: 1; min-width: 0; }
+.side-collapse, .side-open { border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); border-radius: 10px; width: 40px; height: 40px;
+  display: grid; place-items: center; cursor: pointer; flex: none; transition: color .2s var(--ease), border-color .2s var(--ease), background-color .2s var(--ease); }
+.side-collapse:hover { color: var(--ink); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.side-collapse svg, .side-open svg { width: 20px; height: 20px; }
+.side-open { position: absolute; left: 12px; top: 12px; z-index: 3; width: auto; height: 44px; padding: 0 12px; gap: 6px; grid-auto-flow: column; font: inherit; font-size: 13.5px; font-weight: 600;
+  color: #fff; background: rgba(16, 24, 20, .62); border-color: rgba(255, 255, 255, .14); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.side-open[hidden] { display: none; }
+.map-shell.side-closed .map-switch { left: 118px; }
+.map-shell { transition: grid-template-columns .45s var(--ease-out); }
+.map-shell.side-closed { grid-template-columns: 0 minmax(0, 1fr); }
+.map-side { min-width: 0; overflow: hidden; }
+.map-shell.side-closed .map-side { border-right: 0; visibility: hidden; }
+.side-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; padding: 3px; border-radius: 12px; background: var(--surface-2); }
+.side-tabs button { border: 0; background: transparent; color: var(--ink-2); font: inherit; font-size: 13.5px; font-weight: 600; padding: 7px 6px; border-radius: 9px; cursor: pointer;
+  transition: background-color .25s var(--ease), color .25s var(--ease), box-shadow .25s var(--ease); white-space: nowrap; }
+.side-tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px rgba(20, 30, 25, .12); }
+.side-tabs .tc { font-size: 11.5px; font-weight: 600; color: var(--accent); margin-left: 2px; }
+.side-pane { padding-top: 10px; }
+.pane-tools { display: grid; gap: 10px; padding-bottom: 12px; border-bottom: 1px dashed var(--line); margin-bottom: 6px; }
+.layer-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.lpill { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); border-radius: 999px; padding: 5px 11px 5px 9px;
+  font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease); }
+.lpill svg { width: 14px; height: 14px; }
+.lpill[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 15%, transparent); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); color: var(--ink); }
+.side-actions { align-items: center; }
+.found-total { font-size: 12px; color: var(--herb); font-weight: 600; margin-left: auto; }
+.cat { border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+.cat:last-child { border-bottom: 0; }
+.cat-h { display: flex; align-items: center; gap: 8px; }
+.cat-x { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 14px; font-weight: 600;
+  padding: 10px 4px; cursor: pointer; text-align: left; border-radius: 8px; }
+.cat-x:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.cat-x .cn { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cat-x .on { font-size: 12px; color: var(--ink-2); font-weight: 600; font-variant-numeric: tabular-nums; }
+.cat.has-on .cat-x .on { color: var(--accent); }
+.chev { width: 8px; height: 8px; border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2); transform: rotate(45deg); transition: transform .25s var(--ease); margin: 0 4px 3px 2px; flex: none; }
+.cat.closed .chev { transform: rotate(-45deg); margin-bottom: 0; }
+.cat-sw { width: 38px; height: 22px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); position: relative; cursor: pointer; flex: none; padding: 0;
+  transition: background-color .2s var(--ease), border-color .2s var(--ease); }
+.cat-sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--ink-2); transition: transform .25s var(--ease), background-color .2s var(--ease); }
+.cat-sw[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); }
+.cat-sw[aria-pressed="true"]::after { transform: translateX(16px); background: #fff; }
+.cat-sw[aria-pressed="mixed"] { background: color-mix(in srgb, var(--accent) 35%, var(--surface-2)); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.cat-sw[aria-pressed="mixed"]::after { transform: translateX(8px); background: #fff; }
+.cat-b { display: grid; gap: 2px; padding: 0 0 10px 6px; }
+.cat.closed .cat-b { display: none; }
+.krow { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 13.5px;
+  padding: 6px 8px; border-radius: 9px; cursor: pointer; text-align: left; opacity: .5; transition: opacity .2s var(--ease), background-color .2s var(--ease); }
+.krow:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); opacity: .8; }
+.krow[aria-pressed="true"] { opacity: 1; background: color-mix(in srgb, var(--accent) 9%, transparent); }
+.krow .sw { width: 24px; height: 24px; display: grid; place-items: center; }
+.krow .sw img { width: 24px; height: 24px; object-fit: contain; }
+.krow .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.krow .ct { font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.map-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 12px 0 4px; }
+.map-facts div { background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 7px 8px; display: grid; gap: 1px; }
+.map-facts b { font-family: var(--font-display); font-size: 19px; font-weight: 800; line-height: 1.05; }
+.map-facts span { font-size: 11px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; }
+.pane-h { margin: 16px 0 6px; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; }
+.map-tips { margin: 0 0 10px; padding-left: 18px; font-size: 13px; color: var(--ink-2); display: grid; gap: 4px; line-height: 1.45; }
+.map-tips b { color: var(--ink); }
+#pane-info .note a, .map-credit a { color: inherit; }
+#quest-box details.cat { border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+#quest-box details.cat > summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 10px 4px; cursor: pointer; font-weight: 600; font-size: 14px; border-radius: 8px; }
+#quest-box details.cat > summary::-webkit-details-marker { display: none; }
+#quest-box details.cat > summary::before { content: ""; width: 7px; height: 7px; border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2); transform: rotate(-45deg); transition: transform .25s var(--ease); margin: 0 4px 0 2px; flex: none; }
+#quest-box details.cat[open] > summary::before { transform: rotate(45deg); }
+#quest-box details.cat > summary .on { margin-left: auto; font-size: 12px; color: var(--accent); font-weight: 600; }
+@media (max-width: 860px) {
+  .side-collapse, .side-open { display: none !important; }
+  .map-shell.side-closed { grid-template-columns: 1fr; }
+  .map-shell.side-closed .map-side { visibility: hidden; }
+  .map-shell.side-closed.sheet-open .map-side { visibility: visible; }
+  .map-shell.side-closed .map-switch { left: 10px; }
+  .map-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- guides hub & article (streamlined) ---------- */
+.hub { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding-bottom: 30px; align-items: start; }
+.hub-card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+.hub-h { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 16px 18px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--tone) 13%, transparent), transparent 70%); border-bottom: 1px solid var(--line); }
+.hub-h .g-ic { grid-row: auto; width: 46px; height: 46px; border-radius: 14px; }
+.hub-h h3 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 24px; text-transform: uppercase; letter-spacing: .01em; line-height: 1; }
+.hub-h p { margin: 4px 0 0; font-size: 13px; color: var(--ink-2); line-height: 1.4; }
+.hub-n { font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--tone); min-width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center;
+  background: color-mix(in srgb, var(--tone) 12%, transparent); }
+.hub-list { list-style: none; margin: 0; padding: 6px; }
+.hub-list a { display: grid; grid-template-columns: 30px minmax(0, 1fr) 20px; gap: 12px; align-items: center; padding: 10px 10px; border-radius: 12px; text-decoration: none; color: var(--ink);
+  transition: background-color .2s var(--ease); }
+.hub-list a:hover { background: color-mix(in srgb, var(--tone) 9%, transparent); }
+.hl-ic { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; color: var(--tone); background: color-mix(in srgb, var(--tone) 11%, transparent); }
+.hl-ic svg { width: 17px; height: 17px; }
+.hl-tx { display: grid; min-width: 0; }
+.hl-t { font-weight: 600; font-size: 15px; line-height: 1.3; }
+.hl-s { font-size: 13px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hl-go { color: var(--ink-2); opacity: .5; transition: transform .3s var(--ease-out), opacity .2s; }
+.hl-go svg { width: 18px; height: 18px; }
+.hub-list a:hover .hl-go { transform: translateX(3px); opacity: 1; color: var(--tone); }
+@media (max-width: 900px) { .hub { grid-template-columns: minmax(0, 1fr); } .hl-s { white-space: normal; } }
+
+.guide-toc .toc-grp { margin-bottom: 4px; }
+.toc-gh { width: 100%; display: flex; align-items: center; gap: 8px; border: 0; background: transparent; color: var(--ink-2); font: inherit; font-size: 11.5px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase; padding: 8px 6px; border-radius: 8px; cursor: pointer; text-align: left; }
+.toc-gh:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 4%, transparent); }
+.toc-gh .tg-n { flex: 1; }
+.toc-gh .tg-c { font-size: 11px; opacity: .8; }
+.toc-grp:not(.open) .chev { transform: rotate(-45deg); margin-bottom: 0; }
+.toc-grp:not(.open) .toc-items { display: none; }
+.toc-items { padding-left: 8px; }
+.toc-secs { margin: 2px 0 6px 10px; border-left: 2px solid color-mix(in srgb, var(--accent) 35%, var(--line)); padding-left: 6px; }
+.guide-toc .toc-secs a { font-size: 12.5px; padding: 3px 8px; }
+.article .a-head { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
+.article .a-head .g-ic { width: 52px; height: 52px; border-radius: 15px; flex: none; }
+.article .a-head .g-ic svg { width: 26px; height: 26px; }
+.article h2 { font-size: clamp(28px, 4vw, 42px); }
+.article .a-ht .a-sum { margin: 4px 0 0; font-size: 15.5px; }
+.article .keyfacts { list-style: none; margin: 4px 0 16px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.keyfacts li { margin: 0; position: relative; padding: 10px 12px 10px 34px; border-radius: 12px; font-size: 13.5px; line-height: 1.4; font-weight: 500;
+  background: color-mix(in srgb, var(--tone, var(--accent)) 9%, var(--surface)); border: 1px solid color-mix(in srgb, var(--tone, var(--accent)) 25%, var(--line)); }
+.keyfacts li::before { content: ""; position: absolute; left: 12px; top: 13px; width: 12px; height: 7px; border-left: 2.5px solid var(--tone, var(--accent)); border-bottom: 2.5px solid var(--tone, var(--accent)); transform: rotate(-45deg); }
+.onpage { display: none; }
+.article .a-body h3 { scroll-margin-top: calc(var(--nav-h) + 16px); }
+.article .a-body table { font-size: 14px; }
+.article .a-body th, .article .a-body td { padding: 7px 10px; }
+.more-rows { margin: -6px 0 16px; }
+@media (max-width: 900px) {
+  .article .keyfacts { grid-template-columns: minmax(0, 1fr); }
+  .onpage { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; margin-bottom: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .onpage::-webkit-scrollbar { display: none; }
+  .onpage a { flex: none; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 5px 12px; font-size: 13px; color: var(--ink); text-decoration: none; }
+}
 </style>
 </head>
 <body>
@@ -784,20 +976,40 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
 <header class="hero" id="hero">
   <div class="forest" id="forest" aria-hidden="true"></div>
   <div class="wrap hero-inner">
-    <span class="eyebrow">Unofficial Path of Titans companion</span>
-    <h1>Path of Titans <span class="accent">Dinodex</span></h1>
-    <p class="hero-tag">Your one-stop shop for everything Path of Titans.</p>
-    <p class="lede">Every playable creature with full stats and ability kits, interactive maps of all three worlds, and plain-English guides to growth, combat, nesting, quests and more. No more wiki-hopping.</p>
-    <div class="patch-strip" id="patch-strip">
-      <span class="pill accent" id="patch-pill">Patch: <strong id="patch-name">Microraptor Update</strong> <span>(<span id="patch-date">Nov 12, 2026</span>)</span></span>
-      <span class="pill">Data updated <strong id="data-date">Nov 20, 2026</strong></span>
-      <span class="pill" id="count-pill">Loading roster</span>
+    <div class="hero-copy">
+      <span class="eyebrow">Unofficial Path of Titans companion</span>
+      <h1>Path of Titans <span class="accent">Dinodex</span></h1>
+      <p class="hero-tag">Your one-stop shop for everything Path of Titans.</p>
+      <p class="lede">Every playable creature with full stats and ability kits, interactive maps of all three worlds, and plain-English guides to growth, combat, nesting, quests and more. No more wiki-hopping.</p>
+      <div class="patch-strip" id="patch-strip">
+        <span class="pill accent" id="patch-pill">Patch: <strong id="patch-name">Microraptor Update</strong> <span>(<span id="patch-date">Nov 12, 2026</span>)</span></span>
+        <span class="pill">Data updated <strong id="data-date">Nov 20, 2026</strong></span>
+        <span class="pill" id="count-pill">Loading roster</span>
+      </div>
     </div>
-    <div class="hero-cards">
-      <a class="hero-card" href="#creatures" style="--tone:var(--carn)"><span class="ic"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="12" cy="17" rx="3.3" ry="3.5"/><path d="M10.4 15.5L10.6 6.4Q12 1.4 13.4 6.4L13.6 15.5Z"/><path transform="rotate(-38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/><path transform="rotate(38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/></svg></span><span class="k">Creatures</span><span class="d" id="hero-creatures-d">Stats, abilities and side-by-side compare</span></a>
-      <a class="hero-card" href="#maps" style="--tone:var(--herb)"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg></span><span class="k">Maps</span><span class="d">Gondwa, Panjura and Riparia, fully interactive</span></a>
-      <a class="hero-card" href="#guides" style="--tone:var(--accent)"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20"/></svg></span><span class="k">Guides</span><span class="d" id="hero-guides-d">Growth, combat, nesting, quests and more</span></a>
-    </div>
+    <nav class="hero-tiles" aria-label="Main sections">
+      <a class="tile-big" href="#creatures" style="--tone:var(--carn)">
+        <svg class="tb-art" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><ellipse cx="12" cy="17" rx="3.3" ry="3.5"/><path d="M10.4 15.5L10.6 6.4Q12 1.4 13.4 6.4L13.6 15.5Z"/><path transform="rotate(-38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/><path transform="rotate(38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/></svg>
+        <span class="tb-ic"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><ellipse cx="12" cy="17" rx="3.3" ry="3.5"/><path d="M10.4 15.5L10.6 6.4Q12 1.4 13.4 6.4L13.6 15.5Z"/><path transform="rotate(-38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/><path transform="rotate(38 12 16.5)" d="M10.45 15.5L10.65 7.6Q12 3.2 13.35 7.6L13.55 15.5Z"/></svg></span>
+        <span class="tb-body"><span class="tb-k">Creatures</span><span class="tb-d">Stats, full ability kits and side-by-side compare for every playable creature.</span><span class="tb-stat" id="hero-creatures-d">Official and modded</span></span>
+        <span class="tb-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <span class="sr-only">Browse creatures</span>
+      </a>
+      <a class="tile-big" href="#maps" style="--tone:var(--herb)">
+        <svg class="tb-art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg>
+        <span class="tb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5l6-2.5 6 2.5 6-2.5v13.5l-6 2.5-6-2.5-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/></svg></span>
+        <span class="tb-body"><span class="tb-k">Maps</span><span class="tb-d">Gondwa, Panjura and Riparia with resources, landmarks and quests.</span><span class="tb-stat">3 worlds · search · found tracking</span></span>
+        <span class="tb-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <span class="sr-only">Open the maps</span>
+      </a>
+      <a class="tile-big" href="#guides" style="--tone:var(--accent)">
+        <svg class="tb-art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20"/></svg>
+        <span class="tb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20"/></svg></span>
+        <span class="tb-body"><span class="tb-k">Guides</span><span class="tb-d">Growth, combat, nesting, quests, servers and more, in plain English.</span><span class="tb-stat" id="hero-guides-d">22 guides · calculators</span></span>
+        <span class="tb-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        <span class="sr-only">Read the guides</span>
+      </a>
+    </nav>
   </div>
 </header>
 
@@ -883,41 +1095,62 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
   <section id="maps-view" hidden aria-labelledby="maps-h">
     <h2 id="maps-h" class="sr-only">Interactive maps of Gondwa, Panjura and Riparia</h2>
     <div class="map-shell" id="map-shell">
-      <aside class="map-side" id="map-side" aria-label="Map search, layers, items and quests">
+      <aside class="map-side" id="map-side" aria-label="Map search, items, quests and map info">
         <div class="side-head">
           <button class="sheet-close" type="button" id="sheet-close" aria-label="Close search and filters">&times;</button>
-          <label class="search" for="map-q">
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-            <input id="map-q" type="search" placeholder="Search places, items or quests" autocomplete="off" aria-controls="map-results" aria-autocomplete="list">
-          </label>
+          <div class="side-top">
+            <label class="search" for="map-q">
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              <input id="map-q" type="search" placeholder="Search the map" aria-label="Search places, items and quests" autocomplete="off" aria-controls="map-results" aria-autocomplete="list">
+            </label>
+            <button class="side-collapse" type="button" id="side-collapse" aria-label="Hide the panel" title="Hide the panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M9.5 4.5v15M15.5 9.5L13 12l2.5 2.5"/></svg></button>
+          </div>
           <div class="map-results" id="map-results" role="listbox" aria-label="Search results" hidden></div>
-          <div class="side-actions">
-            <button class="chipbtn" type="button" data-act="all">Show all</button>
-            <button class="chipbtn" type="button" data-act="none">Hide all</button>
-            <button class="chipbtn" type="button" data-act="found" aria-pressed="false">Hide found</button>
+          <div class="side-tabs" role="tablist" aria-label="Panel sections">
+            <button type="button" role="tab" id="tab-items" data-tab="items" aria-selected="true" aria-controls="pane-items">Items <span class="tc" id="tc-items"></span></button>
+            <button type="button" role="tab" id="tab-quests" data-tab="quests" aria-selected="false" aria-controls="pane-quests">Quests <span class="tc" id="quest-count"></span></button>
+            <button type="button" role="tab" id="tab-info" data-tab="info" aria-selected="false" aria-controls="pane-info">Map info</button>
           </div>
         </div>
         <div class="side-scroll" id="side-scroll">
-          <div class="side-sec"><p class="map-about" id="map-about"></p></div>
-          <div class="side-sec">
-            <h4>Layers</h4>
-            <label class="tog"><input type="checkbox" data-layer="regions"><span class="nm">Region names and borders</span></label>
-            <label class="tog"><input type="checkbox" data-layer="landmarks"><span class="nm">Landmarks</span></label>
-            <label class="tog"><input type="checkbox" data-layer="flights"><span class="nm">Flight paths</span></label>
-          </div>
-          <div class="side-sec">
-            <h4>Items <span id="found-total"></span></h4>
+          <div class="side-pane" id="pane-items" role="tabpanel" aria-labelledby="tab-items">
+            <div class="pane-tools">
+              <div class="layer-pills" role="group" aria-label="Map layers">
+                <button type="button" class="lpill" data-layer="regions" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l6-3 6 3 4-2v12l-4 2-6-3-6 3z"/></svg>Regions</button>
+                <button type="button" class="lpill" data-layer="landmarks" aria-pressed="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l7 9-7 9-7-9z"/></svg>Landmarks</button>
+                <button type="button" class="lpill" data-layer="flights" aria-pressed="false" title="Flight paths"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 3" aria-hidden="true"><path d="M4 18C9 6 15 6 20 12"/></svg>Flights</button>
+              </div>
+              <div class="side-actions">
+                <button class="chipbtn" type="button" data-act="all">Show all</button>
+                <button class="chipbtn" type="button" data-act="none">Hide all</button>
+                <button class="chipbtn" type="button" data-act="found" aria-pressed="false">Hide found</button>
+                <span class="found-total" id="found-total"></span>
+              </div>
+            </div>
             <div id="cat-list"><p class="note" style="margin:0">Loading items…</p></div>
           </div>
-          <div class="side-sec" id="quest-sec">
-            <h4>Quests <span id="quest-count"></span></h4>
+          <div class="side-pane" id="pane-quests" role="tabpanel" aria-labelledby="tab-quests" hidden>
             <div id="quest-box"><p class="note" style="margin:0">Loading quests…</p></div>
           </div>
+          <div class="side-pane" id="pane-info" role="tabpanel" aria-labelledby="tab-info" hidden>
+            <p class="map-about" id="map-about"></p>
+            <div class="map-facts" id="map-facts"></div>
+            <h4 class="pane-h">How to use the map</h4>
+            <ul class="map-tips">
+              <li><b>Move:</b> drag, or use the arrow keys.</li>
+              <li><b>Zoom:</b> scroll, pinch or double-click, or press + and −. Press 0 to see the whole map.</li>
+              <li><b>Details:</b> click or tap any icon, landmark or region name.</li>
+              <li><b>Progress:</b> “Mark as found” saves on this device, and “Hide found” clears those spots from view.</li>
+              <li><b>Share:</b> “Copy link” opens the map at that exact spot; “Copy coords” gives the in-game position for admin teleports.</li>
+            </ul>
+            <p class="note">Map images, markers and quests come from <a href="https://potservers.net/map" target="_blank" rel="noopener">Potservers</a> and are based on Path of Titans game files (© Alderon Games). This is an unofficial map; spots can move with game updates.</p>
+          </div>
         </div>
-        <p class="map-credit">Map data, icons and images: <a href="https://potservers.net/map" target="_blank" rel="noopener">Potservers</a></p>
+        <p class="map-credit">Data and images: <a href="https://potservers.net/map" target="_blank" rel="noopener">Potservers</a> · <a href="#credits">Credits &amp; legal</a></p>
       </aside>
       <div class="map-stage" id="map-stage">
         <canvas id="map-canvas" tabindex="0" aria-label="Interactive map. Drag to move, scroll or pinch to zoom, arrow keys to pan, plus and minus to zoom."></canvas>
+        <button class="side-open" type="button" id="side-open" aria-label="Show the panel" title="Show the panel" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2.5"/><path d="M9.5 4.5v15M13 9.5l2.5 2.5L13 14.5"/></svg><span>Panel</span></button>
         <div class="map-switch" id="map-switch" role="group" aria-label="Choose a map"></div>
         <button class="map-fab" type="button" id="map-fab" aria-controls="map-side"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg><span>Search &amp; filters</span></button>
         <div class="map-tools">
@@ -935,6 +1168,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
   </section>
 
   <section id="guides-view" hidden></section>
+  <section id="credits-view" hidden aria-labelledby="credits-h"></section>
 </main>
 
 <footer class="site" id="contact">
@@ -950,9 +1184,9 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       <p class="note">In Discord, open Friends, choose Add Friend and paste the username uzzislayerz.</p>
     </section>
     <div class="foot-meta">
-      <p>Creature stats and abilities, portraits, ability icons and map data come from the <a href="https://potservers.net" target="_blank" rel="noopener">Potservers</a> public API, which reads them from the game files and tracks live official-server hotfixes. The creature data on this site is refreshed after each game patch. Ability descriptions use in-game text; every number shown is a game value.</p>
-      <p>The guides are written for this site from community knowledge, with credit to the <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a>.</p>
-      <p>Fan-made and unofficial. Path of Titans and its creatures belong to Alderon Games.</p>
+      <p><strong>Unofficial fan site.</strong> Path of Titans Dinodex is a free, non-commercial project made by a player. It is not affiliated with, endorsed, sponsored or approved by Alderon Games Pty Ltd. Path of Titans and its creatures, maps, ability names and icons are trademarks or copyrights of Alderon Games; modded creatures belong to their mod creators.</p>
+      <p>Creature stats, ability icons and map data come from the <a href="https://potservers.net" target="_blank" rel="noopener">Potservers</a> public API. Creature pictures are freely licensed images from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, credited with their authors and licenses. Guides are written for this site, with facts credited to the <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a>. Creature data is refreshed after each game patch; numbers can change with hotfixes and server settings.</p>
+      <p><a href="#credits">Credits &amp; legal</a> · Own something shown here? Message uzzislayerz on Discord to have it credited or removed.</p>
     </div>
   </div>
 </footer>
@@ -1129,8 +1363,8 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     return c.d === 'carnivore' ? 'var(--carn)' : 'var(--herb)';
   }
   function monoHTML(c, big) {
-    const url = portraitUrl(c), ok = url && IMG_OK.has(url);
-    return `<div class="mono${big ? ' big' : ''}${ok ? ' has-img' : ''}" data-id="${esc(c.id)}" style="--tone:${toneFor(c)}" aria-hidden="true">${url ? imgTag(url, 'portrait', 'has-img', true) : ''}<span class="ini">${esc(initials(c.n))}</span>${HAB_ICON[c.hab] || ''}</div>`;
+    const wt = wikiTitle(c) || '', pic = picFor(c), url = pic && pic.s, ok = url && IMG_OK.has(url);
+    return `<div class="mono${big ? ' big' : ''}${ok ? ' has-img' : ''}" data-id="${esc(c.id)}" data-wt="${esc(wt)}" style="--tone:${toneFor(c)}" aria-hidden="true">${url ? imgTag(url, 'portrait', 'has-img', true) : ''}<span class="ini">${esc(initials(c.n))}</span>${HAB_ICON[c.hab] || ''}</div>`;
   }
   function slotsHTML(n) { return `<span class="slots" title="Group slots: ${n}">${'<b></b>'.repeat(Math.max(0, n || 0))}</span>`; }
 
@@ -1398,6 +1632,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
             <span class="pill">${abCount} abilities</span>
             ${c.mod ? `<span class="pill" style="color:var(--mod)">Modded · ${esc(c.mod.pack || c.mod.name)}</span>` : '<span class="pill">Official</span>'}
           </div>
+          <p class="pic-credit" id="pic-credit" hidden></p>
           <div class="sheet-actions">
             <a class="btn primary" href="#compare-${esc(c.h)}">Compare with another creature</a>
             <a class="btn" href="#contact" data-contact>Suggest a correction</a>
@@ -1539,8 +1774,8 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
   }
 
   // ---------- routing ----------
-  const VIEWS = { roster: '#roster-view', detail: '#detail-view', compare: '#compare-view', maps: '#maps-view', guides: '#guides-view' };
-  const NAV_OF = { roster: 'creatures', detail: 'creatures', compare: 'creatures', maps: 'maps', guides: 'guides' };
+  const VIEWS = { roster: '#roster-view', detail: '#detail-view', compare: '#compare-view', maps: '#maps-view', guides: '#guides-view', credits: '#credits-view' };
+  const NAV_OF = { roster: 'creatures', detail: 'creatures', compare: 'creatures', maps: 'maps', guides: 'guides', credits: '' };
   function show(which) {
     document.body.classList.toggle('sub-view', which !== 'roster');
     document.body.setAttribute('data-view', which);
@@ -1594,6 +1829,13 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       window.scrollTo(0, 0);
       return;
     }
+    if (h === 'credits') {
+      leaving(); state.navToken++;
+      show('credits'); lastView = 'credits';
+      renderCredits();
+      window.scrollTo(0, 0);
+      return;
+    }
     if (h === 'contact') {
       if (!lastView) goRoster(false);
       requestAnimationFrame(scrollToContact);
@@ -1608,7 +1850,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       const go = ([fa, fb]) => {
         if (token !== state.navToken) return;
         renderCompare(fa, fb); show('compare'); enter($('#compare-view')); lastView = 'compare'; window.scrollTo(0, 0);
-        applyPortraits($('#compare-view'));
+        applyPictures($('#compare-view'));
         document.title = `${fa.n} vs ${fb.n} · ${SITE}`;
       };
       if (state.full[a.h] && state.full[b.h]) { go([state.full[a.h], state.full[b.h]]); return; }
@@ -1684,7 +1926,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     $('#count-pill').innerHTML = `<strong>${off}</strong> official · <strong>${mod}</strong> modded`;
     $('#mod-label').textContent = `Show modded creatures (${mod} from ${packs} mods)`;
     const hd = $('#hero-creatures-d');
-    if (hd && off) hd.textContent = `Stats and full kits for ${off} official + ${mod} modded`;
+    if (hd && off) hd.textContent = `${off} official · ${mod} modded`;
   }
 
 
@@ -1746,35 +1988,124 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     };
   })();
 
-  // ---------- creature portraits ----------
-  let PORTRAITS = null;
-  function portraitUrl(c) { return (PORTRAITS && c && PORTRAITS[c.id]) || null; }
-  function loadPortraits() {
-    const cached = store.get('portraits', null);
-    if (cached && cached.m) { PORTRAITS = cached.m; applyPortraits(); }
-    if (cached && cached.m && Date.now() - cached.t < 864e5) return;
-    PS.dinos().then(list => {
-      const m = {};
-      for (const d of list || []) if (d && d.id && d.icon_url) m[d.id] = d.icon_url;
-      if (!Object.keys(m).length) return;
-      PORTRAITS = m;
-      store.set('portraits', { t: Date.now(), m });
-      applyPortraits();
-    }).catch(() => { /* portraits are optional; the lettered badges stay */ });
+  // ---------- creature pictures: freely licensed lead images from Wikipedia / Wikimedia Commons ----------
+  // Real animals only. Made-up mod creatures keep their lettered badge.
+  const WIKI_FIX = {
+    'Asylum Deer': 'Deer', 'Asylum Felinae': 'Cougar', 'Asylum Giraffe': 'Giraffe', 'Asylum Kitty': 'Kitten', 'Asylum Rhino': 'Rhinoceros',
+    'Asylum Ursa': 'Bear', 'Asylum Wolf': 'Wolf', 'Ichtyovenator': 'Ichthyovenator', 'VelocciRaptor': 'Velociraptor', 'Orcinus orca': 'Orca',
+    'Dimetrodon grandis': 'Dimetrodon', 'Dimetrodon milleri': 'Dimetrodon', 'Edmontosaurus Annectens': 'Edmontosaurus', 'Edmontosaurus Regalis': 'Edmontosaurus',
+    'Giant Salamander': 'Giant salamander', 'Ant': 'Ant', 'Griffin': 'Griffin',
+  };
+  const WIKI_NONE = new Set(['Asylum Feline', 'Bristlewing', 'C-Ano', 'C-Donut', 'C-Pseudo', 'C-Rex', 'C-Rock', 'Cerataspida', 'Cubensis', 'Dankanaptera', 'Dominus',
+    'Dracoviper', 'Gigarachne', 'Leviathan', 'Madrehorn', 'Mehytkeiser', 'Moraquile', 'Noviana', 'Nyctatyrannus', 'Ophis', 'Pandoraptor', 'Skyshroud Drakara']);
+  const ANIMAL_RX = /\b(genus|genera|species|subspecies|family|order|clade|dinosaurs?|theropods?|sauropods?|ornithopods?|ceratopsians?|reptiles?|animals?|mammals?|fish(es)?|birds?|pterosaurs?|plesiosaurs?|ichthyosaurs?|mosasaurs?|amphibians?|salamanders?|arthropods?|insects?|arachnids?|sharks?|whales?|crocodyl\w*|snakes?|lizards?|turtles?|archosaurs?|synapsids?|therapsids?|eurypterids?|extinct|prehistoric|fossil)\b/i;
+  const PIC_TTL = 7 * 864e5;
+  let PICS = null, PICS_READY = null;
+  const ATTR = {};
+  function wikiTitle(c) {
+    if (!c || WIKI_NONE.has(c.n)) return null;
+    if (WIKI_FIX[c.n]) return WIKI_FIX[c.n];
+    const t = c.n.replace(/\s*\([^)]*\)\s*/g, ' ').trim();
+    return t || null;
   }
-  function applyPortraits(root) {
-    if (!PORTRAITS) return;
-    (root || document).querySelectorAll('.mono[data-id]').forEach(el => {
+  function picFor(c) {
+    const t = PICS && wikiTitle(c);
+    return (t && PICS[t]) || null;
+  }
+  async function wikiQuery(params) {
+    const qs = new URLSearchParams(Object.assign({ action: 'query', format: 'json', formatversion: '2', origin: '*' }, params));
+    const res = await fetch('https://en.wikipedia.org/w/api.php?' + qs.toString(), { credentials: 'omit' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  }
+  async function loadPictures() {
+    const cached = store.get('pics', null);
+    if (cached && cached.v === 2 && cached.m) {
+      PICS = cached.m; applyPictures();
+      if (Date.now() - cached.t < PIC_TTL && state.all.every(c => !wikiTitle(c) || wikiTitle(c) in PICS)) return;
+    }
+    const titles = [...new Set(state.all.map(wikiTitle).filter(Boolean))];
+    if (!titles.length) return;
+    const fixed = new Set(Object.values(WIKI_FIX));
+    const out = {};
+    try {
+      for (let i = 0; i < titles.length; i += 50) {
+        const batch = titles.slice(i, i + 50);
+        const j = await wikiQuery({ prop: 'pageimages|description', piprop: 'thumbnail|name', pithumbsize: '250', pilicense: 'free', redirects: '1', titles: batch.join('|') });
+        const q = (j && j.query) || {};
+        const to = {};
+        batch.forEach(t => { to[t] = t; });
+        const hop = list => (list || []).forEach(n => { for (const k in to) if (to[k] === n.from) to[k] = n.to; });
+        hop(q.normalized); hop(q.redirects);
+        const pages = {};
+        (q.pages || []).forEach(p => { pages[p.title] = p; });
+        for (const t of batch) {
+          const p = pages[to[t]];
+          const ok = p && !p.missing && p.thumbnail && p.thumbnail.source && p.pageimage && (fixed.has(t) || ANIMAL_RX.test(p.description || ''));
+          out[t] = ok ? { s: p.thumbnail.source, f: p.pageimage, p: p.title } : 0;
+        }
+      }
+    } catch (e) {
+      if (!PICS) return;
+      return;
+    }
+    PICS = out;
+    store.set('pics', { v: 2, t: Date.now(), m: out });
+    applyPictures();
+  }
+  function applyPictures(root) {
+    if (!PICS) return;
+    (root || document).querySelectorAll('.mono[data-wt]').forEach(el => {
       if (el.querySelector('.portrait')) return;
-      const url = PORTRAITS[el.getAttribute('data-id')];
-      if (!url) return;
+      const p = PICS[el.getAttribute('data-wt')];
+      if (!p) return;
       const im = document.createElement('img');
       im.className = 'portrait'; im.alt = ''; im.decoding = 'async';
       im.onload = () => window.dxImgOk(im, 'has-img', 1);
       im.onerror = () => im.remove();
-      im.src = url;
+      im.src = p.s;
       el.insertBefore(im, el.firstChild);
     });
+  }
+  const textOf = html => {
+    try { return (new DOMParser().parseFromString(String(html || ''), 'text/html').body.textContent || '').replace(/\s+/g, ' ').trim(); }
+    catch (e) { return ''; }
+  };
+  async function loadAttribution(files) {
+    const need = [...new Set(files.filter(f => f && !(f in ATTR)))];
+    for (let i = 0; i < need.length; i += 50) {
+      const batch = need.slice(i, i + 50);
+      const j = await wikiQuery({ prop: 'imageinfo', iiprop: 'url|extmetadata', iiextmetadatafilter: 'Artist|LicenseShortName|LicenseUrl|Credit|UsageTerms', titles: batch.map(f => 'File:' + f).join('|') });
+      const q = (j && j.query) || {};
+      const back = {};
+      (q.normalized || []).forEach(n => { back[n.to] = n.from; });
+      (q.pages || []).forEach(p => {
+        const key = String(back[p.title] || p.title).replace(/^File:/, '');
+        const ii = p.imageinfo && p.imageinfo[0];
+        if (!ii) return;
+        const m = ii.extmetadata || {};
+        const val = k => (m[k] && m[k].value) || '';
+        ATTR[key] = { artist: textOf(val('Artist')) || textOf(val('Credit')) || 'Unknown author', license: textOf(val('LicenseShortName')) || textOf(val('UsageTerms')) || 'See file page',
+          licenseUrl: val('LicenseUrl'), page: ii.descriptionurl || ('https://commons.wikimedia.org/wiki/File:' + encodeURIComponent(key)) };
+      });
+      batch.forEach(f => { if (!(f in ATTR)) ATTR[f] = null; });
+    }
+    return ATTR;
+  }
+  function creditHTML(pic, a) {
+    const lic = a && a.licenseUrl ? `<a href="${esc(a.licenseUrl)}" target="_blank" rel="noopener license">${esc(a.license)}</a>` : esc((a && a.license) || '');
+    const file = `<a href="${esc((a && a.page) || 'https://commons.wikimedia.org/wiki/File:' + encodeURIComponent(pic.f))}" target="_blank" rel="noopener">${esc(pic.f.replace(/_/g, ' ').replace(/\.[a-z0-9]+$/i, ''))}</a>`;
+    return `${file}${a ? ` by ${esc(a.artist)}, ${lic}` : ''}, via Wikimedia Commons`;
+  }
+  function picCredit(c) {
+    const el = $('#pic-credit');
+    const pic = picFor(c);
+    if (!el || !pic) return;
+    el.innerHTML = `Picture: ${creditHTML(pic, null)}. Real-world paleoart or photo, not game artwork.`;
+    el.hidden = false;
+    loadAttribution([pic.f]).then(() => {
+      if (el.isConnected && ATTR[pic.f]) el.innerHTML = `Picture: ${creditHTML(pic, ATTR[pic.f])}. Real-world paleoart or photo, not game artwork.`;
+    }).catch(() => { /* the file link still credits the source */ });
   }
 
   // ---------- ability icons and growth curves (live, per creature) ----------
@@ -1843,15 +2174,63 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
   }
   function enhanceDetail(c) {
     const token = state.navToken;
-    applyPortraits($('#detail-view'));
+    applyPictures($('#detail-view'));
+    picCredit(c);
     PS.dino(c.id).then(d => {
       AB_ICON_MAPS[c.id] = collectAbIcons(d);
       if (token !== state.navToken) return;
       CUR_AB = AB_ICON_MAPS[c.id];
       applyAbilityIcons();
       renderGrowth(d);
-      if (d && d.icon_url && !portraitUrl(c)) { PORTRAITS = Object.assign({}, PORTRAITS, { [c.id]: d.icon_url }); applyPortraits(); }
     }).catch(() => { /* icons and curves are extras */ });
+  }
+
+
+  // ---------- credits & legal ----------
+  function renderCredits() {
+    const view = $('#credits-view');
+    view.innerHTML = `<div class="page-head"><span class="eyebrow">The fine print</span><h2 id="credits-h">Credits &amp; legal</h2>
+      <p>Who made what, where the data comes from, and how to reach me about corrections or removals.</p></div>
+      <div class="legal-grid">
+        <section class="legal-card"><h3>Unofficial fan site</h3>
+          <p>Path of Titans Dinodex is a free, non-commercial fan project made by a player. It is not affiliated with, endorsed, sponsored or approved by Alderon Games Pty Ltd.</p>
+          <p>Path of Titans, its logo, creatures, maps, ability names, ability icons and other game content are trademarks or copyrights of Alderon Games Pty Ltd. Modded creatures and their names belong to their mod creators. They appear here only to identify and describe them.</p></section>
+        <section class="legal-card"><h3>Where everything comes from</h3><ul>
+          <li><b>Stats, ability text, ability icons, growth curves, maps and quests:</b> the <a href="https://potservers.net" target="_blank" rel="noopener">Potservers</a> public API, an unofficial community project that reads them from the game files. Credited as its terms ask.</li>
+          <li><b>Creature pictures:</b> freely licensed images from <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, picked through each creature's Wikipedia article. They are real-world paleoart and photos, not game artwork, and each is credited below.</li>
+          <li><b>Guides:</b> written for this site. Game facts are credited to the <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a> on every guide.</li>
+          <li><b>Design, forest illustration, icons and calculators:</b> made for this site.</li></ul></section>
+        <section class="legal-card"><h3>Accuracy</h3>
+          <p>Numbers come from game data and can change with patches, live hotfixes and server settings. Everything here is provided as is, without warranty of any kind.</p></section>
+        <section class="legal-card"><h3>Corrections and removals</h3>
+          <p>If you own something shown here and want it credited differently or taken down, or you spot a mistake, message <b>uzzislayerz</b> on Discord (in game: Uzzi) and it will be fixed quickly.</p>
+          <button class="btn primary" type="button" data-copy-discord>Copy Discord username</button></section>
+      </div>
+      <section class="credits-pics"><h3>Creature picture credits</h3>
+        <p class="note" id="pic-credits-note">Loading picture credits…</p>
+        <div class="tw"><table class="pic-table" id="pic-credits" hidden></table></div></section>`;
+    document.title = 'Credits & legal · ' + SITE;
+    enter(view);
+    const fill = () => {
+      if (!PICS) { $('#pic-credits-note').textContent = 'Picture credits could not load right now. Try again later.'; return; }
+      const by = new Map();
+      for (const c of state.all) { const t = wikiTitle(c); const p = t && PICS[t]; if (!p) continue; if (!by.has(t)) by.set(t, { p, cs: [] }); by.get(t).cs.push(c); }
+      const rows = [...by.entries()].sort((x, y) => x[0].localeCompare(y[0]));
+      const draw = () => {
+        const tbl = $('#pic-credits'); if (!tbl) return;
+        tbl.innerHTML = `<thead><tr><th scope="col">Picture</th><th scope="col">Used for</th><th scope="col">Source and author</th><th scope="col">License</th></tr></thead><tbody>${rows.map(([t, { p, cs }]) => {
+          const a = ATTR[p.f];
+          return `<tr><td><img src="${esc(p.s)}" alt="" loading="lazy" decoding="async"></td><td>${cs.map(c => `<a href="#${esc(c.h)}">${esc(c.n)}</a>`).join(', ')}</td>
+            <td><a href="${esc((a && a.page) || 'https://commons.wikimedia.org/wiki/File:' + encodeURIComponent(p.f))}" target="_blank" rel="noopener">${esc(p.f.replace(/_/g, ' '))}</a>${a ? `<br><span class="note">${esc(a.artist)}</span>` : ''}</td>
+            <td>${a ? (a.licenseUrl ? `<a href="${esc(a.licenseUrl)}" target="_blank" rel="noopener license">${esc(a.license)}</a>` : esc(a.license)) : 'See file page'}</td></tr>`;
+        }).join('')}</tbody>`;
+        tbl.hidden = false;
+      };
+      $('#pic-credits-note').textContent = `${rows.length} pictures from Wikimedia Commons, each under the license shown. Click a picture's name for its full file page. Creatures without a free picture keep their lettered badge.`;
+      draw();
+      loadAttribution(rows.map(([, v]) => v.p.f)).then(draw).catch(() => {});
+    };
+    (PICS_READY || Promise.resolve()).then(fill, fill);
   }
 
   // ---------- small UI helpers ----------
@@ -1920,11 +2299,12 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       const a = e.target.closest('[data-contact]');
       if (a) { e.preventDefault(); scrollToContact(); }
     });
-    $('#copy-discord').addEventListener('click', () => {
+    document.addEventListener('click', e => {
+      if (!e.target.closest('#copy-discord, [data-copy-discord]')) return;
       copyText('uzzislayerz').then(ok => toast(ok ? 'Discord username copied: uzzislayerz' : 'Could not copy. The username is uzzislayerz'));
     });
     const gd = $('#hero-guides-d');
-    if (gd) gd.textContent = `${GUIDES.length} guides on growth, combat, nesting, quests and more`;
+    if (gd) gd.textContent = `${GUIDES.length} guides · calculators`;
   }
   function buildForest() {
     const host = $('#forest');
@@ -2061,50 +2441,87 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
   function guideBody(g) {
     return g.body.replace(/\[\[([^\]]+)\]\]/g, (m, n) => creatureLink(n));
   }
-  function guideCard(g) {
-    const grp = GUIDE_GROUPS.find(x => x.id === g.g);
-    return `<a class="guide-card" href="#guides/${g.slug}" data-reveal style="--tone:${grp.tone}"><span class="g-ic">${gIcon(g.icon)}</span><span class="gt">${esc(g.title)}</span><span class="gs">${esc(g.sum)}</span></a>`;
-  }
+  const GROUP_ICON = { core: 'claws', life: 'leaf', prog: 'flag', world: 'map' };
+  const secId = s => 'sec-' + String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   function renderGuideIndex(view) {
     view.innerHTML = `<div class="page-head"><span class="eyebrow">Guides</span><h2>Learn the game</h2>
-      <p>Everything the wiki covers, rewritten in plain English and tied to the live creature data on this site. ${GUIDES.length} guides in four sections.</p></div>
+      <p>${GUIDES.length} short, plain-English guides tied to the live creature data on this site. Unofficial; game facts are credited to the Path of Titans Wiki.</p></div>
       <label class="search guide-search" for="guide-q"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11 11l4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><input id="guide-q" type="search" placeholder="Search guides (e.g. bleed, waystone, nest)" autocomplete="off"></label>
-      <div class="guide-groups" id="guide-groups"></div>`;
-    const draw = q => {
-      const s = q.trim().toLowerCase();
-      const hit = g => !s || (g.title + ' ' + g.sum + ' ' + (g.kw || '') + ' ' + g.body.replace(/<[^>]+>/g, ' ')).toLowerCase().includes(s);
-      const html = GUIDE_GROUPS.map(grp => {
-        const list = GUIDES.filter(g => g.g === grp.id && hit(g));
-        if (!list.length) return '';
-        return `<section class="guide-group" data-reveal><h3>${esc(grp.name)}</h3><p>${esc(grp.blurb)}</p><div class="guide-grid">${list.map(guideCard).join('')}</div></section>`;
-      }).join('');
-      $('#guide-groups').innerHTML = html || `<p class="guide-empty">No guide mentions “${esc(q)}”. Try another word, or search the Creatures tab for ability names.</p>`;
-      if (!s) reveal(view); else view.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('in'));
+      <div class="hub" id="guide-hub">${GUIDE_GROUPS.map(grp => {
+        const list = GUIDES.filter(g => g.g === grp.id);
+        return `<section class="hub-card" data-reveal style="--tone:${grp.tone}">
+          <header class="hub-h"><span class="g-ic">${gIcon(GROUP_ICON[grp.id])}</span><div><h3>${esc(grp.name)}</h3><p>${esc(grp.blurb)}</p></div><span class="hub-n">${list.length}</span></header>
+          <ul class="hub-list">${list.map(g => `<li data-slug="${g.slug}"><a href="#guides/${g.slug}"><span class="hl-ic">${gIcon(g.icon)}</span><span class="hl-tx"><span class="hl-t">${esc(g.title)}</span><span class="hl-s">${esc(g.sum)}</span></span><span class="hl-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></span></a></li>`).join('')}</ul>
+        </section>`;
+      }).join('')}</div>
+      <p class="guide-empty" id="guide-empty" hidden></p>`;
+    reveal(view);
+    const text = {};
+    GUIDES.forEach(g => { text[g.slug] = (g.title + ' ' + g.sum + ' ' + (g.kw || '') + ' ' + (g.facts || []).join(' ') + ' ' + g.body.replace(/<[^>]+>/g, ' ')).toLowerCase(); });
+    const filter = raw => {
+      const s = raw.trim().toLowerCase();
+      let shown = 0;
+      view.querySelectorAll('.hub-card').forEach(card => {
+        let n = 0;
+        card.querySelectorAll('li[data-slug]').forEach(li => { const hit = !s || text[li.getAttribute('data-slug')].includes(s); li.hidden = !hit; if (hit) n++; });
+        card.hidden = !n; shown += n; card.classList.add('in');
+      });
+      const empty = $('#guide-empty');
+      empty.hidden = !!shown;
+      if (!shown) empty.textContent = `No guide mentions “${raw.trim()}”. Try another word, or search the Creatures tab for ability names.`;
     };
-    draw('');
     let t;
-    $('#guide-q').addEventListener('input', e => { clearTimeout(t); t = setTimeout(() => draw(e.target.value), 120); });
+    $('#guide-q').addEventListener('input', e => { clearTimeout(t); t = setTimeout(() => filter(e.target.value), 100); });
     document.title = 'Guides · ' + SITE;
   }
   function renderGuideArticle(view, g) {
     const i = GUIDES.indexOf(g), prev = GUIDES[i - 1], next = GUIDES[i + 1];
     const grp = GUIDE_GROUPS.find(x => x.id === g.g);
-    const toc = GUIDE_GROUPS.map(gr => `<h5>${esc(gr.name)}</h5>${GUIDES.filter(x => x.g === gr.id).map(x => `<a href="#guides/${x.slug}"${x === g ? ' aria-current="page"' : ''}>${esc(x.title)}</a>`).join('')}`).join('');
+    const body = document.createElement('div');
+    body.innerHTML = guideBody(g);
+    const secs = [];
+    body.querySelectorAll('h3').forEach(h => { const id = secId(h.textContent); h.id = id; secs.push([id, h.textContent]); });
+    const jump = ([id, t]) => `<a href="#guides/${g.slug}" data-jump="${id}">${esc(t)}</a>`;
+    const toc = GUIDE_GROUPS.map(gr => {
+      const list = GUIDES.filter(x => x.g === gr.id), open = gr.id === g.g;
+      return `<div class="toc-grp${open ? ' open' : ''}"><button type="button" class="toc-gh" aria-expanded="${open}"><span class="chev" aria-hidden="true"></span><span class="tg-n">${esc(gr.name)}</span><span class="tg-c">${list.length}</span></button>
+        <div class="toc-items">${list.map(x => `<a href="#guides/${x.slug}"${x === g ? ' aria-current="page"' : ''}>${esc(x.title)}</a>${x === g && secs.length ? `<div class="toc-secs">${secs.map(jump).join('')}</div>` : ''}`).join('')}</div></div>`;
+    }).join('');
     const src = g.src.map(([label, path]) => `<a href="${WIKI}${path}" target="_blank" rel="noopener">${esc(label)}</a>`).join(', ');
     view.innerHTML = `<a class="back" href="#guides">← All guides</a>
       <div class="guide-layout">
-        <nav class="guide-toc" aria-label="All guides">${toc}</nav>
+        <nav class="guide-toc" aria-label="Guides">${toc}</nav>
         <article class="article" style="--tone:${grp.tone}">
           <div class="crumb"><a href="#guides">Guides</a> / ${esc(grp.name)}</div>
-          <div class="a-head"><span class="g-ic">${gIcon(g.icon)}</span><h2>${esc(g.title)}</h2></div>
-          <p class="a-sum">${esc(g.sum)}</p>
-          ${guideBody(g)}
-          <p class="src">Sources: ${src} on the Path of Titans Wiki, rewritten for this site. Game rules can change with patches; if something here is out of date, <a href="#contact" data-contact>let me know</a>.</p>
+          <div class="a-head"><span class="g-ic">${gIcon(g.icon)}</span><div class="a-ht"><h2>${esc(g.title)}</h2><p class="a-sum">${esc(g.sum)}</p></div></div>
+          ${g.facts ? `<ul class="keyfacts" aria-label="Key facts">${g.facts.map(f => `<li>${esc(f)}</li>`).join('')}</ul>` : ''}
+          ${secs.length > 1 ? `<nav class="onpage" aria-label="On this page">${secs.map(jump).join('')}</nav>` : ''}
+          <div class="a-body">${body.innerHTML}</div>
+          <p class="src">Sources: ${src} on the Path of Titans Wiki, rewritten for this site. This is an unofficial guide, and game rules can change with patches; if something here is out of date, <a href="#contact" data-contact>let me know</a>.</p>
           <div class="a-nav">${prev ? `<a href="#guides/${prev.slug}"><small>Previous</small>${esc(prev.title)}</a>` : '<span></span>'}${next ? `<a class="next" href="#guides/${next.slug}"><small>Next</small>${esc(next.title)}</a>` : '<span></span>'}</div>
         </article>
       </div>`;
+    view.querySelectorAll('[data-jump]').forEach(el => el.addEventListener('click', e => { e.preventDefault(); scrollToEl(document.getElementById(el.getAttribute('data-jump')), true); }));
+    view.querySelectorAll('.toc-gh').forEach(b => b.addEventListener('click', () => {
+      const box = b.parentElement, open = !box.classList.contains('open');
+      box.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open));
+    }));
+    view.querySelectorAll('.a-body table').forEach(tbl => {
+      const rows = [...tbl.querySelectorAll('tr')].filter(r => !r.querySelector('th'));
+      if (rows.length <= 8) return;
+      const extra = rows.slice(6);
+      extra.forEach(r => { r.hidden = true; });
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'chipbtn more-rows'; btn.textContent = `Show all ${rows.length} rows`;
+      btn.addEventListener('click', () => {
+        const showing = !extra[0].hidden;
+        extra.forEach(r => { r.hidden = showing; });
+        btn.textContent = showing ? `Show all ${rows.length} rows` : 'Show fewer rows';
+      });
+      (tbl.closest('.tw') || tbl).after(btn);
+    });
     mountWidgets(view);
-    applyPortraits(view);
+    applyPictures(view);
     document.title = g.title + ' · ' + SITE;
   }
   function renderGuides(rest) {
@@ -2357,6 +2774,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       else window.addEventListener('resize', resize);
       stage.addEventListener('gesturestart', e => e.preventDefault());
       wirePointer(); wireSide();
+      if (store.get('map.sideClosed', false)) { shell.classList.add('side-closed'); $('#side-open').hidden = false; }
       $('#map-switch').addEventListener('click', e => {
         const b = e.target.closest('button[data-map]');
         if (b && b.getAttribute('data-map') !== curId) location.hash = 'maps/' + b.getAttribute('data-map');
@@ -2419,7 +2837,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       closePop(false); renderSwitch();
       $('#map-about').innerHTML = MAP_INFO[id].blurb;
       $('#cat-list').innerHTML = '<p class="note" style="margin:0">Loading items…</p>';
-      $('#found-total').textContent = ''; $('#quest-count').textContent = '';
+      $('#found-total').textContent = ''; $('#quest-count').textContent = ''; $('#tc-items').textContent = ''; $('#map-facts').innerHTML = '';
       $('#quest-box').innerHTML = '<p class="note" style="margin:0">Loading quests…</p>';
       $('#map-q').value = ''; hideResults();
       status((retry ? 'Trying ' : 'Loading ') + MAP_INFO[id].name + '…');
@@ -2459,87 +2877,134 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     }
     function aboutLine() {
       const b = data.coords.world_bounds;
-      const total = data.markers.reduce((n, m) => n + m.keep.length, 0);
-      const bits = [];
-      if (b) bits.push(`About ${((b.max_x - b.min_x) / 100000).toFixed(1)} × ${((b.max_y - b.min_y) / 100000).toFixed(1)} km`);
-      if (data.regions.length) bits.push(`${data.regions.length} regions`);
-      if (data.landmarks.length) bits.push(`${data.landmarks.length} landmarks`);
-      bits.push(`${total.toLocaleString('en-US')} item spots in ${data.markers.length} types`);
-      $('#map-about').innerHTML = MAP_INFO[curId].blurb + ` <span class="note">${bits.join(' · ')}</span>`;
+      const total = data.markers.reduce((n, mk) => n + mk.keep.length, 0);
+      const facts = [];
+      if (b) facts.push([`${((b.max_x - b.min_x) / 100000).toFixed(1)} × ${((b.max_y - b.min_y) / 100000).toFixed(1)} km`, 'map size']);
+      if (data.regions.length) facts.push([data.regions.length, 'regions']);
+      if (data.landmarks.length) facts.push([data.landmarks.length, 'landmarks']);
+      facts.push([total.toLocaleString('en-US'), 'item spots']);
+      facts.push([data.markers.length, 'item types']);
+      if (data.flights.length) facts.push([data.flights.length, 'flight routes']);
+      $('#map-about').innerHTML = MAP_INFO[curId].blurb;
+      $('#map-facts').innerHTML = facts.map(([v, k]) => `<div><b>${esc(v)}</b><span>${esc(k)}</span></div>`).join('');
     }
 
     // ----- sidebar -----
-    function iconHTML(m, cls) {
-      return m.icon ? `<img${cls ? ` class="${cls}"` : ''} src="${esc(m.icon)}" alt="" loading="lazy" decoding="async">` : `<i style="display:block;width:12px;height:12px;border-radius:50%;margin:5px;background:hsl(${hue(m.cat)} 60% 50%)"></i>`;
+    function iconHTML(mk) {
+      return mk.icon ? `<img src="${esc(mk.icon)}" alt="" loading="lazy" decoding="async">` : `<i style="display:block;width:12px;height:12px;border-radius:50%;margin:5px;background:hsl(${hue(mk.cat)} 60% 50%)"></i>`;
     }
+    const catDomId = id => 'cb-' + String(id).replace(/[^A-Za-z0-9_-]/g, '_');
     function buildSide() {
       const byCat = new Map();
-      for (const m of data.markers) {
-        if (!byCat.has(m.cat)) byCat.set(m.cat, { id: m.cat, name: m.catName, kinds: [] });
-        byCat.get(m.cat).kinds.push(m);
+      for (const mk of data.markers) {
+        if (!byCat.has(mk.cat)) byCat.set(mk.cat, { id: mk.cat, name: mk.catName, kinds: [] });
+        byCat.get(mk.cat).kinds.push(mk);
       }
-      cats = [...byCat.values()].sort((a, b) => a.name.localeCompare(b.name));
-      cats.forEach(c => c.kinds.sort((a, b) => a.name.localeCompare(b.name)));
-      $('#cat-list').innerHTML = cats.map(c => `<details class="cat" data-cat="${esc(c.id)}"${c.kinds.some(k => enabled.has(k.id)) ? ' open' : ''}>
-        <summary><span>${esc(c.name)}</span><span class="on" data-on="${esc(c.id)}"></span></summary>
-        <div class="kinds">${c.kinds.map(k => `<label class="tog"><input type="checkbox" data-kind="${esc(k.id)}"${enabled.has(k.id) ? ' checked' : ''}><span class="sw">${iconHTML(k)}</span><span class="nm">${esc(k.name)}</span><span class="ct" data-ct="${esc(k.id)}"></span></label>`).join('')}
-        <button class="chipbtn" type="button" data-catall="${esc(c.id)}">Show or hide all ${esc(c.name)}</button></div></details>`).join('') || '<p class="note" style="margin:0">No items listed for this map.</p>';
+      cats = [...byCat.values()].sort((x, y) => x.name.localeCompare(y.name));
+      cats.forEach(c => c.kinds.sort((x, y) => x.name.localeCompare(y.name)));
+      const openState = store.get('map.cats', {});
+      $('#cat-list').innerHTML = cats.map(c => {
+        const open = c.id in openState ? !!openState[c.id] : c.kinds.some(k => enabled.has(k.id));
+        return `<div class="cat${open ? '' : ' closed'}" data-cat="${esc(c.id)}">
+          <div class="cat-h"><button type="button" class="cat-x" aria-expanded="${open}" aria-controls="${catDomId(c.id)}"><span class="chev" aria-hidden="true"></span><span class="cn">${esc(c.name)}</span><span class="on" data-on="${esc(c.id)}"></span></button>
+          <button type="button" class="cat-sw" data-catall="${esc(c.id)}" aria-pressed="false" title="Show or hide every ${esc(c.name)} item"><span class="sr-only">Show every ${esc(c.name)} item</span></button></div>
+          <div class="cat-b" id="${catDomId(c.id)}">${c.kinds.map(k => `<button type="button" class="krow" data-kind="${esc(k.id)}" aria-pressed="${enabled.has(k.id)}"><span class="sw">${iconHTML(k)}</span><span class="nm">${esc(k.name)}</span><span class="ct" data-ct="${esc(k.id)}"></span></button>`).join('')}</div></div>`;
+      }).join('') || '<p class="note" style="margin:0">No items listed for this map.</p>';
       syncChecks(); counts();
     }
     function syncChecks() {
-      document.querySelectorAll('#map-side input[data-layer]').forEach(i => { i.checked = !!layers[i.getAttribute('data-layer')]; });
-      document.querySelectorAll('#cat-list input[data-kind]').forEach(i => { i.checked = enabled.has(i.getAttribute('data-kind')); });
-      const hf = document.querySelector('#map-side [data-act="found"]');
-      hf.setAttribute('aria-pressed', String(hideFound));
+      document.querySelectorAll('#map-side .lpill[data-layer]').forEach(b => b.setAttribute('aria-pressed', String(!!layers[b.getAttribute('data-layer')])));
+      document.querySelectorAll('#cat-list .krow[data-kind]').forEach(b => b.setAttribute('aria-pressed', String(enabled.has(b.getAttribute('data-kind')))));
+      for (const c of cats) {
+        const sw = document.querySelector(`#cat-list [data-catall="${CSS.escape(c.id)}"]`);
+        if (!sw) continue;
+        const n = c.kinds.filter(k => enabled.has(k.id)).length;
+        sw.setAttribute('aria-pressed', n === c.kinds.length ? 'true' : n ? 'mixed' : 'false');
+      }
+      document.querySelector('#map-side [data-act="found"]').setAttribute('aria-pressed', String(hideFound));
     }
     function counts() {
       if (!data) return;
       const per = new Map();
       for (const key of found) { const i = key.lastIndexOf(':'); const k = key.slice(0, i); per.set(k, (per.get(k) || 0) + 1); }
       let tot = 0;
-      for (const m of data.markers) {
-        const n = per.get(m.id) || 0; tot += n;
-        const el = document.querySelector(`#cat-list [data-ct="${CSS.escape(m.id)}"]`);
-        if (el) el.textContent = n ? `${n}/${m.keep.length}` : String(m.keep.length);
+      for (const mk of data.markers) {
+        const n = per.get(mk.id) || 0; tot += n;
+        const el = document.querySelector(`#cat-list [data-ct="${CSS.escape(mk.id)}"]`);
+        if (el) el.textContent = n ? `${n}/${mk.keep.length}` : mk.keep.length.toLocaleString('en-US');
       }
       for (const c of cats) {
         const on = c.kinds.filter(k => enabled.has(k.id)).length;
         const el = document.querySelector(`#cat-list [data-on="${CSS.escape(c.id)}"]`);
-        if (el) el.textContent = on ? `${on} on` : '';
+        if (el) el.textContent = `${on}/${c.kinds.length}`;
+        const box = el && el.closest('.cat'); if (box) box.classList.toggle('has-on', on > 0);
       }
       $('#found-total').textContent = tot ? `${tot} found` : '';
+      $('#tc-items').textContent = enabled.size ? `${enabled.size} on` : '';
     }
     function enable(id, on = true) { if (on) enabled.add(id); else enabled.delete(id); }
+    function openCat(catId, open = true) {
+      const box = document.querySelector(`#cat-list .cat[data-cat="${CSS.escape(catId)}"]`);
+      if (!box) return;
+      box.classList.toggle('closed', !open);
+      box.querySelector('.cat-x').setAttribute('aria-expanded', String(open));
+      const st = store.get('map.cats', {}); st[catId] = open; store.set('map.cats', st);
+    }
+    function setTab(name) {
+      document.querySelectorAll('#map-side [role="tab"]').forEach(t => t.setAttribute('aria-selected', String(t.getAttribute('data-tab') === name)));
+      document.querySelectorAll('#map-side .side-pane').forEach(p => { p.hidden = p.id !== 'pane-' + name; });
+      const sc = $('#side-scroll'); if (sc) sc.scrollTop = 0;
+    }
+    function setSide(open) {
+      shell.classList.toggle('side-closed', !open);
+      $('#side-open').hidden = open;
+      store.set('map.sideClosed', !open);
+      if (!open && document.activeElement && $('#map-side').contains(document.activeElement)) $('#side-open').focus({ preventScroll: true });
+      setTimeout(resize, 450);
+    }
     function wireSide() {
       const side = $('#map-side');
-      side.addEventListener('change', e => {
-        const t = e.target;
-        if (t.matches('input[data-kind]')) { enable(t.getAttribute('data-kind'), t.checked); save(); counts(); invalidate(); }
-        else if (t.matches('input[data-layer]')) { layers[t.getAttribute('data-layer')] = t.checked; if (!layers.regions) hlRegion = null; save(); invalidate(); }
-      });
       side.addEventListener('click', e => {
-        const all = e.target.closest('[data-catall]');
+        const t = e.target;
+        const kr = t.closest('.krow[data-kind]');
+        if (kr) { const id = kr.getAttribute('data-kind'); enable(id, !enabled.has(id)); save(); syncChecks(); counts(); invalidate(); return; }
+        const cx = t.closest('.cat-x');
+        if (cx) { const box = cx.closest('.cat'); openCat(box.getAttribute('data-cat'), box.classList.contains('closed')); return; }
+        const all = t.closest('[data-catall]');
         if (all) {
           const c = cats.find(x => x.id === all.getAttribute('data-catall'));
-          if (c) { const on = !c.kinds.every(k => enabled.has(k.id)); c.kinds.forEach(k => enable(k.id, on)); save(); syncChecks(); counts(); invalidate(); }
+          if (c) { const on = !c.kinds.every(k => enabled.has(k.id)); c.kinds.forEach(k => enable(k.id, on)); if (on) openCat(c.id, true); save(); syncChecks(); counts(); invalidate(); }
           return;
         }
-        const act = e.target.closest('[data-act]');
+        const lp = t.closest('.lpill[data-layer]');
+        if (lp) { const k = lp.getAttribute('data-layer'); layers[k] = !layers[k]; if (!layers.regions) hlRegion = null; save(); syncChecks(); invalidate(); return; }
+        const tab = t.closest('[role="tab"][data-tab]');
+        if (tab) { setTab(tab.getAttribute('data-tab')); return; }
+        if (t.closest('#side-collapse')) { setSide(false); return; }
+        const act = t.closest('[data-act]');
         if (act && data) {
           const a = act.getAttribute('data-act');
-          if (a === 'all') data.markers.forEach(m => enabled.add(m.id));
+          if (a === 'all') data.markers.forEach(mk => enabled.add(mk.id));
           else if (a === 'none') enabled.clear();
           else if (a === 'found') { hideFound = !hideFound; store.set('map.hideFound', hideFound); }
           save(); syncChecks(); counts(); invalidate();
           if (a === 'all') toast('Showing every item type. Zoom in for detail.');
           return;
         }
-        const qb = e.target.closest('[data-quest]');
+        const qb = t.closest('[data-quest]');
         if (qb) { openQuest(qb.getAttribute('data-quest')); return; }
-        if (e.target.closest('#quest-retry')) { loadQuests(true); return; }
-        const qa = e.target.closest('[data-qa]');
+        if (t.closest('#quest-retry')) { loadQuests(true); return; }
+        const qa = t.closest('[data-qa]');
         if (qa) { questAction(qa); return; }
       });
+      side.addEventListener('keydown', e => {
+        const tab = e.target.closest('[role="tab"]');
+        if (!tab || (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft')) return;
+        const tabs = [...side.querySelectorAll('[role="tab"]')];
+        const next = tabs[(tabs.indexOf(tab) + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        next.focus(); setTab(next.getAttribute('data-tab'));
+      });
+      $('#side-open').addEventListener('click', () => { setSide(true); setTimeout(() => $('#map-q').focus({ preventScroll: true }), 420); });
       $('#map-fab').addEventListener('click', () => { shell.classList.add('sheet-open'); setTimeout(() => $('#map-q').focus({ preventScroll: true }), 350); });
       $('#sheet-close').addEventListener('click', () => shell.classList.remove('sheet-open'));
       const q = $('#map-q');
@@ -2572,7 +3037,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       const box = $('#map-results');
       if (!q || !data) { hideResults(); return; }
       const pool = [];
-      for (const m of data.markers) pool.push({ t: 'kind', id: m.id, name: m.name, label: `${m.catName} · ${m.keep.length}`, m });
+      for (const mk of data.markers) pool.push({ t: 'kind', id: mk.id, name: mk.name, label: `${mk.catName} · ${mk.keep.length}`, m: mk });
       for (const r of data.regions) pool.push({ t: 'region', id: r.id, name: r.name, label: 'Region' });
       for (const l of data.landmarks) pool.push({ t: 'landmark', id: l.id, name: l.name, label: 'Landmark' });
       for (const qq of mapQuests()) pool.push({ t: 'quest', id: qq.id, name: qq.name, label: 'Quest' });
@@ -2581,7 +3046,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
         const alt = it.t === 'kind' && it.m.catName.toLowerCase().includes(q);
         if (i < 0 && !alt) return null;
         return { it, s: i === 0 ? 0 : i > 0 && /\W/.test(n[i - 1]) ? 1 : i > 0 ? 2 : 3 };
-      }).filter(Boolean).sort((a, b) => a.s - b.s || a.it.name.localeCompare(b.it.name)).slice(0, 16);
+      }).filter(Boolean).sort((x, y) => x.s - y.s || x.it.name.localeCompare(y.it.name)).slice(0, 16);
       box.innerHTML = hits.length ? hits.map(({ it }) => `<button type="button" role="option" data-r="${it.t}" data-id="${esc(it.id)}">${it.t === 'kind' ? iconHTML(it.m) : `<span style="width:20px;display:inline-grid;place-items:center">${it.t === 'region' ? '◇' : it.t === 'landmark' ? '◆' : '!'}</span>`}<span>${esc(it.name)}</span><span class="ty">${esc(it.label)}</span></button>`).join('')
         : `<div class="none">Nothing called “${esc(raw.trim())}” on ${esc(MAP_INFO[curId].name)}.</div>`;
       box.hidden = false;
@@ -2589,13 +3054,12 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     function pickResult(type, id) {
       hideResults();
       if (type === 'kind') {
-        const m = kindById.get(id); if (!m) return;
-        enable(m.id); save(); syncChecks(); counts();
-        const det = document.querySelector(`#cat-list details[data-cat="${CSS.escape(m.cat)}"]`); if (det) det.open = true;
-        fitPoints(m.keep.map(i => m.pts[i]));
-        toast(`Showing ${m.keep.length.toLocaleString('en-US')} × ${m.name}`);
+        const mk = kindById.get(id); if (!mk) return;
+        enable(mk.id); save(); setTab('items'); syncChecks(); counts(); openCat(mk.cat, true);
+        fitPoints(mk.keep.map(i => mk.pts[i]));
+        toast(`Showing ${mk.keep.length.toLocaleString('en-US')} × ${mk.name}`);
         if (COARSE) shell.classList.remove('sheet-open');
-      } else if (type === 'quest') openQuest(id);
+      } else if (type === 'quest') { setTab('quests'); openQuest(id); }
       else { applyTarget({ type, id }); if (COARSE) shell.classList.remove('sheet-open'); }
     }
 
@@ -2615,7 +3079,9 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     }
     function renderQuests() {
       const mine = mapQuests(), any = (allQuests || []).filter(q => !q.map);
-      $('#quest-count').textContent = mine.length ? `${mine.length} here` : '';
+      $('#quest-count').textContent = mine.length ? String(mine.length) : '';
+      const qf = $('#map-facts');
+      if (qf && mine.length && !qf.querySelector('[data-qf]')) qf.insertAdjacentHTML('beforeend', `<div data-qf><b>${mine.length}</b><span>quests here</span></div>`);
       const groups = new Map();
       for (const q of mine) { const k = q.type || 'other'; if (!groups.has(k)) groups.set(k, []); groups.get(k).push(q); }
       const cap = s => String(s).replace(/_/g, ' ').replace(/^\w/, ch => ch.toUpperCase());
@@ -2628,10 +3094,9 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       const slot = $('#quest-card-slot');
       if (!slot) return;
       if (COARSE && !shell.classList.contains('sheet-open')) shell.classList.add('sheet-open');
+      if (shell.classList.contains('side-closed') && !COARSE) setSide(true);
+      setTab('quests');
       slot.innerHTML = '<div class="quest-card"><p class="note" style="margin:0">Loading quest…</p></div>';
-      const scroller = $('#side-scroll');
-      const sec = $('#quest-sec');
-      if (scroller && sec) scroller.scrollTo({ top: sec.offsetTop - 6, behavior: REDUCED ? 'auto' : 'smooth' });
       PS.quest(id).then(q => {
         const kinds = new Set();
         const tasks = (q.tasks || []).map(t => {
@@ -3012,7 +3477,8 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
         const ms = t.ids.map(id => kindById.get(id)).filter(Boolean);
         if (!ms.length) { toast(`None of those items are listed on ${MAP_INFO[curId].name}`); return; }
         ms.forEach(m => enable(m.id)); save(); syncChecks(); counts();
-        ms.forEach(m => { const det = document.querySelector(`#cat-list details[data-cat="${CSS.escape(m.cat)}"]`); if (det) det.open = true; });
+        ms.forEach(mk => openCat(mk.cat, true));
+        setTab('items');
         fitPoints(ms.flatMap(m => m.keep.map(i => m.pts[i])));
         toast('Showing ' + ms.map(m => m.name).join(', '));
       }
@@ -3170,6 +3636,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'growth', g: 'core', icon: 'sprout', title: 'Growth & life stages', kw: 'hatchling juvenile adolescent sub-adult adult grow faster death',
       sum: 'How a hatchling becomes an adult, what changes at each stage, and how to grow faster.',
+      facts: ["Five stages: Hatchling, Juvenile, Adolescent, Sub-Adult, Adult", "Roughly 50 quests per stage", "Dying costs about 5 quests of growth; adults drop to Sub-Adult"],
       src: [['Growth', 'game-mechanics/growth'], ['Nesting', 'game-mechanics/nesting'], ['Quests', 'game-mechanics/quests']],
       body: `
 <h3>The five stages</h3>
@@ -3201,6 +3668,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'stats', g: 'core', icon: 'bars', title: 'Creature stats explained', kw: 'health armor combat weight stamina heal rate speed calculator damage formula',
       sum: 'What every number on a creature page means, plus a calculator for how hard a hit lands.',
+      facts: ["Damage = base × attacker weight ÷ victim weight", "Head ×1.2 (ceratopsians ×1), tail ×0.25", "Sitting takes ×2 damage, sleeping ×4"],
       src: [['Dinosaur Stats', 'game-mechanics/stats']],
       body: `
 <h3>Combat and health</h3>
@@ -3246,6 +3714,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'combat', g: 'core', icon: 'claws', title: 'Combat & damage', kw: 'fight pvp hit location head tail sitting sleeping in combat recently logged in knockback recoil aoe',
       sum: 'Where to bite, when you are most vulnerable, and the rules that decide fights.',
+      facts: ["Compare combat weights before you fight", "Never sit or sleep mid-fight", "In Combat stops healing and blocks your Home Cave"],
       src: [['Combat', 'game-mechanics/combat'], ['Dinosaur Stats', 'game-mechanics/stats'], ['Buffs and Debuffs', 'game-mechanics/buffs-debuffs']],
       body: `
 <h3>Weight wins trades</h3>
@@ -3279,6 +3748,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'status-effects', g: 'core', icon: 'drop', title: 'Status effects', kw: 'bleed venom toxin fracture bone break poison asphyxiation paralysis knockback recover heal',
       sum: 'Bleed, venom, toxin, fractures and more: what they do, how they stack and how to shake them off.',
+      facts: ["Bleed ignores armor and stops healing", "Toxin kills if health drops below the toxin bar", "Sit (×2) or sleep (×4) to recover faster"],
       src: [['Status Effects', 'game-mechanics/status-effects'], ['Combat', 'game-mechanics/combat'], ['Buffs and Debuffs', 'game-mechanics/buffs-debuffs']],
       body: `
 <p>Only certain abilities apply status effects. Their strength scales with the weight of attacker and victim, just like damage, and most of them stack. Each creature page lists the abilities that cause them, with exact numbers in the coloured chips.</p>
@@ -3310,6 +3780,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'buffs', g: 'core', icon: 'spark', title: 'Buffs & debuffs', kw: 'well rested home cave safety hazard comfortable nest family group healing waters quenched parched calls bark roar',
       sum: 'The common bonuses and penalties, from Well Rested to Parched, and where they come from.',
+      facts: ["Well Rested: log out in your Home Cave for an hour", "Comfortable Nest: +25% health recovery", "Calls only buff your group"],
       src: [['Buffs and Debuffs', 'game-mechanics/buffs-debuffs'], ['Refer A Friend', 'game-mechanics/raf'], ['Nesting', 'game-mechanics/nesting']],
       body: `
 <h3>General</h3>
@@ -3368,6 +3839,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'abilities', g: 'core', icon: 'grid', title: 'Abilities & loadouts', kw: 'slots unlock marks swap starter passive calls cooldown subspecies',
       sum: 'How ability slots work, how to unlock and swap abilities, and how to read the ability explorer.',
+      facts: ["Unlock abilities with Marks any time", "Swap them in your Home Cave while sleeping", "Fractures switch off Leg and Back Limb abilities"],
       src: [['Abilities', 'game-mechanics/abilities'], ['Marks', 'game-mechanics/marks']],
       body: `
 <h3>Unlocking and equipping</h3>
@@ -3405,6 +3877,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'food', g: 'life', icon: 'leaf', title: 'Food & water', kw: 'diet eat drink carnivore herbivore forager insectivore mushroom berries melon roots salt water fish',
       sum: 'What each diet eats, where to find it, and the plants and drinks that help or hurt.',
+      facts: ["Your Diet ability decides what you can eat", "Salt makes you thirsty; roots and melons give a little water", "Bigger fish live in bigger lakes"],
       src: [['Food', 'game-mechanics/food'], ['Panjura', 'maps/panjura'], ['Gondwa', 'maps/gondwa']],
       body: `
 <h3>Who eats what</h3>
@@ -3441,6 +3914,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'nesting', g: 'life', icon: 'egg', title: 'Nesting & raising young', kw: 'nest eggs babies hatchling adopt materials comfortable family parental baby killer',
       sum: 'Build a nest, lay eggs, invite hatchlings and keep your babies alive.',
+      facts: ["Sub-adults and adults can build nests", "A half-built nest gives +25% health recovery", "Killing babies at a nest earns a 10-minute debuff"],
       src: [['Nesting', 'game-mechanics/nesting'], ['Buffs and Debuffs', 'game-mechanics/buffs-debuffs']],
       body: `
 <p>Nesting arrived on October 8, 2024. Sub-adults and adults can build a nest almost anywhere, using materials that depend on the species.</p>
@@ -3467,6 +3941,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'groups', g: 'life', icon: 'group', title: 'Groups & group slots', kw: 'party herd pack slots leader invite',
       sum: 'How groups, herds and packs work, and who fits in your group.',
+      facts: ["Groups have 10 slots by default", "Creatures cost 1 to 5 slots; juveniles cost less", "Only the leader can invite"],
       src: [['Player Groups', 'game-mechanics/player-groups'], ['Dinosaur Stats', 'game-mechanics/stats'], ['Quests', 'game-mechanics/quests']],
       body: `
 <h3>Slots</h3>
@@ -3488,6 +3963,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'home-caves', g: 'life', icon: 'cave', title: 'Home caves', kw: 'base cave rooms decorations stone well rested safety hazard',
       sum: 'Your private base: how to find one, what you can do inside and the rules at the door.',
+      facts: ["Entrances show as a blue triangle on the map", "No food or water inside", "You cannot enter while In Combat"],
       src: [['Home Caves', 'game-mechanics/home-caves'], ['Buffs and Debuffs', 'game-mechanics/buffs-debuffs']],
       body: `
 <h3>Finding a cave</h3>
@@ -3511,6 +3987,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'communication', g: 'life', icon: 'chat', title: 'Chat, calls & emotes', kw: 'chat global local group whisper vocal wheel broadcast friendly threaten danger emotes commands',
       sum: 'Chat channels, the vocal wheel, emotes and the commands every player can use.',
+      facts: ["Local chat only reaches nearby players of your diet", "Every species has five shared calls", "Emotes go between colons, like :dinolove:"],
       src: [['Communication', 'game-mechanics/communication'], ['Chat Emotes', 'game-mechanics/chat-emotes'], ['Server Commands', 'game-mechanics/server-commands']],
       body: `
 <h3>Chat channels</h3>
@@ -3542,6 +4019,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'quests', g: 'prog', icon: 'flag', title: 'Quests', kw: 'quest growth marks group local world discovery trophy survival personal',
       sum: 'Every quest type, what it pays and how to find quests on the map.',
+      facts: ["Local world quests: about 30 s of growth", "Discovery quests: 90 s and 100 Marks", "Trophy quests: 180 s"],
       src: [['Quests', 'game-mechanics/quests']],
       body: `
 <p>Quests are the main source of growth and Marks. Most pay a small slice of growth, and some pay much more.</p>
@@ -3561,6 +4039,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'marks', g: 'prog', icon: 'coin', title: 'Marks', kw: 'currency money earn spend skins abilities subspecies decorations',
       sum: 'The in-game currency: how to earn it and what it buys.',
+      facts: ["Earned mainly from quests", "Spent on abilities, subspecies, skins and decorations", "Each new region discovered pays 100 Marks"],
       src: [['Marks', 'game-mechanics/marks'], ['Quests', 'game-mechanics/quests'], ['Server Commands', 'game-mechanics/server-commands']],
       body: `
 <h3>Earning Marks</h3>
@@ -3582,6 +4061,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'waystones', g: 'prog', icon: 'stone', title: 'Waystones', kw: 'teleport travel friend invite cooldown glow mushroom',
       sum: 'Fast travel to friends: how invites, cooldowns and the glow mushroom quest work.',
+      facts: ["Five per map: one near each corner and one in the middle", "30-minute cooldown by default", "Glowing mushrooms shorten the wait"],
       src: [['Waystones', 'game-mechanics/waystones'], ['Server Commands', 'game-mechanics/server-commands']],
       body: `
 <p>Waystones are stones carved with green runes. Each map has five, one near each corner and one in the middle.</p>
@@ -3599,6 +4079,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'trophies', g: 'prog', icon: 'tooth', title: 'Trophies', kw: 'trophy corpse horn tooth claw feather quest home cave decoration',
       sum: 'Loot from fallen rivals that you can carry home for growth, Marks and a decoration.',
+      facts: ["Dropped by grown-up player creatures", "Deliver to your Home Cave for 180 s of growth", "A dropped trophy vanishes after 5 minutes"],
       src: [['Trophies', 'game-mechanics/trophies'], ['Quests', 'game-mechanics/quests']],
       body: `
 <ul>
@@ -3614,6 +4095,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'skins', g: 'prog', icon: 'palette', title: 'Skins & cosmetics', kw: 'skin colors event backer refer a friend raf kingfisher',
       sum: 'Unlocking and upgrading skins, special and event skins, and Refer a Friend rewards.',
+      facts: ["More than 250 skins, unlocked with Marks", "Upgrades add colors from left to right", "Refer up to 6 friends for referral skins"],
       src: [['Dinosaur Skins', 'game-mechanics/skins'], ['Special Skins', 'game-mechanics/special-skins'], ['Refer A Friend', 'game-mechanics/raf']],
       body: `
 <h3>Regular skins</h3>
@@ -3641,6 +4123,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'maps-guide', g: 'world', icon: 'map', title: 'Maps & biomes', kw: 'gondwa panjura riparia biome havens points of interest',
       sum: 'Gondwa, Panjura and Riparia at a glance, with biomes, landmarks and where to start exploring.',
+      facts: ["Panjura: the original 8 × 8 km forest map", "Gondwa: an island world from December 2022", "Riparia: a coastal floodplain from December 2025"],
       src: [['Panjura', 'maps/panjura'], ['Gondwa', 'maps/gondwa'], ['Foliage', 'maps/foliage']],
       body: `
 <div class="cards2">
@@ -3663,6 +4146,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'wildlife', g: 'world', icon: 'fish', title: 'AI wildlife & fish', kw: 'fish critters ai catfish trout pike tuna arapaima stingray turtle shark burrow',
       sum: 'The fish and small creatures that share the world with you, and what eating them does.',
+      facts: ["Anyone can carry fish; carnivores eat them", "Many fish give a buff when eaten", "Critters come out of burrows"],
       src: [['AI', 'ai/ai'], ['Fish', 'ai/fish'], ['Buffs and Debuffs', 'game-mechanics/buffs-debuffs']],
       body: `
 <h3>Fish</h3>
@@ -3690,6 +4174,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'servers', g: 'world', icon: 'server', title: 'Official & community servers', kw: 'official community matchmaking region creator mode hosting mods',
       sum: 'How official matchmaking works and what changes on community servers.',
+      facts: ["One character works on every official server", "Community servers can run mods and their own rules", "Change your matchmaking region in Settings, Gameplay"],
       src: [['Game Servers', 'game-mechanics/game-servers'], ['Matchmaking', 'game-mechanics/matchmaking'], ['Creator Mode', 'game-mechanics/creator-mode']],
       body: `
 <div class="cards2">
@@ -3706,6 +4191,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'commands', g: 'world', icon: 'term', title: 'Server commands', kw: 'commands admin teleport respawn whisper heal marks weather kick ban',
       sum: 'Every chat command for players, and the admin commands community servers use.',
+      facts: ["/respawn frees a stuck creature", "/w name message sends a whisper", "Admin commands need a role permission"],
       src: [['Server Commands', 'game-mechanics/server-commands']],
       body: `
 <h3>For everyone</h3>
@@ -3748,6 +4234,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'mods', g: 'world', icon: 'puzzle', title: 'Mods & modded creatures', kw: 'mods modded modkit community creatures maps',
       sum: 'What mods can change, how players get them, and how this Dinodex tracks modded creatures.',
+      facts: ["Joining a modded server installs its mods", "Mods can add maps, creatures, modes and stat changes", "Turn on Show modded creatures to browse them here"],
       src: [['Modding', 'modding/modding']],
       body: `
 <h3>What mods can add</h3>
@@ -3770,6 +4257,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     {
       slug: 'game-modes', g: 'world', icon: 'swords', title: 'Game modes', kw: 'territories capture the egg last herbivore standing deathmatch',
       sum: 'The alternative modes on the roadmap, from Territories to Deathmatch.',
+      facts: ["Territories, Capture the Egg, Last Herbivore Standing, Deathmatch", "The wiki lists them as planned", "Community servers may run their own modes"],
       src: [['Territories', 'maps/game-modes/territories'], ['Capture The Egg', 'maps/game-modes/cte'], ['Last Herbivore Standing', 'maps/game-modes/lhs'], ['Deathmatch', 'maps/game-modes/deathmatch']],
       body: `
 <p>The standard survival mode is what most servers run. The wiki lists these alternative modes as planned; community servers can also run their own modes through mods, so check a server's rules and message of the day.</p>
@@ -3787,7 +4275,6 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
     buildForest();
     initShell();
     wireControls();
-    loadPortraits();
     try {
       const res = await fetch(DATA_URL, { cache: 'no-cache' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -3809,6 +4296,7 @@ table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-sp
       }
     } catch (e) { /* version details are optional */ }
     updateCounts();
+    PICS_READY = loadPictures();
     window.addEventListener('hashchange', route);
     route();
   }
