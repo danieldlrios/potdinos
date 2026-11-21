@@ -1,36 +1,32 @@
-# PoT Dinos · potdinos.com
+# Path of Titans Dinodex · potdinos.com
 
-A fan-made reference for Path of Titans: stats and full ability kits for every playable
-creature, official and modded, with side-by-side comparisons. It is a static site hosted on
-Vercel. A GitHub Action refreshes the data from the Potservers public API twice a day.
+A fan-made, one-stop guide to Path of Titans: stats and full ability kits for every playable
+creature (official and modded), interactive maps of Gondwa, Panjura and Riparia, and
+plain-English guides to growth, combat, nesting, quests, servers and more. It is a static site
+hosted on Vercel.
 
 ## What's in this repo
 
 | Path | What it is |
 | --- | --- |
-| `index.html` | The whole site: HTML, CSS and JavaScript in one file |
-| `data/index.json` | The roster: one summary line per creature |
+| `index.html` | The whole site: HTML, CSS and JavaScript in one file, including the guides |
+| `data/index.json` | The creature roster: one summary line per creature |
 | `data/c/<id>.json` | The full record for each creature, loaded when its page opens |
-| `data/version.json` | Patch name and date (you edit these), plus dates and counts the refresh fills in |
-| `tools/update_from_api.py` | Downloads fresh data from Potservers (Python 3, standard library only) |
-| `.github/workflows/refresh-data.yml` | Runs the download twice a day and commits anything that changed |
-| `favicon.ico`, `favicon-32.png`, `favicon-192.png`, `apple-touch-icon.png` | Site icons, in the same style as the creature badges |
-| `og-image.png` | The preview card Discord and other apps show for a shared link, drawn with the site's own styles |
+| `data/version.json` | Patch name and date, plus the date the data was last refreshed |
+| `api/potservers.js` | A small Vercel function that relays read-only Potservers requests if a browser blocks direct calls |
+| `favicon.ico`, `favicon-32.png`, `favicon-192.png`, `apple-touch-icon.png` | Site icons |
+| `og-image.png` | The preview card Discord and other apps show for a shared link |
+
+## Live data
+
+Creature portraits, ability icons, growth-stage curves, maps and quests load straight from the
+[Potservers](https://potservers.net) public API when a page needs them. Creature stats and
+abilities come from the `data/` files, which are refreshed by hand after each game patch.
 
 ## Set the patch name
 
 Open `data/version.json` on GitHub, click the pencil, change `"patch"` and `"patch_date"`
-(`YYYY-MM-DD`), then **Commit changes**. Vercel redeploys in about a minute. The refresh
-keeps whatever you type there.
-
-## Refresh the data by hand
-
-On GitHub: **Actions → Refresh dino data → Run workflow**. On your computer:
-`python3 tools/update_from_api.py` (add `--dry-run` to see what would change without writing).
-
-The refresh writes nothing unless Potservers answered for at least 90% of creatures, returned
-at least 30 official ones, and the roster did not shrink by more than 20%. A creature that
-fails to download keeps its previous data.
+(`YYYY-MM-DD`), then **Commit changes**. Vercel redeploys in about a minute.
 
 ## Preview the site on your computer
 
@@ -39,5 +35,7 @@ Opening `index.html` straight from disk will not load the data files.
 
 ## Credits
 
-Stats and abilities come from the [Potservers](https://potservers.net) public API.
+Creature data, icons and map data come from the [Potservers](https://potservers.net) public API.
+Guides are written for this site with credit to the [Path of Titans Wiki](https://pathoftitans.wiki/pot).
 Path of Titans and its creatures belong to Alderon Games; this site is unofficial.
+Suggestions: Discord **uzzislayerz** (in game: Uzzi).
