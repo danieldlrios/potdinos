@@ -42,6 +42,18 @@ skips armor). Bleed, abilities and other effects are not counted, and the page s
 Open `data/version.json` on GitHub, click the pencil, change `"patch"` and `"patch_date"`
 (`YYYY-MM-DD`), then **Commit changes**. Vercel redeploys in about a minute.
 
+The patch pill on the home page links to Alderon's own post about that update. Add a
+`"patch_url"` line with the post's address (for example
+`"patch_url": "https://pathoftitans.com/blog/microraptor-released",`) whenever you change the patch.
+Without it, the pill opens the matching post the site already knows, or else Alderon's dev blog.
+
+## Maps
+
+A first visit to each map shows only the region names. Visitors switch on Landmarks, Flights and item
+types themselves, and those choices are saved on their device for each map until they switch them off.
+Links into a map (such as "Find them on the map" on a dinosaur page) show what they point to without
+changing those saved choices.
+
 ## Page addresses and search engines
 
 Every page has its own address: `/dinosaurs/<name>`, `/compare/<a>/<b>`,

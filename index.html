@@ -1004,6 +1004,15 @@ table.calls td:nth-child(2) { min-width: 104px; }
   table.calls td:nth-child(2) { font-size: 13px; color: var(--ink-2); }
 }
 
+/* ---------- the patch pill links to Alderon's update post ---------- */
+a.patch-link { text-decoration: none; cursor: pointer; transition: background-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease); }
+a.patch-link svg { width: 12px; height: 12px; flex: none; opacity: .75; margin-left: -2px; }
+@media (hover: hover) {
+  a.patch-link:hover { background: color-mix(in srgb, var(--accent) 24%, var(--accent-soft)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
+  a.patch-link:hover svg { opacity: 1; }
+}
+a.patch-link:active { transform: scale(.97); }
+
 /* ---------- fight matchup: the button, picking on the list, the tray ---------- */
 .fight-btn { min-height: 40px; padding: 8px 14px; border-radius: 10px; font-weight: 600; gap: 8px; background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .fight-btn svg, .btn .fight-ic { width: 17px; height: 17px; flex: none; }
@@ -1209,7 +1218,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       <p class="hero-tag">Your one-stop shop for everything Path of Titans.</p>
       <p class="lede">Every playable dinosaur with full stats and ability kits, interactive maps of Gondwa, Panjura and Riparia, and plain-English guides to growth, combat, nesting, quests and more. No more wiki-hopping.</p>
       <div class="patch-strip" id="patch-strip">
-        <span class="pill accent" id="patch-pill">Patch: <strong id="patch-name">Microraptor Update</strong> <span>(<span id="patch-date">Nov 12, 2026</span>)</span></span>
+        <a class="pill accent patch-link" id="patch-pill" href="https://pathoftitans.com/blog/microraptor-released" target="_blank" rel="noopener" title="Read Alderon Games' post about this update">Patch: <strong id="patch-name">Microraptor Update</strong> <span>(<span id="patch-date">Nov 12, 2026</span>)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="sr-only"> (opens Alderon Games' update post in a new tab)</span></a>
         <span class="pill">Data updated <strong id="data-date">Nov 20, 2026</strong></span>
         <span class="pill" id="count-pill">Loading roster</span>
       </div>
@@ -1371,6 +1380,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
             <ul class="map-tips">
               <li><b>Move:</b> drag, or use the arrow keys.</li>
               <li><b>Zoom:</b> scroll, pinch or double-click, or press + and −. Press 0 to see the whole map.</li>
+              <li><b>Show more:</b> a new visit shows only the region names. Switch on Landmarks, Flights or any item types in the Items tab; your choices are saved on this device for each map until you switch them off.</li>
               <li><b>Details:</b> click or tap any icon, landmark or region name.</li>
               <li><b>Progress:</b> “Mark as found” saves on this device, and “Hide found” clears those spots from view.</li>
               <li><b>Share:</b> “Copy link” opens the map at that exact spot; “Copy coords” gives the in-game position for admin teleports.</li>
@@ -2450,6 +2460,17 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     enter(view);
   }
 
+  // ---------- the patch pill on the home page opens Alderon's own post about that update ----------
+  // data/version.json can name the post in "patch_url"; otherwise known patches map here, and anything else opens the dev blog.
+  const PATCH_POSTS = { 'microraptor update': 'https://pathoftitans.com/blog/microraptor-released' };
+  const PATCH_HOME = 'https://pathoftitans.com/blog';
+  function patchLink(v) {
+    const a = $('#patch-pill');
+    if (!a || a.tagName !== 'A') return;
+    const own = v && typeof v.patch_url === 'string' && /^https:\/\/[^\s"'<>]+$/.test(v.patch_url) ? v.patch_url : null;
+    a.href = own || PATCH_POSTS[String((v && v.patch) || '').trim().toLowerCase()] || PATCH_HOME;
+  }
+
   // ---------- small UI helpers ----------
   function toast(msg) {
     const el = $('#toast'); if (!el) return;
@@ -2971,7 +2992,10 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     const icons = new Map();
     let kindById = new Map(), drawOrder = [], cats = [];
     let enabled = new Set(), found = new Set();
-    let layers = { regions: true, landmarks: true, flights: false };
+    // A first visit to each map shows only the Regions layer; anything the visitor switches on is saved per map on this device.
+    const LAYER_DEFAULTS = { regions: true, landmarks: false, flights: false };
+    const MAP_STATE_V = 2;   // saved map settings from before this version start over once (found marks are kept)
+    let layers = Object.assign({}, LAYER_DEFAULTS);
     let hideFound = !!store.get('map.hideFound', false);
     let sel = null, hover = null, hlRegion = null, labelBoxes = [];
     let raf = 0, anim = null, inertia = null, pending = null, active = false;
@@ -3043,15 +3067,12 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     // ----- persistence -----
     function restore() {
       const s = store.get('map.' + curId, null);
+      const mine = !!(s && s.v === MAP_STATE_V);
       found = new Set((s && s.found) || []);
-      layers = Object.assign({ regions: true, landmarks: true, flights: false }, s && s.layers);
-      if (s && Array.isArray(s.en)) enabled = new Set(s.en.filter(id => kindById.has(id)));
-      else {
-        const small = data.markers.filter(m => m.keep.length <= 30).sort((a, b) => a.keep.length - b.keep.length).slice(0, 12);
-        enabled = new Set((small.length ? small : data.markers.slice().sort((a, b) => a.keep.length - b.keep.length).slice(0, 3)).map(m => m.id));
-      }
+      layers = Object.assign({}, LAYER_DEFAULTS, mine && s.layers);
+      enabled = new Set(mine && Array.isArray(s.en) ? s.en.filter(id => kindById.has(id)) : []);
     }
-    function save() { if (curId && data) store.set('map.' + curId, { en: [...enabled], found: [...found], layers }); }
+    function save() { if (curId && data) store.set('map.' + curId, { v: MAP_STATE_V, en: [...enabled], found: [...found], layers }); }
 
     // ----- build once -----
     function build() {
@@ -3348,7 +3369,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
         toast(`Showing ${mk.keep.length.toLocaleString('en-US')} × ${mk.name}`);
         if (COARSE) shell.classList.remove('sheet-open');
       } else if (type === 'quest') { setTab('quests'); openQuest(id); }
-      else { applyTarget({ type, id }); if (COARSE) shell.classList.remove('sheet-open'); }
+      else { applyTarget({ type, id }, true); if (COARSE) shell.classList.remove('sheet-open'); }
     }
 
     // ----- quests -----
@@ -3404,8 +3425,8 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       const a = b.getAttribute('data-qa');
       if (a === 'close') { $('#quest-card-slot').innerHTML = ''; return; }
       if (COARSE) shell.classList.remove('sheet-open');
-      if (a === 'items') applyTarget({ type: 'kinds', ids: b.getAttribute('data-kinds').split(',') });
-      else if (a === 'region') applyTarget({ type: 'region', id: b.getAttribute('data-id') });
+      if (a === 'items') applyTarget({ type: 'kinds', ids: b.getAttribute('data-kinds').split(',') }, true);
+      else if (a === 'region') applyTarget({ type: 'region', id: b.getAttribute('data-id') }, true);
     }
 
     // ----- camera -----
@@ -3741,30 +3762,32 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       if (a === 'zoom') { const r = data.regions.find(x => x.id === sel.id); if (r && r.bb) fitBox(r.bb, 60); return; }
       if (a === 'route') { const f = data.flights.find(x => x.id === sel.id); if (f) fitPoints(f.route); }
     }
-    function applyTarget(t) {
+    // persist: true when the visitor chose it here (search, quest buttons); links into the map only show it
+    function applyTarget(t, persist) {
       if (!t || !data) return;
+      const keep = () => { if (persist) save(); };
       if (t.type === 'item') {
         const m = kindById.get(t.kind);
         if (!m || !m.pts[t.i]) { toast('That item is not on this map any more'); return; }
-        enable(m.id); save(); syncChecks(); counts();
+        enable(m.id); keep(); syncChecks(); counts();
         flyTo(m.pts[t.i], Math.max(V.s, fit * 5));
         openPop({ type: 'item', kind: m.id, i: t.i });
       } else if (t.type === 'region') {
         const r = data.regions.find(x => x.id === t.id || x.name.toLowerCase() === String(t.id).toLowerCase());
         if (!r) { toast('That region is not on this map'); return; }
-        layers.regions = true; save(); syncChecks();
+        layers.regions = true; keep(); syncChecks();
         if (r.bb) fitBox(r.bb, 70); else flyTo(r.c, fit * 3);
         openPop({ type: 'region', id: r.id });
       } else if (t.type === 'landmark') {
         const l = data.landmarks.find(x => x.id === t.id);
         if (!l) { toast('That landmark is not on this map'); return; }
-        layers.landmarks = true; save(); syncChecks();
+        layers.landmarks = true; keep(); syncChecks();
         flyTo(l.p, Math.max(V.s, fit * 4));
         openPop({ type: 'landmark', id: l.id });
       } else if (t.type === 'kinds') {
         const ms = t.ids.map(id => kindById.get(id)).filter(Boolean);
         if (!ms.length) { toast(`None of those items are listed on ${MAP_INFO[curId].name}`); return; }
-        ms.forEach(m => enable(m.id)); save(); syncChecks(); counts();
+        ms.forEach(m => enable(m.id)); keep(); syncChecks(); counts();
         ms.forEach(mk => openCat(mk.cat, true));
         setTab('items');
         fitPoints(ms.flatMap(m => m.keep.map(i => m.pts[i])));
@@ -3877,7 +3900,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     function showHint() {
       if (store.get('maphint', 0)) return;
       const h = $('#map-hint');
-      h.textContent = COARSE ? 'Drag to move · Pinch to zoom · Tap an icon for details' : 'Drag to move · Scroll to zoom · Click an icon for details';
+      h.textContent = COARSE ? 'Drag to move · Pinch to zoom · Tap Search & filters to show items' : 'Drag to move · Scroll to zoom · Pick items in the panel to show them';
       h.hidden = false;
       clearTimeout(showHint.t); showHint.t = setTimeout(hideHint, 8000);
     }
@@ -5214,6 +5237,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
         if (v.patch) $('#patch-name').textContent = v.patch;
         if (v.patch_date) $('#patch-date').textContent = fmtDate(v.patch_date);
         if (!v.patch) $('#patch-pill').hidden = true;
+        patchLink(v);
         if (v.updated || v.checked) $('#data-date').textContent = fmtDate(v.updated || v.checked);
       }
     } catch (e) { /* version details are optional */ }
