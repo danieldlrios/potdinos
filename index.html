@@ -407,7 +407,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
   .nav-links a { flex-direction: column; gap: 3px; padding: 6px 10px; font-size: 11px; border-radius: 12px; min-width: 64px; }
   .nav-links a svg { width: 21px; height: 21px; }
   .nav-links a[aria-current="page"] { background: transparent; color: var(--accent); }
-  body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
 }
 @media (min-width: 761px) { .nav-links a svg { display: none; } }
 
@@ -756,14 +756,40 @@ footer.site { margin-top: 10px; }
 /* ---------- detail extras ---------- */
 .growth-wrap { margin: 0 0 32px; }
 .growth-wrap details.about { margin: 0; }
-.growth-wrap .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 14px 14px; }
+/* the scroll box has no side padding, so nothing slides past the pinned Value column */
+.growth-wrap .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; margin: 0 14px; padding: 0; }
+.growth-wrap .growth-note { margin: 10px 14px 14px; }
+.swipe-hint { display: none; }
 table.growth { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 13.5px; }
 table.growth th, table.growth td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-table.growth th:first-child, table.growth td:first-child { text-align: left; position: sticky; left: 0; background: var(--surface); white-space: normal; min-width: 150px; }
+table.growth th:first-child, table.growth td:first-child { text-align: left; position: sticky; left: 0; z-index: 1; background: var(--surface); white-space: normal; min-width: 150px; box-shadow: inset -1px 0 0 var(--line); }
 table.growth th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); }
 table.growth td.ad { color: var(--accent); font-weight: 700; }
-table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-2); padding-top: 14px; font-weight: 600; }
+table.growth tr.grp th, table.growth tr.grp td { font-size: 11.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-2); padding-top: 14px; font-weight: 600; }
+@media (max-width: 700px) { .swipe-hint { display: inline; } }
+@media (max-width: 600px) { table.growth th:first-child, table.growth td:first-child { min-width: 118px; } }
 .mat-link { display: inline-block; margin-top: 4px; font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 600; }
+/* a long page title or a long address in the help panel must never push the page sideways on small phones */
+.sheet-title { min-width: 0; }
+@media (max-width: 640px) { .sheet-head { align-items: start; } }
+.sheet-title h2 { overflow-wrap: break-word; }
+details.about .body { grid-template-columns: minmax(0, 1fr); }
+details.about .body code { overflow-wrap: anywhere; }
+/* compare page: both dinosaurs stay on screen on phones, long names wrap inside their own cells and tiles */
+table.cmp { table-layout: fixed; }
+table.cmp thead th:first-child { width: 38%; }
+table.cmp th, table.cmp td { overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto; }
+.tile { min-width: 0; }
+.tile-label { overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto; }
+.f-name, .h2h-n { -webkit-hyphens: auto; hyphens: auto; }
+/* the pinned name column in the list's table view gets a divider, like the growth table */
+table.data th:first-child, table.data td:first-child { box-shadow: inset -1px 0 0 var(--line); }
+/* touch screens: a tapped card does not stay lifted as if hovered */
+@media (hover: none) {
+  .card:hover, .card:active { transform: none; }
+  .card:hover { box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--tone, var(--line)) 30%, var(--line)); }
+  .card.picked:hover { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
+}
 .mat-link:hover { text-decoration: underline; }
 
 /* ---------- guide widgets ---------- */
@@ -2363,16 +2389,32 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
         const vals = [1, 2, 3, 4, 5].map(s => curveAt(pts, zero ? s - 1 : s));
         return `<tr><td>${esc(r.name || r.id)}</td>${vals.map((v, i) => `<td${i === 4 ? ' class="ad"' : ''}>${fmtNum(v)}</td>`).join('')}</tr>`;
       }).join('');
-      return rows ? `<tr class="grp"><td colspan="6">${esc(t.name || TNAME[t.id] || t.id || '')}</td></tr>${rows}` : '';
+      // the group title sits in the pinned first column, so it stays put while the numbers scroll
+      return rows ? `<tr class="grp"><th scope="rowgroup">${esc(t.name || TNAME[t.id] || t.id || '')}</th><td colspan="5"></td></tr>${rows}` : '';
     }).join('');
     if (!body) return;
     slot.innerHTML = `<details class="about"><summary>Stats at every growth stage</summary>
-      <div class="tw"><table class="growth"><thead><tr><th scope="col">Value</th>${STAGE_NAMES.map(s => `<th scope="col">${s}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table>
-      <p class="note">Raw game values from this dinosaur's growth curves, so speeds are in game units (cm/s). Values change smoothly as the growth bar fills. Source: Potservers.</p></div></details>`;
+      <div class="tw"><table class="growth"><thead><tr><th scope="col">Value</th>${STAGE_NAMES.map(s => `<th scope="col">${s}</th>`).join('')}</tr></thead><tbody>${body}</tbody></table></div>
+      <p class="note growth-note">Raw game values from this dinosaur's growth curves, so speeds are in game units (cm/s). Values change smoothly as the growth bar fills.<span class="swipe-hint"> Swipe the table sideways to see every stage.</span> Source: Potservers.</p></details>`;
     slot.hidden = false;
   }
+  // Long one-word names (Pachycephalosaurus, Acrocanthosaurus) shrink to fit narrow phones instead of pushing the page sideways.
+  function fitTitle(h) {
+    if (!h || !h.isConnected) return;
+    h.style.fontSize = '';
+    const keep = h.style.overflowWrap;
+    h.style.overflowWrap = 'normal';
+    let fs = parseFloat(getComputedStyle(h).fontSize), n = 40;
+    while (h.scrollWidth > h.clientWidth + 1 && fs > 18 && n--) { fs -= 1; h.style.fontSize = fs + 'px'; }
+    h.style.overflowWrap = keep;
+  }
+  let fitT = 0;
+  window.addEventListener('resize', () => { clearTimeout(fitT); fitT = setTimeout(() => fitTitle($('#detail-view:not([hidden]) .sheet-title h2')), 120); });
   function enhanceDetail(c) {
     const token = state.navToken;
+    fitTitle($('#detail-view .sheet-title h2'));
+    // measure again once the display font has loaded (the fallback font has different widths)
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (token === state.navToken) fitTitle($('#detail-view .sheet-title h2')); });
     applyIcons($('#detail-view'));
     PS.dino(c.id).then(d => {
       AB_ICON_MAPS[c.id] = collectAbIcons(d);
