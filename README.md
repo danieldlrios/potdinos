@@ -12,7 +12,7 @@ hosted on Vercel.
 | `index.html` | The whole site: HTML, CSS and JavaScript in one file, including the guides |
 | `data/index.json` | The dinosaur roster: one summary line per dinosaur |
 | `data/c/<id>.json` | The full record for each dinosaur, loaded when its page opens |
-| `data/version.json` | The latest game update shown on the home page (patch and hotfix), and the dates the data is from |
+| `data/version.json` | The latest game update shown on the home page (patch and hotfix), plus the dates the data was refreshed |
 | `api/potservers.js` | A small Vercel function that relays read-only Potservers requests if a browser blocks direct calls |
 | `vercel.json` | Sends every page address to `index.html` (except files, `data/` and `api/`) |
 | `sitemap.xml`, `robots.txt` | The page list for search engines, and the pointer to it |
@@ -39,9 +39,8 @@ skips armor). Bleed, abilities and other effects are not counted, and the page s
 
 ## The "Latest update" notice
 
-The home page shows the newest game update, linked to its notes, and the date the site's numbers are
-from. Both come from `data/version.json`: open it on GitHub, click the pencil, edit, then
-**Commit changes**. Vercel redeploys in about a minute.
+The home page shows the newest game update, linked to its notes. It comes from `data/version.json`:
+open it on GitHub, click the pencil, edit, then **Commit changes**. Vercel redeploys in about a minute.
 
 - `"patch"`, `"patch_date"` (`YYYY-MM-DD`) and `"patch_url"`: the last full game patch and Alderon's
   blog post about it, for example `"patch_url": "https://pathoftitans.com/blog/microraptor-released"`.
@@ -52,9 +51,10 @@ from. Both come from `data/version.json`: open it on GitHub, click the pencil, e
 The notice shows whichever of the two is newer. When the next full patch comes out, update the three
 patch lines and delete the three hotfix lines.
 
-**Stats as of** shows the later of `"source_updated"` (when Potservers last changed the data these files
-were made from) and `"stats_as_of"` (optional, `YYYY-MM-DD`: the day the numbers were last confirmed to
-match the game).
+When Alderon's notes say a dinosaur's numbers changed before Potservers has the new values, the script
+can flag that dinosaur (`PENDING_HOTFIX` in `index.html`): its page, and any compare or matchup it is in,
+says its numbers are from before the hotfix. A flag switches itself off once a data refresh gives that
+dinosaur a newer "stats last changed" or live-hotfix date.
 
 ## Maps
 

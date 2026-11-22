@@ -1223,7 +1223,6 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       <p class="lede">Every playable dinosaur with full stats and ability kits, interactive maps of Gondwa, Panjura and Riparia, and plain-English guides to growth, combat, nesting, quests and more. No more wiki-hopping.</p>
       <div class="patch-strip" id="patch-strip">
         <a class="pill accent patch-link" id="patch-pill" href="https://discord.gg/P6t8FGn" target="_blank" rel="noopener" title="Alderon Games posts hotfix notes in the official Path of Titans Discord"><span class="pl-k">Latest update:</span> <strong id="patch-name">Patch 53835 Hotfix 16</strong> <span class="pl-end"><span id="patch-when">(<span id="patch-date">Nov 21, 2026</span>)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="sr-only" id="patch-sr"> (opens the official Path of Titans Discord, where Alderon Games posts hotfix notes, in a new tab)</span></a>
-        <span class="pill" id="stats-pill" title="The dinosaur stats and ability numbers on this site match the game data from this date">Stats as of <strong id="data-date">Nov 19, 2026</strong></span>
         <span class="pill" id="count-pill">Loading roster</span>
       </div>
     </div>
@@ -1431,7 +1430,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     </section>
     <div class="foot-meta">
       <p><strong>Unofficial fan site.</strong> Path of Titans Dinodex is a free, non-commercial project made by a player. It is not affiliated with, endorsed, sponsored or approved by Alderon Games Pty Ltd. Path of Titans and its dinosaurs, maps, ability names, icons and character art are trademarks or copyrights of Alderon Games; modded dinosaurs and their art belong to their mod creators.</p>
-      <p>Dinosaur stats, in-game icons and map data come from the <a href="https://potservers.net" target="_blank" rel="noopener">Potservers</a> public API, which reads them from the game files; every picture of a dinosaur or ability is game artwork. Guides are written for this site and checked against Alderon's dev blogs, the <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a> and current game data. Data is refreshed after each game patch and hotfix, and the home page shows the latest update and the date the numbers are from; community servers can still change numbers with their own settings.</p>
+      <p>Dinosaur stats, in-game icons and map data come from the <a href="https://potservers.net" target="_blank" rel="noopener">Potservers</a> public API, which reads them from the game files; every picture of a dinosaur or ability is game artwork. Guides are written for this site and checked against Alderon's dev blogs, the <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a> and current game data. Data is refreshed after each game patch and hotfix, and the home page shows the latest update; community servers can still change numbers with their own settings.</p>
       <p><a href="/credits">Credits &amp; legal</a> · Own something shown here? Message uzzislayerz on Discord to have it credited or removed.</p>
     </div>
   </div>
@@ -1848,7 +1847,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       return `<div class="tile"><div class="tile-label">${esc(label)}</div><div class="tile-value">${v == null ? '–' : fmtNum(v)}${u ? `<small>${esc(u)}</small>` : ''}</div><div class="tile-rank">${r ? `Rank ${r.rank} of ${r.of}` : '&nbsp;'}</div></div>`;
     };
     const abCount = allAbilities(c).length;
-    const hot = c.hot && c.hot.rows.length ? `<div class="notice"><strong>Live hotfix on official servers</strong>Alderon is running different values than the game files for: ${esc(c.hot.rows.join(', '))} (seen ${fmtDate(c.hot.at)}). The matching numbers below may differ in game until the next patch.</div>` : '';
+    const hot = pendingHotfixNotice(c) || (c.hot && c.hot.rows.length ? `<div class="notice"><strong>Live hotfix on official servers</strong>Alderon is running different values than the game files for: ${esc(c.hot.rows.join(', '))} (seen ${fmtDate(c.hot.at)}). The matching numbers below may differ in game until the next patch.</div>` : '');
     const modInfo = c.mod ? `<div class="panel"><h3>Mod</h3><dl class="kv">
         <dt>Mod</dt><dd>${esc(c.mod.name || '–')}</dd>
         ${c.mod.pack ? `<dt>Pack</dt><dd>${esc(c.mod.pack)}</dd>` : ''}
@@ -1989,7 +1988,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     });
     const view = $('#compare-view');
     view.innerHTML = `
-      <a class="back" href="/dinosaurs/${esc(a.h)}">← Back to ${esc(a.n)}</a>
+      <a class="back" href="/dinosaurs/${esc(a.h)}">← Back to ${esc(a.n)}</a>${pendingListNotice([a, b])}
       <div class="panel" style="margin-top:8px">
         <h3>Compare dinosaurs</h3>
         <div class="cmp-pick">
@@ -2455,7 +2454,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
           <li><b>Guides:</b> written for this site and checked against Alderon's official dev blogs and patch posts, the official <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a>, the community Path of Titans wiki and current game data. Every guide links its sources.</li>
           <li><b>Design, forest background illustration, site icons and calculators:</b> made for this site.</li></ul></section>
         <section class="legal-card"><h3>Accuracy</h3>
-          <p>Numbers come from game data and can change with patches, live hotfixes and server settings. The home page shows the latest game update and the date the numbers are from, and each guide says when it was last checked. Everything here is provided as is, without warranty of any kind.</p></section>
+          <p>Numbers come from game data and can change with patches, live hotfixes and server settings. The home page shows the latest game update, and each guide says when it was last checked. Everything here is provided as is, without warranty of any kind.</p></section>
         <section class="legal-card"><h3>Corrections and removals</h3>
           <p>If you own something shown here and want it credited differently or taken down, or you spot a mistake, message <b>uzzislayerz</b> on Discord (in game: Uzzi) and it will be fixed quickly.</p>
           <button class="btn primary" type="button" data-copy-discord>Copy Discord username</button></section>
@@ -2467,7 +2466,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
   // ---------- the "Latest update" notice on the home page ----------
   // data/version.json: "patch", "patch_date", "patch_url" = the last full game patch (Alderon's blog post about it);
   // "hotfix", "hotfix_date", "hotfix_url" = a later hotfix (Alderon posts hotfix notes only in its Discord).
-  // The notice shows whichever is newer and links to its notes. "Stats as of" is the date the numbers match the game.
+  // The notice shows whichever is newer and links to its notes.
   const PATCH_POSTS = { 'microraptor update': 'https://pathoftitans.com/blog/microraptor-released' };
   const PATCH_HOME = 'https://pathoftitans.com/blog';
   const HOTFIX_NOTES = 'https://discord.gg/P6t8FGn';   // the official Path of Titans Discord invite, as linked from pathoftitans.com
@@ -2482,11 +2481,6 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       url: safeUrl(v.hotfix_url) || HOTFIX_NOTES } : null;
     if (hot && (!patch || !patch.date || (hot.date && hot.date >= patch.date))) return hot;
     return patch;
-  }
-  function statsAsOf(v) {
-    v = v || {};
-    const days = [dayOf(v.stats_as_of), dayOf(v.source_updated)].filter(Boolean).sort();
-    return days.length ? days[days.length - 1] : dayOf(v.updated) || dayOf(v.checked);
   }
   function showUpdate(v) {
     const a = $('#patch-pill');
@@ -2506,8 +2500,44 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
         if (sr) sr.textContent = discord ? ' (opens the official Path of Titans Discord, where Alderon Games posts hotfix notes, in a new tab)' : " (opens Alderon Games' post about this update in a new tab)";
       }
     }
-    const day = statsAsOf(v);
-    if (day && $('#data-date')) $('#data-date').textContent = fmtDate(day);
+  }
+
+  // ---------- hotfix notes that arrive before the new numbers ----------
+  // When Alderon's notes say a dinosaur's numbers changed but Potservers hasn't published the new values yet, its page
+  // (and any compare or matchup it is in) says so. A note shows only while that dinosaur's data is older than the hotfix:
+  // a data refresh that brings a newer "stats last changed" or live-hotfix date switches it off by itself.
+  const PENDING_HOTFIX = {
+    name: 'Hotfix 16', date: '2026-11-21',
+    dinos: {
+      thalassodromeus: { what: 'flight speeds and ability stats',
+        detail: "Alderon's notes say Thalassodromeus should hold its glides longer before it starts to fall, climb better vertically and turn better in the air with precise movement. Its base speeds were adjusted so it takes longer to cross the map, and its ability stats changed." },
+      hatzegopteryx: { what: 'flight speeds and ability stats',
+        detail: "Alderon's notes say Hatzegopteryx should hold its glides longer before it starts to fall. Its base speeds were adjusted so it takes longer to cross the map, and its ability stats changed." },
+    },
+  };
+  function isPendingHotfix(c) {
+    if (!c || c.mod || !PENDING_HOTFIX.dinos[c.h]) return false;
+    const after = d => typeof d === 'string' && d.slice(0, 10) >= PENDING_HOTFIX.date;
+    const hotAt = c.hot && typeof c.hot === 'object' ? c.hot.at : c.hot;   // full records hold {at, rows}; the roster index holds the date
+    return !after(c.chg) && !after(hotAt);
+  }
+  const pendingTitle = () => `Changed in ${esc(PENDING_HOTFIX.name)} (${fmtDate(PENDING_HOTFIX.date)})`;
+  function pendingHotfixNotice(c) {
+    if (!isPendingHotfix(c)) return '';
+    return `<div class="notice pending-hotfix"><strong>${pendingTitle()}</strong>${esc(PENDING_HOTFIX.dinos[c.h].detail)} The numbers below are from before the hotfix and will be updated once the new values are published.</div>`;
+  }
+  // compare and matchup pages: one line naming every affected dinosaur on the page
+  function pendingListNotice(list) {
+    const hit = [];
+    (list || []).forEach(c => { if (isPendingHotfix(c) && !hit.some(x => x.h === c.h)) hit.push(c); });
+    if (!hit.length) return '';
+    const and = a => a.length < 2 ? a[0] : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+    const whats = [...new Set(hit.map(c => PENDING_HOTFIX.dinos[c.h].what))];
+    const names = and(hit.map(c => esc(c.n)));
+    const body = whats.length === 1
+      ? `Numbers for ${names} are from before the hotfix, which changed ${hit.length > 1 ? 'their' : 'its'} ${esc(whats[0])}.`
+      : `Numbers for ${and(hit.map(c => `${esc(c.n)} (${esc(PENDING_HOTFIX.dinos[c.h].what)})`))} are from before the hotfix.`;
+    return `<div class="notice pending-hotfix"><strong>${pendingTitle()}</strong>${body} They will be updated once the new values are published.</div>`;
   }
 
   // ---------- small UI helpers ----------
@@ -4266,7 +4296,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       slug: 'nesting', g: 'life', icon: 'egg', title: 'Nesting & raising young', kw: 'nest eggs babies hatchling adopt invite materials comfortable family parental baby killer store nest carry',
       sum: 'Build a nest, lay eggs, invite hatchlings and keep your babies alive.',
       facts: ["Sub-adults and adults can build nests", "A nest at least half built gives +25% health recovery", "Killing your own baby blocks egg invites for 10 minutes"],
-      src: [['Official wiki: Nesting', 'game-mechanics/nesting'], ['Community wiki: Nesting', 'https://path-of-titans.fandom.com/wiki/Nesting'], ['Dev blog: October 2026', 'https://pathoftitans.com/blog/dev-blog-october-2026']],
+      src: [['Official wiki: Nesting', 'game-mechanics/nesting'], ['Community wiki: Nesting', 'https://path-of-titans.fandom.com/wiki/Nesting'], ['Dev blog: October 2026', 'https://pathoftitans.com/blog/dev-blog-october-2026'], ['Hotfix 16 notes (official Discord)', 'https://discord.gg/P6t8FGn']],
       body: `
 <p>Nesting arrived on October 8, 2024. Sub-adults and adults can build a nest almost anywhere, using materials that depend on the species.</p>
 <div data-widget="nest"></div>
@@ -4290,8 +4320,10 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
 </div>
 <h3>Watch out</h3>
 <p>Nests can be attacked and destroyed, and an abandoned nest eventually disappears. Killing your own baby gives you the Baby Killer debuff, which blocks new egg invites and adoptions for 10 minutes.</p>
+<h3>Carrying hatchlings</h3>
+<p><strong>Friendly Player Carrying</strong> lets you carry hatchlings and group members. Invite them to your group (family members don't need to be grouped), then press interact to pick them up if they aren't too heavy. Unlike clamp, it has no stamina drain or other penalties, and the carried player can press jump to break free.</p>
 <h3>Coming next</h3>
-<p>The October 2026 dev blog announced <strong>Store Nest</strong>, which packs up a built nest with its health, progress, ready eggs and decorations so you can place it somewhere else (stored food and water are not kept); eggs you can see in the nest; and <strong>Friendly Player Carrying</strong>, for moving hatchlings and group members.</p>`,
+<p>The October 2026 dev blog announced <strong>Store Nest</strong>, which packs up a built nest with its health, progress, ready eggs and decorations so you can place it somewhere else (stored food and water are not kept), and eggs you can see in the nest.</p>`,
     },
     {
       slug: 'groups', g: 'life', icon: 'group', title: 'Groups & group slots', kw: 'party herd pack slots leader invite kick promote megapacking solo',
@@ -4378,7 +4410,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       slug: 'quests', g: 'prog', icon: 'flag', title: 'Quests', kw: 'quest growth marks group local world discovery trophy survival personal hidden objectives honor the dead',
       sum: 'Every quest type, what it pays and how to find quests on the map.',
       facts: ["Most quests pay 30 seconds of growth", "Discovery quests: 90 s and 100 Marks", "Trophy quests: 180 s"],
-      src: [['Official wiki: Quests', 'game-mechanics/quests'], ['Dev blog: May 2026', 'https://pathoftitans.com/blog/dev-blog-may-2026'], ['Dev blog: June 2026', 'https://pathoftitans.com/blog/dev-blog-june-2026'], ['Dev blog: August 2026', 'https://pathoftitans.com/blog/dev-blog-august-2026']],
+      src: [['Official wiki: Quests', 'game-mechanics/quests'], ['Dev blog: May 2026', 'https://pathoftitans.com/blog/dev-blog-may-2026'], ['Dev blog: June 2026', 'https://pathoftitans.com/blog/dev-blog-june-2026'], ['Dev blog: August 2026', 'https://pathoftitans.com/blog/dev-blog-august-2026'], ['Hotfix 16 notes (official Discord)', 'https://discord.gg/P6t8FGn']],
       body: `
 <p>Quests are the main source of growth and Marks. Most pay a small slice of growth, and some pay much more.</p>
 <div class="tw"><table>
@@ -4391,6 +4423,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
   <tr><td>Trophy</td><td>Deliver a trophy to your Home Cave. See <a href="/guides/trophies">Trophies</a>.</td><td>180 s</td></tr>
 </table></div>
 <p>Some quests are for specific kinds of dinosaur, such as fishing quests for aquatics and hunting quests for carnivores.</p>
+<p>Hotfix 16 (Nov 21, 2026) added cooldowns to several quests, such as point-of-interest (POI) and scenic view quests, to balance their rewards against how easy they are to complete. Alderon's notes don't give the new wait times.</p>
 <h3>Quest changes in the works</h3>
 <p>Alderon is reworking quests through 2026. Its dev blogs list new quest types in development: hidden objectives, quests with extra steps such as attacking, delivering or dropping things from the sky, a new social quest to replace Honor the Dead, environmental hazards and critter infestations to clear, Alpha Critters that show up if you over-hunt one kind of critter, flyer quests, a herbivore quest giver and more area-specific quest items, especially on Riparia.</p>
 <h3>Find quests on the map</h3>
@@ -4979,6 +5012,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
         </div>
       </div>
       <section class="mu-fighters" aria-label="Dinosaurs in this matchup">${fightersHTML(F)}</section>
+      ${pendingListNotice(F)}
       ${solo ? `<div class="empty mu-solo">Add at least one more dinosaur to see how ${esc(Y.n)} stacks up.</div>` : `
       <section class="mu-sec" aria-labelledby="mu-h2h">
         <h3 id="mu-h2h">Head-to-head</h3>
