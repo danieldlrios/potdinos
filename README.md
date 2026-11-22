@@ -12,7 +12,7 @@ hosted on Vercel.
 | `index.html` | The whole site: HTML, CSS and JavaScript in one file, including the guides |
 | `data/index.json` | The dinosaur roster: one summary line per dinosaur |
 | `data/c/<id>.json` | The full record for each dinosaur, loaded when its page opens |
-| `data/version.json` | Patch name and date, plus the date the data was last refreshed |
+| `data/version.json` | The latest game update shown on the home page (patch and hotfix), and the dates the data is from |
 | `api/potservers.js` | A small Vercel function that relays read-only Potservers requests if a browser blocks direct calls |
 | `vercel.json` | Sends every page address to `index.html` (except files, `data/` and `api/`) |
 | `sitemap.xml`, `robots.txt` | The page list for search engines, and the pointer to it |
@@ -25,7 +25,7 @@ Dinosaur pictures are the in-game character icons, and ability icons are the in-
 icons; both come from the game files through the [Potservers](https://potservers.net) public API,
 along with growth-stage curves, maps and quests. The site uses no outside photos: if an icon can't
 load, the square shows a lettered badge instead. Dinosaur stats and abilities come from the `data/`
-files, which are refreshed by hand after each game patch. Squares and cards are tinted red for
+files, which are refreshed by hand after each game patch and hotfix. Squares and cards are tinted red for
 carnivores and green for herbivores.
 
 ## Fight matchup
@@ -37,15 +37,24 @@ who wins a straight trade of each side's chosen attack. Damage follows the formu
 documents: base damage × attacker weight ÷ defender weight ÷ defender armor (armor-piercing damage
 skips armor). Bleed, abilities and other effects are not counted, and the page says so.
 
-## Set the patch name
+## The "Latest update" notice
 
-Open `data/version.json` on GitHub, click the pencil, change `"patch"` and `"patch_date"`
-(`YYYY-MM-DD`), then **Commit changes**. Vercel redeploys in about a minute.
+The home page shows the newest game update, linked to its notes, and the date the site's numbers are
+from. Both come from `data/version.json`: open it on GitHub, click the pencil, edit, then
+**Commit changes**. Vercel redeploys in about a minute.
 
-The patch pill on the home page links to Alderon's own post about that update. Add a
-`"patch_url"` line with the post's address (for example
-`"patch_url": "https://pathoftitans.com/blog/microraptor-released",`) whenever you change the patch.
-Without it, the pill opens the matching post the site already knows, or else Alderon's dev blog.
+- `"patch"`, `"patch_date"` (`YYYY-MM-DD`) and `"patch_url"`: the last full game patch and Alderon's
+  blog post about it, for example `"patch_url": "https://pathoftitans.com/blog/microraptor-released"`.
+- `"hotfix"`, `"hotfix_date"` and `"hotfix_url"`: a hotfix that came out after that patch, for example
+  `"hotfix": "Patch 53835 Hotfix 16"`. Alderon posts hotfix notes only in its Discord, so without a
+  `"hotfix_url"` the notice opens the official Path of Titans Discord (https://discord.gg/P6t8FGn).
+
+The notice shows whichever of the two is newer. When the next full patch comes out, update the three
+patch lines and delete the three hotfix lines.
+
+**Stats as of** shows the later of `"source_updated"` (when Potservers last changed the data these files
+were made from) and `"stats_as_of"` (optional, `YYYY-MM-DD`: the day the numbers were last confirmed to
+match the game).
 
 ## Maps
 

@@ -1012,6 +1012,10 @@ a.patch-link svg { width: 12px; height: 12px; flex: none; opacity: .75; margin-l
   a.patch-link:hover svg { opacity: 1; }
 }
 a.patch-link:active { transform: scale(.97); }
+/* the "Latest update" notice breaks between its parts on narrow phones instead of pushing the page sideways */
+a.patch-link { flex-wrap: wrap; row-gap: 1px; white-space: normal; border-radius: 14px; max-width: 100%; }
+a.patch-link .pl-k, a.patch-link strong, a.patch-link .pl-end { white-space: nowrap; }
+a.patch-link .pl-end { display: inline-flex; align-items: center; gap: 6px; }
 
 /* ---------- fight matchup: the button, picking on the list, the tray ---------- */
 .fight-btn { min-height: 40px; padding: 8px 14px; border-radius: 10px; font-weight: 600; gap: 8px; background: var(--ink); color: var(--bg); border-color: var(--ink); }
@@ -1218,8 +1222,8 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       <p class="hero-tag">Your one-stop shop for everything Path of Titans.</p>
       <p class="lede">Every playable dinosaur with full stats and ability kits, interactive maps of Gondwa, Panjura and Riparia, and plain-English guides to growth, combat, nesting, quests and more. No more wiki-hopping.</p>
       <div class="patch-strip" id="patch-strip">
-        <a class="pill accent patch-link" id="patch-pill" href="https://pathoftitans.com/blog/microraptor-released" target="_blank" rel="noopener" title="Read Alderon Games' post about this update">Patch: <strong id="patch-name">Microraptor Update</strong> <span>(<span id="patch-date">Nov 12, 2026</span>)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="sr-only"> (opens Alderon Games' update post in a new tab)</span></a>
-        <span class="pill">Data updated <strong id="data-date">Nov 20, 2026</strong></span>
+        <a class="pill accent patch-link" id="patch-pill" href="https://discord.gg/P6t8FGn" target="_blank" rel="noopener" title="Alderon Games posts hotfix notes in the official Path of Titans Discord"><span class="pl-k">Latest update:</span> <strong id="patch-name">Patch 53835 Hotfix 16</strong> <span class="pl-end"><span id="patch-when">(<span id="patch-date">Nov 21, 2026</span>)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="sr-only" id="patch-sr"> (opens the official Path of Titans Discord, where Alderon Games posts hotfix notes, in a new tab)</span></a>
+        <span class="pill" id="stats-pill" title="The dinosaur stats and ability numbers on this site match the game data from this date">Stats as of <strong id="data-date">Nov 19, 2026</strong></span>
         <span class="pill" id="count-pill">Loading roster</span>
       </div>
     </div>
@@ -1427,7 +1431,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     </section>
     <div class="foot-meta">
       <p><strong>Unofficial fan site.</strong> Path of Titans Dinodex is a free, non-commercial project made by a player. It is not affiliated with, endorsed, sponsored or approved by Alderon Games Pty Ltd. Path of Titans and its dinosaurs, maps, ability names, icons and character art are trademarks or copyrights of Alderon Games; modded dinosaurs and their art belong to their mod creators.</p>
-      <p>Dinosaur stats, in-game icons and map data come from the <a href="https://potservers.net" target="_blank" rel="noopener">Potservers</a> public API, which reads them from the game files; every picture of a dinosaur or ability is game artwork. Guides are written for this site and checked against Alderon's dev blogs, the <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a> and current game data. Data is refreshed after each game patch; numbers can change with hotfixes and server settings.</p>
+      <p>Dinosaur stats, in-game icons and map data come from the <a href="https://potservers.net" target="_blank" rel="noopener">Potservers</a> public API, which reads them from the game files; every picture of a dinosaur or ability is game artwork. Guides are written for this site and checked against Alderon's dev blogs, the <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a> and current game data. Data is refreshed after each game patch and hotfix, and the home page shows the latest update and the date the numbers are from; community servers can still change numbers with their own settings.</p>
       <p><a href="/credits">Credits &amp; legal</a> · Own something shown here? Message uzzislayerz on Discord to have it credited or removed.</p>
     </div>
   </div>
@@ -2451,7 +2455,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
           <li><b>Guides:</b> written for this site and checked against Alderon's official dev blogs and patch posts, the official <a href="https://pathoftitans.wiki/pot" target="_blank" rel="noopener">Path of Titans Wiki</a>, the community Path of Titans wiki and current game data. Every guide links its sources.</li>
           <li><b>Design, forest background illustration, site icons and calculators:</b> made for this site.</li></ul></section>
         <section class="legal-card"><h3>Accuracy</h3>
-          <p>Numbers come from game data and can change with patches, live hotfixes and server settings. Guides describe the game as of the date shown on the home page. Everything here is provided as is, without warranty of any kind.</p></section>
+          <p>Numbers come from game data and can change with patches, live hotfixes and server settings. The home page shows the latest game update and the date the numbers are from, and each guide says when it was last checked. Everything here is provided as is, without warranty of any kind.</p></section>
         <section class="legal-card"><h3>Corrections and removals</h3>
           <p>If you own something shown here and want it credited differently or taken down, or you spot a mistake, message <b>uzzislayerz</b> on Discord (in game: Uzzi) and it will be fixed quickly.</p>
           <button class="btn primary" type="button" data-copy-discord>Copy Discord username</button></section>
@@ -2460,15 +2464,50 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     enter(view);
   }
 
-  // ---------- the patch pill on the home page opens Alderon's own post about that update ----------
-  // data/version.json can name the post in "patch_url"; otherwise known patches map here, and anything else opens the dev blog.
+  // ---------- the "Latest update" notice on the home page ----------
+  // data/version.json: "patch", "patch_date", "patch_url" = the last full game patch (Alderon's blog post about it);
+  // "hotfix", "hotfix_date", "hotfix_url" = a later hotfix (Alderon posts hotfix notes only in its Discord).
+  // The notice shows whichever is newer and links to its notes. "Stats as of" is the date the numbers match the game.
   const PATCH_POSTS = { 'microraptor update': 'https://pathoftitans.com/blog/microraptor-released' };
   const PATCH_HOME = 'https://pathoftitans.com/blog';
-  function patchLink(v) {
+  const HOTFIX_NOTES = 'https://discord.gg/P6t8FGn';   // the official Path of Titans Discord invite, as linked from pathoftitans.com
+  const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+  const safeUrl = u => typeof u === 'string' && /^https:\/\/[^\s"'<>]+$/.test(u) ? u : null;
+  const dayOf = s => typeof s === 'string' && DAY_RE.test(s.slice(0, 10)) ? s.slice(0, 10) : null;
+  function latestUpdate(v) {
+    v = v || {};
+    const patch = v.patch ? { name: String(v.patch), date: dayOf(v.patch_date), hotfix: false,
+      url: safeUrl(v.patch_url) || PATCH_POSTS[String(v.patch).trim().toLowerCase()] || PATCH_HOME } : null;
+    const hot = v.hotfix ? { name: String(v.hotfix), date: dayOf(v.hotfix_date), hotfix: true,
+      url: safeUrl(v.hotfix_url) || HOTFIX_NOTES } : null;
+    if (hot && (!patch || !patch.date || (hot.date && hot.date >= patch.date))) return hot;
+    return patch;
+  }
+  function statsAsOf(v) {
+    v = v || {};
+    const days = [dayOf(v.stats_as_of), dayOf(v.source_updated)].filter(Boolean).sort();
+    return days.length ? days[days.length - 1] : dayOf(v.updated) || dayOf(v.checked);
+  }
+  function showUpdate(v) {
     const a = $('#patch-pill');
-    if (!a || a.tagName !== 'A') return;
-    const own = v && typeof v.patch_url === 'string' && /^https:\/\/[^\s"'<>]+$/.test(v.patch_url) ? v.patch_url : null;
-    a.href = own || PATCH_POSTS[String((v && v.patch) || '').trim().toLowerCase()] || PATCH_HOME;
+    const u = latestUpdate(v);
+    if (a && !u) a.hidden = true;
+    if (a && u) {
+      a.hidden = false;
+      $('#patch-name').textContent = u.name;
+      const d = $('#patch-date'), when = $('#patch-when');
+      if (d) d.textContent = u.date ? fmtDate(u.date) : '';
+      if (when) when.hidden = !u.date;
+      if (a.tagName === 'A') {
+        a.href = u.url;
+        const discord = /^https:\/\/(discord\.gg|discord\.com)\//.test(u.url);
+        a.title = discord ? 'Alderon Games posts hotfix notes in the official Path of Titans Discord' : "Read Alderon Games' post about this update";
+        const sr = $('#patch-sr');
+        if (sr) sr.textContent = discord ? ' (opens the official Path of Titans Discord, where Alderon Games posts hotfix notes, in a new tab)' : " (opens Alderon Games' post about this update in a new tab)";
+      }
+    }
+    const day = statsAsOf(v);
+    if (day && $('#data-date')) $('#data-date').textContent = fmtDate(day);
   }
 
   // ---------- small UI helpers ----------
@@ -5234,11 +5273,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       const vr = await fetch(VERSION_URL, { cache: 'no-cache' });
       if (vr.ok) {
         const v = state.version = await vr.json();
-        if (v.patch) $('#patch-name').textContent = v.patch;
-        if (v.patch_date) $('#patch-date').textContent = fmtDate(v.patch_date);
-        if (!v.patch) $('#patch-pill').hidden = true;
-        patchLink(v);
-        if (v.updated || v.checked) $('#data-date').textContent = fmtDate(v.updated || v.checked);
+        showUpdate(v);
       }
     } catch (e) { /* version details are optional */ }
     updateCounts();
