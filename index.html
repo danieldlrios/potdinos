@@ -24,6 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<script>(function(d){var done=function(){d.classList.remove("fonts-wait")};d.classList.add("fonts-wait");setTimeout(done,800);try{Promise.all([document.fonts.load('800 1em "Big Shoulders Display"'),document.fonts.load('1em "IBM Plex Sans"')]).then(done,done)}catch(e){done()}})(document.documentElement);</script>
 <style>
 /* Layout: a field-guide index. Filter bar over a dense specimen grid; each creature opens as a specimen sheet
    with a headline band, a stat ledger and an ability explorer side by side (stacked on phones). */
@@ -179,7 +180,7 @@ select.sel { background: var(--surface); border: 1px solid var(--line); border-r
   background: var(--surface); border: 1px solid var(--line); text-decoration: none; box-shadow: var(--shadow);
   transition: transform .12s ease, border-color .12s ease; position: relative; min-width: 0;
 }
-.card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+@media (hover: hover) { .card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); } }
 .mono {
   width: 52px; height: 52px; border-radius: 8px; display: grid; place-items: center; position: relative;
   font-family: var(--font-display); font-weight: 800; font-size: 24px; letter-spacing: .02em; color: #fff;
@@ -224,7 +225,7 @@ table.data th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .0
 table.data th[aria-sort] { color: var(--ink); }
 table.data th .arr { font-size: 10px; margin-left: 3px; }
 table.data tbody tr { cursor: pointer; }
-table.data tbody tr:hover td { background: var(--surface-2); }
+@media (hover: hover) { table.data tbody tr:hover td { background: var(--surface-2); } }
 table.data td.l { text-align: left; }
 table.data td a { text-decoration: none; font-weight: 600; }
 .best { color: var(--accent); font-weight: 700; }
@@ -237,14 +238,14 @@ details.about p { margin: 0; }
 
 /* Detail view */
 .back { display: inline-flex; align-items: center; gap: 6px; margin: 16px 0 6px; font-size: 14px; text-decoration: none; color: var(--ink-2); }
-.back:hover { color: var(--ink); }
+@media (hover: hover) { .back:hover { color: var(--ink); } }
 .sheet-head { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; padding: 14px 0 16px; }
 .sheet-title h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(34px, 6vw, 54px); line-height: .95; text-transform: uppercase; }
 .sheet-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .sheet-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
 .btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line);
   background: var(--surface); cursor: pointer; text-decoration: none; font-size: 13.5px; }
-.btn:hover { border-color: var(--accent); }
+@media (hover: hover) { .btn:hover { border-color: var(--accent); } }
 .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
 @media (max-width: 720px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -396,7 +397,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 .nav-links a { display: inline-flex; align-items: center; gap: 7px; padding: 8px 13px; border-radius: 999px; text-decoration: none;
   color: var(--ink-2); font-weight: 500; font-size: 14px; transition: background-color .25s var(--ease), color .25s var(--ease); }
 .nav-links a svg { width: 17px; height: 17px; flex: none; }
-.nav-links a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
+@media (hover: hover) { .nav-links a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); } }
 .nav-links a[aria-current="page"] { color: var(--ink); background: color-mix(in srgb, var(--accent) 16%, transparent); }
 @media (max-width: 760px) {
   .topnav { -webkit-backdrop-filter: none; backdrop-filter: none; background: color-mix(in srgb, var(--surface) 95%, transparent); }
@@ -444,7 +445,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
   background: var(--glass); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); border: 1px solid var(--line);
   box-shadow: 0 1px 2px rgba(20, 30, 25, .06), 0 10px 30px rgba(20, 30, 25, .08);
   transition: transform .5s var(--ease-out), box-shadow .5s var(--ease-out), border-color .3s var(--ease); }
-.tile-big:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--tone) 50%, var(--line)); box-shadow: 0 2px 4px rgba(20, 30, 25, .06), 0 18px 44px rgba(20, 30, 25, .16); }
+@media (hover: hover) { .tile-big:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--tone) 50%, var(--line)); box-shadow: 0 2px 4px rgba(20, 30, 25, .06), 0 18px 44px rgba(20, 30, 25, .16); } }
 .tile-big:active { transform: translateY(-1px) scale(.99); }
 .tb-ic { width: 76px; height: 76px; border-radius: 22px; display: grid; place-items: center; position: relative; overflow: hidden;
   background: linear-gradient(150deg, var(--tone), color-mix(in srgb, var(--tone) 52%, #000)); box-shadow: 0 6px 18px color-mix(in srgb, var(--tone) 35%, transparent); }
@@ -458,10 +459,10 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 .tb-go { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--tone); background: color-mix(in srgb, var(--tone) 12%, transparent);
   transition: transform .45s var(--ease-out), background-color .3s var(--ease), color .3s var(--ease); }
 .tb-go svg { width: 20px; height: 20px; }
-.tile-big:hover .tb-go { transform: translateX(4px); background: var(--tone); color: #fff; }
+@media (hover: hover) { .tile-big:hover .tb-go { transform: translateX(4px); background: var(--tone); color: #fff; } }
 .tb-art { position: absolute; right: -26px; bottom: -40px; width: 190px; height: 190px; color: var(--tone); opacity: .07; z-index: -1; pointer-events: none;
   transition: transform .8s var(--ease-out); }
-.tile-big:hover .tb-art { transform: rotate(-6deg) scale(1.06); }
+@media (hover: hover) { .tile-big:hover .tb-art { transform: rotate(-6deg) scale(1.06); } }
 .hero-copy > *, .hero-tiles > * { animation: rise .9s var(--ease-out) backwards; }
 .hero-copy > :nth-child(2) { animation-delay: .05s; } .hero-copy > :nth-child(3) { animation-delay: .1s; }
 .hero-copy > :nth-child(4) { animation-delay: .15s; } .hero-copy > :nth-child(5) { animation-delay: .2s; }
@@ -503,7 +504,7 @@ body.sub-view .hero { display: none; }
 .reveal.in { opacity: 1; transform: none; }
 .card, .btn, .seg button, .tab, .pill { -webkit-tap-highlight-color: transparent; }
 .card { transition: transform .45s var(--ease-out), border-color .3s var(--ease), box-shadow .45s var(--ease-out); }
-.card:hover { box-shadow: 0 2px 4px rgba(20, 30, 25, .06), 0 14px 34px rgba(20, 30, 25, .12); }
+@media (hover: hover) { .card:hover { box-shadow: 0 2px 4px rgba(20, 30, 25, .06), 0 14px 34px rgba(20, 30, 25, .12); } }
 .card:active { transform: scale(.985); }
 .btn { transition: transform .2s var(--ease), background-color .25s var(--ease), box-shadow .25s var(--ease); }
 .btn:active { transform: scale(.97); }
@@ -518,7 +519,7 @@ body.sub-view .hero { display: none; }
 /* ---------- dinosaur cards: red for carnivores, green for herbivores ---------- */
 .card { background: linear-gradient(150deg, color-mix(in srgb, var(--tone, var(--surface)) 12%, var(--surface)) 0%, var(--surface) 62%);
   border-color: color-mix(in srgb, var(--tone, var(--line)) 30%, var(--line)); }
-.card:hover { border-color: color-mix(in srgb, var(--tone, var(--accent)) 62%, var(--line)); }
+@media (hover: hover) { .card:hover { border-color: color-mix(in srgb, var(--tone, var(--accent)) 62%, var(--line)); } }
 @media (prefers-color-scheme: dark) {
   .card { background: linear-gradient(150deg, color-mix(in srgb, var(--tone, var(--surface)) 13%, var(--surface)) 0%, var(--surface) 62%);
     border-color: color-mix(in srgb, var(--tone, var(--line)) 26%, var(--line)); }
@@ -553,7 +554,7 @@ body.sub-view .hero { display: none; }
   background: rgba(16, 24, 20, .62); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); border: 1px solid rgba(255, 255, 255, .14); }
 .map-switch button { display: flex; align-items: center; gap: 8px; padding: 4px 12px 4px 4px; border: 0; border-radius: 10px; background: transparent; color: #dfe7e0;
   font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background-color .25s var(--ease), color .25s var(--ease), transform .2s var(--ease); }
-.map-switch button:hover { background: rgba(255, 255, 255, .08); color: #fff; }
+@media (hover: hover) { .map-switch button:hover { background: rgba(255, 255, 255, .08); color: #fff; } }
 .map-switch button:active { transform: scale(.97); }
 .map-switch button[aria-pressed="true"] { background: rgba(255, 255, 255, .18); color: #fff; }
 .map-switch .th { width: 28px; height: 28px; border-radius: 7px; background: #24312a center/cover no-repeat; flex: none; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
@@ -569,7 +570,7 @@ body.sub-view .hero { display: none; }
 .side-sec:last-child { border-bottom: 0; }
 .side-sec h4 { margin: 0 0 8px; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
 .tog { display: flex; align-items: center; gap: 10px; padding: 6px 4px; border-radius: 8px; cursor: pointer; font-size: 14px; }
-.tog:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+@media (hover: hover) { .tog:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); } }
 .tog input { width: 16px; height: 16px; accent-color: var(--accent); margin: 0; }
 .tog .sw { width: 22px; height: 22px; display: grid; place-items: center; flex: none; }
 .tog .sw img { width: 22px; height: 22px; object-fit: contain; }
@@ -578,14 +579,14 @@ body.sub-view .hero { display: none; }
 .side-actions { display: flex; flex-wrap: wrap; gap: 6px; }
 .chipbtn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 11px; font: inherit; font-size: 12.5px; cursor: pointer;
   transition: background-color .2s var(--ease), border-color .2s var(--ease); }
-.chipbtn:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+@media (hover: hover) { .chipbtn:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); } }
 .chipbtn[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 16%, transparent); border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
 details.cat { border-radius: 10px; }
 details.cat > summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 8px 4px; cursor: pointer; font-weight: 600; font-size: 14px; border-radius: 8px; }
 details.cat > summary::-webkit-details-marker { display: none; }
 details.cat > summary::before { content: ""; width: 7px; height: 7px; border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2); transform: rotate(-45deg); transition: transform .25s var(--ease); margin: 0 4px 0 2px; flex: none; }
 details.cat[open] > summary::before { transform: rotate(45deg); }
-details.cat > summary:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+@media (hover: hover) { details.cat > summary:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); } }
 details.cat > summary .on { margin-left: auto; font-size: 12px; color: var(--accent); font-weight: 600; }
 details.cat .kinds { padding: 0 0 6px 16px; }
 .map-stage { position: relative; min-width: 0; min-height: 0; background: #0e1612; overflow: hidden; touch-action: none; }
@@ -595,7 +596,7 @@ details.cat .kinds { padding: 0 0 6px 16px; }
 .map-tools { position: absolute; right: 12px; top: 12px; display: grid; gap: 8px; z-index: 3; }
 .map-tools button, .map-fab { width: 40px; height: 40px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); display: grid; place-items: center; cursor: pointer;
   background: rgba(16, 24, 20, .62); color: #fff; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background-color .2s var(--ease), transform .2s var(--ease); }
-.map-tools button:hover, .map-fab:hover { background: rgba(16, 24, 20, .82); }
+@media (hover: hover) { .map-tools button:hover, .map-fab:hover { background: rgba(16, 24, 20, .82); } }
 .map-tools button:active, .map-fab:active { transform: scale(.94); }
 .map-tools svg, .map-fab svg { width: 18px; height: 18px; }
 .map-fab { position: absolute; left: 12px; top: 12px; width: auto; padding: 0 14px; gap: 8px; grid-auto-flow: column; font: inherit; font-size: 14px; font-weight: 600; z-index: 3; display: none; }
@@ -619,18 +620,19 @@ details.cat .kinds { padding: 0 0 6px 16px; }
 .map-pop .pm { font-size: 12.5px; color: var(--ink-2); margin: 4px 0 10px; font-variant-numeric: tabular-nums; }
 .map-pop .pa { display: flex; gap: 6px; flex-wrap: wrap; }
 .map-pop .px { position: absolute; right: 8px; top: 8px; width: 26px; height: 26px; border-radius: 8px; border: 0; background: transparent; color: var(--ink-2); cursor: pointer; font-size: 18px; line-height: 1; }
-.map-pop .px:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); }
+@media (hover: hover) { .map-pop .px:hover { background: color-mix(in srgb, var(--ink) 6%, transparent); } }
 .map-results { position: absolute; left: 12px; right: 12px; top: 54px; z-index: 6; max-height: 340px; overflow: auto; background: var(--surface); border: 1px solid var(--line);
   border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,.16); padding: 6px; }
 .map-results[hidden] { display: none; }
 .map-results button { display: flex; width: 100%; align-items: center; gap: 10px; padding: 8px; border: 0; background: transparent; color: var(--ink); border-radius: 8px; cursor: pointer; font: inherit; text-align: left; font-size: 14px; }
-.map-results button:hover, .map-results button.on { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.map-results button.on { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+@media (hover: hover) { .map-results button:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); } }
 .map-results img { width: 20px; height: 20px; object-fit: contain; }
 .map-results .ty { margin-left: auto; font-size: 11.5px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .06em; }
 .map-results .none { padding: 10px; color: var(--ink-2); font-size: 13.5px; }
 .quest-list { display: grid; gap: 4px; }
 .quest-list button { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; text-align: left; padding: 7px 8px; border-radius: 8px; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 13.5px; cursor: pointer; }
-.quest-list button:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); }
+@media (hover: hover) { .quest-list button:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); } }
 .quest-list .qt { font-size: 11px; color: var(--ink-2); text-transform: capitalize; }
 .quest-card { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 12px; font-size: 13.5px; }
 .quest-card h5 { margin: 0 0 4px; font-size: 15px; }
@@ -667,7 +669,7 @@ details.cat .kinds { padding: 0 0 6px 16px; }
 .guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
 .guide-card { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; align-items: start; align-content: start; padding: 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line);
   text-decoration: none; color: var(--ink); box-shadow: var(--shadow); transition: transform .45s var(--ease-out), border-color .3s var(--ease), box-shadow .45s var(--ease-out); }
-.guide-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); box-shadow: 0 2px 4px rgba(20,30,25,.06), 0 14px 34px rgba(20,30,25,.12); }
+@media (hover: hover) { .guide-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); box-shadow: 0 2px 4px rgba(20,30,25,.06), 0 14px 34px rgba(20,30,25,.12); } }
 .guide-card:active { transform: scale(.985); }
 .g-ic { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; color: #fff; grid-row: span 2;
   background: linear-gradient(150deg, var(--tone, var(--accent)), color-mix(in srgb, var(--tone, var(--accent)) 55%, #000)); position: relative; overflow: hidden; }
@@ -679,7 +681,7 @@ details.cat .kinds { padding: 0 0 6px 16px; }
 .guide-toc { position: sticky; top: calc(var(--nav-h) + 14px); max-height: calc(100vh - var(--nav-h) - 30px); overflow: auto; font-size: 14px; padding-right: 6px; }
 .guide-toc h5 { margin: 14px 0 4px; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
 .guide-toc a { display: block; padding: 5px 8px; border-radius: 8px; color: var(--ink-2); text-decoration: none; }
-.guide-toc a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 5%, transparent); }
+@media (hover: hover) { .guide-toc a:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 5%, transparent); } }
 .guide-toc a[aria-current="page"] { color: var(--ink); background: color-mix(in srgb, var(--accent) 14%, transparent); font-weight: 600; }
 .article { max-width: 760px; }
 .article .crumb { font-size: 13px; color: var(--ink-2); margin-bottom: 10px; }
@@ -708,7 +710,7 @@ details.cat .kinds { padding: 0 0 6px 16px; }
 .a-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 18px; }
 .a-nav a { flex: 1; border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; text-decoration: none; color: var(--ink); background: var(--surface); font-size: 14px;
   transition: border-color .3s var(--ease), transform .3s var(--ease-out); }
-.a-nav a:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); transform: translateY(-2px); }
+@media (hover: hover) { .a-nav a:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); transform: translateY(-2px); } }
 .a-nav a small { display: block; color: var(--ink-2); font-size: 12px; }
 .a-nav a.next { text-align: right; }
 @media (max-width: 900px) { .guide-layout { grid-template-columns: minmax(0, 1fr); } .guide-toc { display: none; } }
@@ -786,11 +788,11 @@ table.cmp th, table.cmp td { overflow-wrap: anywhere; -webkit-hyphens: auto; hyp
 table.data th:first-child, table.data td:first-child { box-shadow: inset -1px 0 0 var(--line); }
 /* touch screens: a tapped card does not stay lifted as if hovered */
 @media (hover: none) {
-  .card:hover, .card:active { transform: none; }
+  .card:hover { transform: none; }
   .card:hover { box-shadow: var(--shadow); border-color: color-mix(in srgb, var(--tone, var(--line)) 30%, var(--line)); }
   .card.picked:hover { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent), var(--shadow); }
 }
-.mat-link:hover { text-decoration: underline; }
+@media (hover: hover) { .mat-link:hover { text-decoration: underline; } }
 
 /* ---------- guide widgets ---------- */
 .gb-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -803,7 +805,7 @@ table.data th:first-child, table.data td:first-child { box-shadow: inset -1px 0 
 .gb-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 3px 4px 3px 10px; font-size: 13px; }
 .gb-chip.new { animation: rise .35s var(--ease-out) backwards; }
 .gb-chip button { border: 0; background: color-mix(in srgb, var(--ink) 8%, transparent); width: 22px; height: 22px; border-radius: 50%; cursor: pointer; line-height: 1; font-size: 15px; color: var(--ink-2); }
-.gb-chip button:hover { background: color-mix(in srgb, var(--carn) 20%, transparent); color: var(--ink); }
+@media (hover: hover) { .gb-chip button:hover { background: color-mix(in srgb, var(--carn) 20%, transparent); color: var(--ink); } }
 .mat-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .mat-chips span { border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 3px 11px; font-size: 13.5px; }
 .emotes { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 14px; }
@@ -851,7 +853,7 @@ table.data th:first-child, table.data td:first-child { box-shadow: inset -1px 0 
 .side-top .search { flex: 1; min-width: 0; }
 .side-collapse, .side-open { border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); border-radius: 10px; width: 40px; height: 40px;
   display: grid; place-items: center; cursor: pointer; flex: none; transition: color .2s var(--ease), border-color .2s var(--ease), background-color .2s var(--ease); }
-.side-collapse:hover { color: var(--ink); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+@media (hover: hover) { .side-collapse:hover { color: var(--ink); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); } }
 .side-collapse svg, .side-open svg { width: 20px; height: 20px; }
 .side-open { position: absolute; left: 12px; top: 12px; z-index: 3; width: auto; height: 44px; padding: 0 12px; gap: 6px; grid-auto-flow: column; font: inherit; font-size: 13.5px; font-weight: 600;
   color: #fff; background: rgba(16, 24, 20, .62); border-color: rgba(255, 255, 255, .14); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
@@ -880,7 +882,7 @@ table.data th:first-child, table.data td:first-child { box-shadow: inset -1px 0 
 .cat-h { display: flex; align-items: center; gap: 8px; }
 .cat-x { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 14px; font-weight: 600;
   padding: 10px 4px; cursor: pointer; text-align: left; border-radius: 8px; }
-.cat-x:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+@media (hover: hover) { .cat-x:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); } }
 .cat-x .cn { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .cat-x .on { font-size: 12px; color: var(--ink-2); font-weight: 600; font-variant-numeric: tabular-nums; }
 .cat.has-on .cat-x .on { color: var(--accent); }
@@ -897,7 +899,7 @@ table.data th:first-child, table.data td:first-child { box-shadow: inset -1px 0 
 .cat.closed .cat-b { display: none; }
 .krow { display: grid; grid-template-columns: 24px minmax(0, 1fr) auto; align-items: center; gap: 10px; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 13.5px;
   padding: 6px 8px; border-radius: 9px; cursor: pointer; text-align: left; opacity: .5; transition: opacity .2s var(--ease), background-color .2s var(--ease); }
-.krow:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); opacity: .8; }
+@media (hover: hover) { .krow:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); opacity: .8; } }
 .krow[aria-pressed="true"] { opacity: 1; background: color-mix(in srgb, var(--accent) 9%, transparent); }
 .krow .sw { width: 24px; height: 24px; display: grid; place-items: center; }
 .krow .sw img { width: 24px; height: 24px; object-fit: contain; }
@@ -939,7 +941,7 @@ table.data th:first-child, table.data td:first-child { box-shadow: inset -1px 0 
 .hub-list { list-style: none; margin: 0; padding: 6px; }
 .hub-list a { display: grid; grid-template-columns: 30px minmax(0, 1fr) 20px; gap: 12px; align-items: center; padding: 10px 10px; border-radius: 12px; text-decoration: none; color: var(--ink);
   transition: background-color .2s var(--ease); }
-.hub-list a:hover { background: color-mix(in srgb, var(--tone) 9%, transparent); }
+@media (hover: hover) { .hub-list a:hover { background: color-mix(in srgb, var(--tone) 9%, transparent); } }
 .hl-ic { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; color: var(--tone); background: color-mix(in srgb, var(--tone) 11%, transparent); }
 .hl-ic svg { width: 17px; height: 17px; }
 .hl-tx { display: grid; min-width: 0; }
@@ -947,13 +949,13 @@ table.data th:first-child, table.data td:first-child { box-shadow: inset -1px 0 
 .hl-s { font-size: 13px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hl-go { color: var(--ink-2); opacity: .5; transition: transform .3s var(--ease-out), opacity .2s; }
 .hl-go svg { width: 18px; height: 18px; }
-.hub-list a:hover .hl-go { transform: translateX(3px); opacity: 1; color: var(--tone); }
+@media (hover: hover) { .hub-list a:hover .hl-go { transform: translateX(3px); opacity: 1; color: var(--tone); } }
 @media (max-width: 900px) { .hub { grid-template-columns: minmax(0, 1fr); } .hl-s { white-space: normal; } }
 
 .guide-toc .toc-grp { margin-bottom: 4px; }
 .toc-gh { width: 100%; display: flex; align-items: center; gap: 8px; border: 0; background: transparent; color: var(--ink-2); font: inherit; font-size: 11.5px; font-weight: 600;
   letter-spacing: .08em; text-transform: uppercase; padding: 8px 6px; border-radius: 8px; cursor: pointer; text-align: left; }
-.toc-gh:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 4%, transparent); }
+@media (hover: hover) { .toc-gh:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 4%, transparent); } }
 .toc-gh .tg-n { flex: 1; }
 .toc-gh .tg-c { font-size: 11px; opacity: .8; }
 .toc-grp:not(.open) .chev { transform: rotate(-45deg); margin-bottom: 0; }
@@ -1020,7 +1022,7 @@ a.patch-link .pl-end { display: inline-flex; align-items: center; gap: 6px; }
 /* ---------- fight matchup: the button, picking on the list, the tray ---------- */
 .fight-btn { min-height: 40px; padding: 8px 14px; border-radius: 10px; font-weight: 600; gap: 8px; background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .fight-btn svg, .btn .fight-ic { width: 17px; height: 17px; flex: none; }
-.fight-btn:hover { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+@media (hover: hover) { .fight-btn:hover { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); } }
 .fight-btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 body.picking #roster .card, body.picking #roster tbody tr { cursor: copy; }
 body.picking #roster .card .card-head { padding-right: 26px; }
@@ -1047,7 +1049,7 @@ body.picking #roster .card .card-head { padding-right: 26px; }
 .pt-n { display: grid; font-size: 13.5px; font-weight: 600; line-height: 1.15; white-space: nowrap; }
 .pt-n small { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
 .pt-chip button { width: 26px; height: 26px; border: 0; border-radius: 50%; background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink-2); cursor: pointer; font-size: 16px; line-height: 1; }
-.pt-chip button:hover { background: color-mix(in srgb, var(--carn) 20%, transparent); color: var(--ink); }
+@media (hover: hover) { .pt-chip button:hover { background: color-mix(in srgb, var(--carn) 20%, transparent); color: var(--ink); } }
 .pt-act { display: flex; gap: 8px; }
 .pt-act .btn { min-height: 42px; padding: 8px 18px; font-weight: 600; justify-content: center; }
 .pt-act .btn[disabled] { opacity: .42; cursor: not-allowed; transform: none; }
@@ -1088,13 +1090,13 @@ body.picking .toast { bottom: calc(104px + env(safe-area-inset-bottom)); }
 .f-sub { font-size: 12.5px; color: var(--ink-2); line-height: 1.3; }
 .f-badge { justify-self: start; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
   border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease); }
-.f-main:hover .f-badge { border-color: var(--accent); color: var(--ink); }
+@media (hover: hover) { .f-main:hover .f-badge { border-color: var(--accent); color: var(--ink); } }
 .fighter.you .f-badge { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 .f-atk, .fighter.add label { display: grid; gap: 4px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); min-width: 0; }
 .f-atk .sel, .fighter.add .sel { width: 100%; min-width: 0; font-size: 13px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink); text-overflow: ellipsis; }
 .f-x { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border: 0; border-radius: 50%; cursor: pointer; font-size: 17px; line-height: 1;
   background: color-mix(in srgb, var(--ink) 7%, transparent); color: var(--ink-2); }
-.f-x:hover { background: color-mix(in srgb, var(--carn) 20%, transparent); color: var(--ink); }
+@media (hover: hover) { .f-x:hover { background: color-mix(in srgb, var(--carn) 20%, transparent); color: var(--ink); } }
 .fighter.add { align-content: center; background: transparent; border-style: dashed; border-color: var(--line); box-shadow: none; }
 .fighter.add .note { margin: 0; }
 .mu-solo { padding: 8px 0 40px; text-align: left; }
@@ -1141,7 +1143,7 @@ body.picking .toast { bottom: calc(104px + env(safe-area-inset-bottom)); }
 .mu-grp > summary::-webkit-details-marker { display: none; }
 .mu-grp > summary::before { content: ""; width: 7px; height: 7px; border-right: 2px solid var(--ink-2); border-bottom: 2px solid var(--ink-2); transform: rotate(-45deg); transition: transform .25s var(--ease); margin: 0 2px; flex: none; }
 .mu-grp[open] > summary::before { transform: rotate(45deg); }
-.mu-grp > summary:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); }
+@media (hover: hover) { .mu-grp > summary:hover { background: color-mix(in srgb, var(--ink) 4%, transparent); } }
 .mu-grp .g-n { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--ink-2); }
 .mu-tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -1193,6 +1195,90 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
 /* iPhone and iPad zoom into any text field or menu smaller than 16px when it is tapped; keep them at 16px on touch screens */
 @media (hover: none) and (pointer: coarse) {
   input[type="search"], input[type="text"], input[type="number"], select, textarea { font-size: 16px !important; }
+}
+
+/* ================= fluid motion: Apple-style press and release, gliding switches and panels, calm page changes ================= */
+:root {
+  --ease-glide: cubic-bezier(.22, 1, .36, 1);
+  --ease-spring: cubic-bezier(.3, 1.3, .6, 1);
+}
+/* a gentle spring (about 2% overshoot) where the browser can draw one */
+@supports (transition-timing-function: linear(0, 1)) {
+  :root { --ease-spring: linear(0, .006, .025 2.8%, .101 6.1%, .539 18.9%, .721 25.3%, .849 31.5%, .937 38.1%, .968 41.8%, .991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001 85.9%, 1); }
+}
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+a, button, summary, label, select, [role="button"], [role="tab"] { -webkit-tap-highlight-color: transparent; }
+a, button, summary, label, [role="button"], [role="tab"] { touch-action: manipulation; }
+/* wide tables and tab strips scroll sideways without dragging the page or the browser's back gesture along */
+.tw, .table-wrap, .tabs { overscroll-behavior-x: contain; }
+
+/* press in fast, spring back out: buttons, pills, tabs, switches, chips and the tab bar */
+.btn, .tog, .chipbtn, .lpill, .tab, a.pill, button.pill, .fight-btn, .f-x, .side-collapse, .cat-x, .map-tools button, .map-fab,
+.map-switch button, .seg button, .nav-links a, .gb-chip button, .pt-chip button {
+  transition-property: transform, background-color, color, border-color, box-shadow, opacity;
+  transition-duration: .55s, .25s, .25s, .25s, .25s, .25s;
+  transition-timing-function: var(--ease-spring), var(--ease), var(--ease), var(--ease), var(--ease), var(--ease);
+}
+:is(.btn, .tog, .chipbtn, .lpill, .tab, a.pill, button.pill, .fight-btn, .f-x, .side-collapse, .cat-x, .map-switch button, .seg button, .nav-links a, .gb-chip button, .pt-chip button):active {
+  transform: scale(.95); transition-duration: .12s, .12s, .12s, .12s, .12s, .12s; transition-timing-function: var(--ease-glide);
+}
+.map-tools button:active, .map-fab:active { transition-duration: .12s; transition-timing-function: var(--ease-glide); }
+/* cards and tiles sink a little under the finger */
+.card { transition: transform .6s var(--ease-spring), border-color .3s var(--ease), box-shadow .45s var(--ease-glide); }
+.card:active { transform: scale(.975); transition-duration: .14s, .3s, .45s; transition-timing-function: var(--ease-glide); }
+.tile-big, .guide-card, .a-nav a { transition-property: transform, box-shadow, border-color, background-color; transition-duration: .6s, .5s, .3s, .3s;
+  transition-timing-function: var(--ease-spring), var(--ease-glide), var(--ease), var(--ease); }
+.tile-big:active, .guide-card:active, .a-nav a:active { transform: scale(.98); transition-duration: .14s, .3s, .3s, .3s; transition-timing-function: var(--ease-glide); }
+/* rows light up while pressed */
+.hub-list a, .krow, .quest-list button, .map-results button, .toc-gh, .guide-toc a, details.cat > summary, .mu-grp > summary, .map-pop .px {
+  transition: background-color .35s var(--ease), color .25s var(--ease), opacity .25s var(--ease); }
+:is(.hub-list a, .krow, .quest-list button, .map-results button, .toc-gh, .guide-toc a, details.cat > summary, .mu-grp > summary, .map-pop .px):active {
+  background-color: color-mix(in srgb, var(--ink) 9%, transparent); transition-duration: .06s; }
+table.data tbody tr:active td { background-color: color-mix(in srgb, var(--ink) 7%, var(--surface)); }
+.toast { transition: opacity .28s var(--ease), transform .6s var(--ease-spring); }
+
+/* switches: a thumb glides to the chosen option (placed by the script, which adds .has-thumb) */
+.has-thumb { position: relative; isolation: isolate; }
+.has-thumb > button { position: relative; z-index: 1; }
+.seg.has-thumb > button[aria-pressed="true"], #map-switch.has-thumb > button[aria-pressed="true"] { background-color: transparent; }
+.seg.has-thumb > button { transition-delay: 0s, 0s, .05s, 0s, 0s, 0s; }
+.seg-thumb { position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0; opacity: 0; pointer-events: none; background: var(--ink);
+  transition: transform .46s var(--ease-glide), width .46s var(--ease-glide), height .46s var(--ease-glide), opacity .2s var(--ease); }
+#map-switch .seg-thumb { background: rgba(255, 255, 255, .18); border-radius: 10px; }
+@media (max-width: 760px) { #map-switch .seg-thumb { border-radius: 10px; } }
+
+/* folding panels glide (the script animates the height); a closing panel's arrow turns right away */
+details.cat.closing > summary::before, #quest-box details.cat.closing > summary::before, .mu-grp.closing > summary::before { transform: rotate(-45deg); }
+
+/* page changes: a new page rises in; going back fades in, like returning to where you were */
+@keyframes view-in { from { opacity: 0; transform: translate3d(0, 12px, 0); } to { opacity: 1; transform: none; } }
+@keyframes view-fade { from { opacity: 0; } to { opacity: 1; } }
+.view-enter { animation: view-in .44s var(--ease-glide) backwards; }
+.view-back { animation: view-fade .3s var(--ease) backwards; }
+/* the home hero's intro plays once per visit */
+body.hero-seen .hero-copy > *, body.hero-seen .hero-tiles > * { animation: none; }
+/* ...and waits for the display font, so the big title never reflows mid-animation (a script in <head> lifts this within 0.8 s) */
+html.fonts-wait .hero-copy > *, html.fonts-wait .hero-tiles > * { animation-play-state: paused; }
+/* the list cascades in on the first visit only, and only the cards you can see wait their turn */
+.grid.animate .card { animation: view-in .6s var(--ease-glide) backwards; animation-delay: calc(var(--i, 0) * 22ms); }
+.grid.animate .card:nth-child(n+21) { animation: none; }
+/* stat bars on a dinosaur page grow in; ability lists fade in when you switch tabs */
+@keyframes bar-grow { from { transform: scaleX(0); } }
+#detail-view .stat-row .bar i { transform-origin: left center; animation: bar-grow .9s var(--ease-glide) .1s backwards; }
+@keyframes ab-in { from { opacity: 0; transform: translate3d(0, 6px, 0); } }
+#ab-list > .ab { animation: ab-in .34s var(--ease-glide) backwards; }
+#ab-list > .ab:nth-child(2) { animation-delay: .02s; } #ab-list > .ab:nth-child(3) { animation-delay: .04s; }
+#ab-list > .ab:nth-child(4) { animation-delay: .06s; } #ab-list > .ab:nth-child(n+5) { animation-delay: .08s; }
+/* the forest holds still while it is off screen or the page is being scrolled, and the stars only twinkle when they show (dark mode) */
+.hero.offscreen .forest *, .hero.scrolling .forest * { animation-play-state: paused !important; }
+.forest .stars .tw { animation-play-state: paused; }
+:root[data-theme="dark"] .forest .stars .tw { animation-play-state: running; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .forest .stars .tw { animation-play-state: running; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .view-enter, .view-back, .grid.animate .card, #detail-view .stat-row .bar i, #ab-list > .ab { animation: none !important; }
+  .seg-thumb { transition: none; }
+  :is(.btn, .tog, .chipbtn, .lpill, .tab, a.pill, button.pill, .fight-btn, .f-x, .side-collapse, .cat-x, .map-switch button, .seg button, .nav-links a, .gb-chip button, .pt-chip button, .card, .tile-big, .guide-card, .a-nav a):active { transform: none; }
 }
 </style>
 </head>
@@ -1699,6 +1785,9 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     }
     const anim = state.animateNext && !REDUCED;
     state.animateNext = false;
+    const sig = [state.view, state.unit, state.view === 'table' ? state.tableSort.key + ':' + state.tableSort.dir : '', list.map(x => x.c.h + (x.hint ? '~' + x.hint : '')).join(',')].join('|');
+    if (!anim && sig === state.rosterSig && root.firstElementChild && !root.querySelector(':scope > .empty')) { syncPick(); return; }
+    state.rosterSig = sig;
     root.innerHTML = state.view === 'table' ? tableHTML(list) : `<div class="grid${anim ? ' animate' : ''}">${list.map(cardHTML).join('')}</div>`;
     if (state.view === 'table') wireTable();
     syncPick();
@@ -1847,7 +1936,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       return `<div class="tile"><div class="tile-label">${esc(label)}</div><div class="tile-value">${v == null ? '–' : fmtNum(v)}${u ? `<small>${esc(u)}</small>` : ''}</div><div class="tile-rank">${r ? `Rank ${r.rank} of ${r.of}` : '&nbsp;'}</div></div>`;
     };
     const abCount = allAbilities(c).length;
-    const hot = pendingHotfixNotice(c) || (c.hot && c.hot.rows.length ? `<div class="notice"><strong>Live hotfix on official servers</strong>Alderon is running different values than the game files for: ${esc(c.hot.rows.join(', '))} (seen ${fmtDate(c.hot.at)}). The matching numbers below may differ in game until the next patch.</div>` : '');
+    const hot = pendingHotfixNotice(c) || (c.hot && c.hot.rows.length ? `<div class="notice"><strong>Live hotfix on official servers</strong>Alderon is running different values than the game files for: ${esc(c.hot.rows.map(hotLabel).join(', '))} (seen ${fmtDate(c.hot.at)}). The matching numbers below may differ in game until the next patch.</div>` : '');
     const modInfo = c.mod ? `<div class="panel"><h3>Mod</h3><dl class="kv">
         <dt>Mod</dt><dd>${esc(c.mod.name || '–')}</dd>
         ${c.mod.pack ? `<dt>Pack</dt><dd>${esc(c.mod.pack)}</dd>` : ''}
@@ -2040,7 +2129,10 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     } else if (r) r.remove();
   }
   function navigate(url, replace) {
+    state.navDir = 'fwd';
     if (!replace && url === location.pathname + location.search) { route(); return; }
+    // remember how far down this page was, so Back returns to the same spot
+    if (!replace) { try { history.replaceState(Object.assign({}, history.state, { y: Math.round(window.scrollY) }), ''); } catch (e) { /* state too large or blocked */ } }
     history[replace ? 'replaceState' : 'pushState'](null, '', url);
     route();
   }
@@ -2072,10 +2164,19 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       e.preventDefault();
       navigate(href);
     });
-    window.addEventListener('popstate', route);
+    window.addEventListener('popstate', e => {
+      state.navDir = 'back';
+      state.restoreY = e.state && typeof e.state.y === 'number' ? e.state.y : 0;
+      route();
+    });
     window.addEventListener('hashchange', () => { const p = legacyPath(); if (p) navigate(p, true); });
   }
   function show(which) {
+    if (which !== 'roster') {
+      document.body.classList.add('hero-seen');
+      // the first-visit card cascade is over once you leave; it must not replay when the list shows again
+      const g = $('#roster .grid.animate'); if (g) g.classList.remove('animate');
+    }
     document.body.classList.toggle('sub-view', which !== 'roster');
     document.body.setAttribute('data-view', which);
     for (const k in VIEWS) {
@@ -2092,12 +2193,30 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     syncPick();
   }
   let lastView = '';
+  const inflight = {};
   function loadFull(c) {
     if (state.full[c.h]) return Promise.resolve(state.full[c.h]);
-    return fetch(detailUrl(c.h), { cache: 'no-cache' })
+    if (inflight[c.h]) return inflight[c.h];
+    const p = fetch(detailUrl(c.h), { cache: 'no-cache' })
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(d => (state.full[c.h] = Object.assign({}, c, d, { n: c.n })));
+    inflight[c.h] = p;
+    const clear = () => { if (inflight[c.h] === p) delete inflight[c.h]; };
+    p.then(clear, clear);
+    return p;
   }
+  // start downloading a dinosaur's page data before it is opened (pointer over, touch or focus on a link to it)
+  function prefetchDino(h) {
+    const c = state.byHash && state.byHash[h];
+    if (c && !state.full[h] && !inflight[h]) loadFull(c).catch(() => { /* the page itself retries and reports */ });
+  }
+  // A page shows "Loading…" only if its data takes a moment; a quick load goes straight to the finished page.
+  const LOADING_DELAY = 180;
+  function laterLoading(which, label, token) {
+    return setTimeout(() => { if (token === state.navToken) { showLoading(which, label); lastView = which; } }, LOADING_DELAY);
+  }
+  // scroll to the top of a new page, or back to where a reload left off
+  function scrollTop() { const y = state.restoreY || 0; state.restoreY = 0; window.scrollTo(0, y); }
   function viewEl(which) { return $(which === 'detail' ? '#detail-view' : '#compare-view'); }
   function showLoading(which, label) {
     viewEl(which).innerHTML = `<a class="back" href="/" data-back>← All dinosaurs</a><div class="empty" style="margin-top:12px">Loading ${esc(label)}…</div>`;
@@ -2106,6 +2225,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
   function showLoadError(which, err) {
     console.error(err);
     viewEl(which).innerHTML = `<a class="back" href="/" data-back>← All dinosaurs</a><div class="empty" style="margin-top:12px">Could not load this page. Check your connection, then reload to try again.</div>`;
+    if (lastView !== which) { show(which); lastView = which; window.scrollTo(0, 0); }
   }
   function scrollToList(smooth) {
     const hero = $('#hero');
@@ -2135,7 +2255,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       leaving(); state.navToken++;
       const was = lastView;
       show('maps'); lastView = 'maps';
-      if (was !== 'maps') window.scrollTo(0, 0);
+      if (was !== 'maps') scrollTop();
       MapUI.route(seg.slice(1));
       return;
     }
@@ -2143,14 +2263,14 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       leaving(); state.navToken++;
       show('guides'); lastView = 'guides';
       renderGuides(seg.slice(1).join('/'));
-      window.scrollTo(0, 0);
+      scrollTop();
       return;
     }
     if (top === 'credits') {
       leaving(); state.navToken++;
       show('credits'); lastView = 'credits';
       renderCredits();
-      window.scrollTo(0, 0);
+      scrollTop();
       return;
     }
     if (top === 'contact') {
@@ -2167,13 +2287,15 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       const token = ++state.navToken;
       const go = ([fa, fb]) => {
         if (token !== state.navToken) return;
-        renderCompare(fa, fb); show('compare'); enter($('#compare-view')); lastView = 'compare'; window.scrollTo(0, 0);
+        clearTimeout(wait);
+        renderCompare(fa, fb); show('compare'); enter($('#compare-view')); lastView = 'compare'; scrollTop();
         applyIcons($('#compare-view'));
         setMeta(`${fa.n} vs ${fb.n} · ${SITE}`, `Compare ${fa.n} and ${fb.n} in Path of Titans side by side: every stat, ability kit and group slot cost.`, `/compare/${fa.h}/${fb.h}`, true);
       };
+      let wait = 0;
       if (state.full[a.h] && state.full[b.h]) { go([state.full[a.h], state.full[b.h]]); return; }
-      showLoading('compare', a.n + ' and ' + b.n); lastView = 'compare';
-      Promise.all([loadFull(a), loadFull(b)]).then(go, err => { if (token === state.navToken) showLoadError('compare', err); });
+      wait = laterLoading('compare', a.n + ' and ' + b.n, token);
+      Promise.all([loadFull(a), loadFull(b)]).then(go, err => { clearTimeout(wait); if (token === state.navToken) showLoadError('compare', err); });
       return;
     }
     if (top === 'dinosaurs' && seg[1]) {
@@ -2181,15 +2303,17 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       if (c) {
         leaving();
         const token = ++state.navToken;
+        let wait = 0;
         const go = full => {
           if (token !== state.navToken) return;
-          renderDetail(full); show('detail'); enter($('#detail-view')); lastView = 'detail'; window.scrollTo(0, 0);
+          clearTimeout(wait);
+          renderDetail(full); show('detail'); enter($('#detail-view')); lastView = 'detail'; scrollTop();
           setMeta(`${c.n} stats and abilities · ${SITE}`, dinoDesc(full), '/dinosaurs/' + c.h);
         };
         setMeta(`${c.n} stats and abilities · ${SITE}`, dinoDesc(c), '/dinosaurs/' + c.h);
         if (state.full[c.h]) { go(state.full[c.h]); return; }
-        showLoading('detail', c.n); lastView = 'detail';
-        loadFull(c).then(go, err => { if (token === state.navToken) showLoadError('detail', err); });
+        wait = laterLoading('detail', c.n, token);
+        loadFull(c).then(go, err => { clearTimeout(wait); if (token === state.navToken) showLoadError('detail', err); });
         return;
       }
     }
@@ -2201,10 +2325,12 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     state.navToken++;
     show('roster'); lastView = 'roster';
     setMeta(HOME_TITLE, HOME_DESC, '/');
-    state.animateNext = from !== 'roster';
+    // the cards cascade in on the first visit only; coming back shows them as they were
+    state.animateNext = !from;
     renderRoster();
-    if (from === 'detail' || from === 'compare' || from === 'matchup') window.scrollTo(0, state.rosterScroll || 0);
-    else if (toList) requestAnimationFrame(() => scrollToList(from === 'roster'));
+    if (state.restoreY) scrollTop();
+    else if (from === 'detail' || from === 'compare' || from === 'matchup') window.scrollTo(0, state.rosterScroll || 0);
+    else if (toList) { if (from === 'roster') requestAnimationFrame(() => scrollToList(true)); else scrollToList(false); }
     else if (from) window.scrollTo(0, state.rosterScroll || 0);
   }
 
@@ -2218,21 +2344,21 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { state.q = q.value; renderRoster(); }, 120); });
     $('#diet-seg').addEventListener('click', e => {
       const b = e.target.closest('button[data-diet]'); if (!b) return;
-      state.diet = b.dataset.diet; setPressed($('#diet-seg'), 'data-diet', state.diet); renderRoster();
+      state.diet = b.dataset.diet; setPressed($('#diet-seg'), 'data-diet', state.diet); renderRosterSoon();
     });
     $('#hab-sel').addEventListener('change', e => { state.hab = e.target.value; renderRoster(); });
     $('#sort-sel').addEventListener('change', e => { state.sort = e.target.value; renderRoster(); });
     $('#view-seg').addEventListener('click', e => {
       const b = e.target.closest('button[data-view]'); if (!b) return;
-      state.view = b.dataset.view; store.set('view', state.view); setPressed($('#view-seg'), 'data-view', state.view); renderRoster();
+      state.view = b.dataset.view; store.set('view', state.view); setPressed($('#view-seg'), 'data-view', state.view); renderRosterSoon();
     });
     $('#unit-seg').addEventListener('click', e => {
       const b = e.target.closest('button[data-unit]'); if (!b) return;
-      state.unit = b.dataset.unit; store.set('speed', state.unit); setPressed($('#unit-seg'), 'data-unit', state.unit); renderRoster();
+      state.unit = b.dataset.unit; store.set('speed', state.unit); setPressed($('#unit-seg'), 'data-unit', state.unit); renderRosterSoon();
     });
     const mt = $('#mod-toggle');
     mt.checked = !!state.modded;
-    mt.addEventListener('change', () => { state.modded = mt.checked; store.set('modded', state.modded); renderRoster(); updateCounts(); });
+    mt.addEventListener('change', () => { state.modded = mt.checked; store.set('modded', state.modded); renderRosterSoon(updateCounts); });
     setPressed($('#view-seg'), 'data-view', state.view);
     setPressed($('#unit-seg'), 'data-unit', state.unit);
     document.addEventListener('click', e => {
@@ -2539,6 +2665,125 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       : `Numbers for ${and(hit.map(c => `${esc(c.n)} (${esc(PENDING_HOTFIX.dinos[c.h].what)})`))} are from before the hotfix.`;
     return `<div class="notice pending-hotfix"><strong>${pendingTitle()}</strong>${body} They will be updated once the new values are published.</div>`;
   }
+  // Live-hotfix rows are Potservers curve names split at capital letters; keep an acronym apart from the next word
+  // ("AOEBarrel Roll Stamina Cost" reads "AOE Barrel Roll Stamina Cost").
+  const hotLabel = r => String(r).replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2');
+
+  // ---------- fluid UI: folding panels, sliding switches, instant dinosaur pages ----------
+  const GLIDE = 'cubic-bezier(.22, 1, .36, 1)';
+  function wireFluid() {
+    // Folding panels (<details>) open and close with a height glide instead of snapping.
+    document.addEventListener('click', e => {
+      const sum = e.target.closest('summary');
+      if (!sum || e.defaultPrevented || REDUCED) return;
+      const d = sum.parentElement;
+      if (!d || d.tagName !== 'DETAILS' || !d.animate || d.hasAttribute('data-instant')) return;
+      const ctl = e.target.closest('a, button, input, select, textarea, label');
+      if (ctl && ctl !== sum && sum.contains(ctl)) return;   // a control inside the summary does its own thing
+      e.preventDefault();
+      glideDetails(d);
+    });
+    // Switches (Cards/Table, km/h/mph/Game, the map picker...) get a thumb that slides to the chosen option.
+    const seen = new WeakSet();
+    const ro = 'ResizeObserver' in window ? new ResizeObserver(es => { for (const e of es) placeThumb(e.target, false); }) : null;
+    const initSegs = root => {
+      if (!root || !root.querySelectorAll) return;
+      const list = root.matches && root.matches(THUMB_SEL) ? [root] : [];
+      list.push(...root.querySelectorAll(THUMB_SEL));
+      for (const seg of list) {
+        if (!seen.has(seg)) { seen.add(seg); if (ro) ro.observe(seg); }
+        placeThumb(seg, false);
+      }
+    };
+    initSegs(document.body);
+    if ('MutationObserver' in window) {
+      new MutationObserver(recs => {
+        const moved = new Set();
+        for (const r of recs) {
+          if (r.type === 'attributes') { const seg = r.target.parentElement; if (seg && seg.matches && seg.matches(THUMB_SEL)) moved.add(seg); continue; }
+          const t = r.target;
+          if (t.nodeType === 1 && t.matches(THUMB_SEL)) { placeThumb(t, false); continue; }   // a switch got new buttons (the map picker re-draws its own)
+          for (const n of r.addedNodes) {
+            // the dinosaur list, ability lists and the map never hold switches: skip scanning their many elements
+            if (n.nodeType !== 1 || !n.firstElementChild || n.closest('#roster, #ab-list, .map-stage')) continue;
+            initSegs(n);
+          }
+        }
+        for (const seg of moved) placeThumb(seg, true);
+      }).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['aria-pressed'] });
+    }
+    // A chosen ability tab slides fully into view inside its scrolling strip.
+    document.addEventListener('click', e => {
+      const t = e.target.closest('.tabs .tab');
+      if (!t) return;
+      const strip = t.parentElement, l = t.offsetLeft, r = l + t.offsetWidth;
+      const want = l < strip.scrollLeft + 8 ? l - 16 : r > strip.scrollLeft + strip.clientWidth - 8 ? r - strip.clientWidth + 16 : null;
+      if (want != null) strip.scrollTo({ left: Math.max(0, want), behavior: REDUCED ? 'auto' : 'smooth' });
+    });
+    // Dinosaur pages open instantly: their data starts loading as soon as a link is pointed at, touched or focused.
+    const pre = e => {
+      const a = e.target && e.target.closest && e.target.closest('a[href^="/dinosaurs/"], a[href^="/compare/"], a[href^="/matchup/"]');
+      if (!a) return;
+      const seg = a.getAttribute('href').split(/[?#]/)[0].split('/').filter(Boolean);
+      for (const h of seg.slice(1)) prefetchDino(h);
+    };
+    // a mouse prefetches on hover; a finger on touch (that touch listener is also what lets iPhone Safari show the
+    // press-in :active look). Listening only for what each device does keeps scrolling free of extra work.
+    if (window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches) document.addEventListener('pointerover', pre, { passive: true });
+    else document.addEventListener('touchstart', pre, { passive: true });
+    document.addEventListener('focusin', pre);
+  }
+  const THUMB_SEL = '.seg, #map-switch';
+  // used by the list's switches: the switch slides first, then the list redraws a frame later
+  function renderRosterSoon(after) {
+    cancelAnimationFrame(state.rrSoon);
+    state.rrSoon = requestAnimationFrame(() => { state.rrSoon = requestAnimationFrame(() => { state.rrSoon = 0; renderRoster(); if (after) after(); }); });
+  }
+  function placeThumb(seg, animate) {
+    const on = seg.querySelector(':scope > button[aria-pressed="true"]');
+    let th = seg.querySelector(':scope > .seg-thumb');
+    if (!on || !on.offsetWidth) { if (th) th.style.opacity = '0'; return; }
+    if (!th) {
+      th = document.createElement('span');
+      th.className = 'seg-thumb'; th.setAttribute('aria-hidden', 'true');
+      seg.insertBefore(th, seg.firstChild);
+      seg.classList.add('has-thumb');
+      animate = false;
+    }
+    const still = !animate || REDUCED || th.style.opacity !== '1';
+    if (still) th.style.transition = 'none';
+    th.style.width = on.offsetWidth + 'px';
+    th.style.height = on.offsetHeight + 'px';
+    th.style.transform = `translate3d(${on.offsetLeft}px, ${on.offsetTop}px, 0)`;
+    th.style.opacity = '1';
+    if (still) { void th.offsetWidth; th.style.transition = ''; }
+  }
+  function glideDetails(d) {
+    const from = d.getBoundingClientRect().height;   // measured first, so a panel caught mid-glide turns around smoothly
+    if (d._glide) { const g = d._glide; d._glide = null; g.cancel(); }
+    const opening = !d.open || d.classList.contains('closing');
+    d.classList.remove('closing');
+    let to;
+    if (opening) { d.open = true; to = d.getBoundingClientRect().height; }
+    else { d.open = false; to = d.getBoundingClientRect().height; d.open = true; d.classList.add('closing'); }
+    if (Math.abs(to - from) < 2) { if (!opening) { d.open = false; d.classList.remove('closing'); } return; }
+    d.style.overflow = 'hidden';
+    const g = d.animate([{ height: from + 'px' }, { height: to + 'px' }],
+      { duration: Math.round(Math.min(520, 240 + Math.abs(to - from) * 0.35)), easing: GLIDE });
+    d._glide = g;
+    if (opening) {
+      const body = [...d.children].filter(x => x.tagName !== 'SUMMARY');
+      for (const x of body) x.animate([{ opacity: 0, transform: 'translateY(-4px)' }, { opacity: 1, transform: 'none' }], { duration: 320, easing: GLIDE });
+    }
+    const done = () => {
+      if (d._glide !== g) return;
+      d._glide = null;
+      if (!opening) { d.open = false; d.classList.remove('closing'); }
+      d.style.overflow = '';
+    };
+    g.onfinish = done;
+    g.oncancel = done;
+  }
 
   // ---------- small UI helpers ----------
   function toast(msg) {
@@ -2567,13 +2812,21 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
   }
   function scrollToContact() {
     const el = $('#contact'); if (!el) return;
-    scrollToEl(el, true);
+    // glide when it is close; from far away (the end of a long list) jump, then the card flashes
+    scrollToEl(el, Math.abs(el.getBoundingClientRect().top) < window.innerHeight * 2);
     const card = el.querySelector('.contact-card');
     if (card && !REDUCED) { card.classList.remove('flash'); void card.offsetWidth; card.classList.add('flash'); }
   }
+  // A page coming in rises and fades in; going back fades in only, like returning to where you were.
   function enter(el) {
     if (!el || REDUCED) return;
-    el.classList.remove('view-enter'); void el.offsetWidth; el.classList.add('view-enter');
+    const cls = state.navDir === 'back' ? 'view-back' : 'view-enter';
+    const els = [el];
+    // the home hero sits outside the list view: after the first visit it fades back in with the list instead of replaying its intro
+    if (el.id === 'roster-view' && document.body.classList.contains('hero-seen')) { const hi = $('#hero .hero-inner'); if (hi) els.push(hi); }
+    for (const x of els) x.classList.remove('view-enter', 'view-back');
+    void el.offsetWidth;
+    for (const x of els) x.classList.add(cls);
   }
   let IO = null;
   function reveal(root) {
@@ -2584,17 +2837,33 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     (root || document).querySelectorAll('[data-reveal]:not(.in)').forEach(el => { el.classList.add('reveal'); IO.observe(el); });
   }
 
+  // where a reload of this same page should land (saved when the page was left)
+  function reloadY() {
+    try {
+      const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (!nav || nav.type !== 'reload') return 0;
+      return Math.max(0, +sessionStorage.getItem('dx.y:' + location.pathname) || 0);
+    } catch (e) { return 0; }
+  }
+
   // ---------- navigation, hero and contact ----------
   function initShell() {
     const nav = $('#topnav'), hero = $('#hero');
-    let ticking = false, layers = null;
+    // Depth scrolling of the forest only with a mouse or trackpad: on touch screens the page scrolls on its own thread,
+    // and redrawing the forest every frame would lag behind the finger.
+    const parallax = !REDUCED && !!(window.matchMedia && matchMedia('(hover: hover) and (pointer: fine)').matches);
+    let ticking = false, layers = null, stillT = 0;
     const onScroll = () => {
       if (ticking) return; ticking = true;
       requestAnimationFrame(() => {
         ticking = false;
         const y = window.scrollY;
         nav.classList.toggle('scrolled', y > 4);
-        if (REDUCED || document.body.classList.contains('sub-view')) return;
+        if (hero && !document.body.classList.contains('sub-view')) {
+          if (!hero.classList.contains('scrolling')) hero.classList.add('scrolling');
+          clearTimeout(stillT); stillT = setTimeout(() => hero.classList.remove('scrolling'), 180);
+        }
+        if (!parallax || document.body.classList.contains('sub-view')) return;
         if (y > hero.offsetHeight + 40) return;
         layers = layers || Array.from(document.querySelectorAll('#forest [data-depth]'));
         for (const el of layers) el.setAttribute('transform', `translate(0 ${(y * +el.getAttribute('data-depth')).toFixed(1)})`);
@@ -2602,6 +2871,14 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+    // the forest's drifting mist, birds and stars stop drawing while the hero is off screen
+    if ('IntersectionObserver' in window && hero) {
+      new IntersectionObserver(es => { for (const e of es) hero.classList.toggle('offscreen', !e.isIntersecting); }).observe(hero);
+    }
+    // the site restores scroll positions itself (back to the list lands where you left it), so the browser's own
+    // restore can't fight it; a reload still comes back to the same spot
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.addEventListener('pagehide', () => { try { sessionStorage.setItem('dx.y:' + location.pathname, String(Math.round(window.scrollY))); } catch (e) { /* private mode */ } });
     document.addEventListener('click', e => {
       const a = e.target.closest('[data-contact]');
       if (a) { e.preventDefault(); scrollToContact(); }
@@ -2612,7 +2889,11 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       e.preventDefault();
       const onList = document.body.getAttribute('data-view') === 'roster';
-      if (curPath() !== '/dinosaurs') history.pushState(null, '', '/dinosaurs');
+      state.navDir = 'fwd';
+      if (curPath() !== '/dinosaurs') {
+        try { history.replaceState(Object.assign({}, history.state, { y: Math.round(window.scrollY) }), ''); } catch (err) { /* ignore */ }
+        history.pushState(null, '', '/dinosaurs');
+      }
       if (!onList) { route(); return; }
       scrollToList(true);
     });
@@ -4975,7 +5256,7 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
       renderMatchup(fulls);
       show('matchup');
       if (first) {
-        enter(view); window.scrollTo(0, 0);
+        enter(view); scrollTop();
         const ae = document.activeElement;
         if (!ae || ae === document.body || !ae.offsetParent) { const hd = $('#mu-h'); if (hd) { hd.setAttribute('tabindex', '-1'); hd.focus({ preventScroll: true }); } }
       }
@@ -4985,13 +5266,23 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
         `Path of Titans fight matchup: ${names.join(', ')} side by side, with health, combat weight, armor, speed and stamina, and how many hits each needs to kill the others.`, path, true);
     };
     if (list.every(c => state.full[c.h])) { go(list.map(c => state.full[c.h])); return; }
-    view.innerHTML = `<a class="back" href="/" data-back>← All dinosaurs</a><div class="empty" style="margin-top:12px">Loading ${esc(list.map(c => c.n).join(', '))}…</div>`;
-    show('matchup'); lastView = 'matchup';
-    if (first) window.scrollTo(0, 0);
-    Promise.all(list.map(loadFull)).then(go, err => {
+    // "Loading…" only shows if the data takes a moment (prefetching usually has it ready)
+    const holding = () => {
+      if (lastView === 'matchup' && !view.hidden) return;
+      show('matchup'); lastView = 'matchup';
+      if (first) window.scrollTo(0, 0);
+    };
+    const wait = setTimeout(() => {
+      if (token !== state.navToken) return;
+      view.innerHTML = `<a class="back" href="/" data-back>← All dinosaurs</a><div class="empty" style="margin-top:12px">Loading ${esc(list.map(c => c.n).join(', '))}…</div>`;
+      holding();
+    }, LOADING_DELAY);
+    Promise.all(list.map(loadFull)).then(f => { clearTimeout(wait); go(f); }, err => {
+      clearTimeout(wait);
       if (token !== state.navToken) return;
       console.error(err);
       view.innerHTML = `<a class="back" href="/" data-back>← All dinosaurs</a><div class="empty" style="margin-top:12px">Could not load this matchup. Check your connection, then reload to try again.</div>`;
+      holding();
     });
   }
 
@@ -5293,6 +5584,8 @@ table.mu-t { width: 100%; border-collapse: collapse; font-size: 14px; }
     initShell();
     wireControls();
     wirePick();
+    wireFluid();
+    state.restoreY = reloadY();
     try {
       const res = await fetch(DATA_URL, { cache: 'no-cache' });
       if (!res.ok) throw new Error('HTTP ' + res.status);
